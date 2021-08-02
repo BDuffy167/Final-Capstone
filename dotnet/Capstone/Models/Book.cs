@@ -11,6 +11,7 @@ namespace Capstone.Models
         public string Title { get; set; }
         public string AuthorFirstName { get; set; }
         public string AuthorLastName { get; set; }
+        public int FormatType { get; set; }
         public long ISBN { get; set; }
         public int TimeRead { get; set; }
 
