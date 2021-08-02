@@ -62,8 +62,9 @@ INSERT INTO users (username, password_hash, salt, user_role) VALUES ('user','Jg4
 INSERT INTO users (username, password_hash, salt, user_role) VALUES ('admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin');
 INSERT INTO reading_format (format_type) VALUES ('Paperback'), ('ebook'), ('Audiobook'), ('Read-Aloud (Reader)'), ('Read-Aloud (Listener)'), ('Other');
 INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('HitchHikers Guide To the Galxy', 'Douglass', 'Adams', 9781529046137);
+INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('The Hobbit', 'J.R.R', 'Tolken', 9780044403371);
 INSERT INTO reading_log(user_id, book_id, format_id, total_time, notes, isCompleted)
-	VALUES (1, 1, 1, 30, 'book had words, would read again', 0);
+	VALUES (1, 1, 1, 30, 'book had words, would read again', 0), (1, 2, 1, 120, 'Hobbits, and Elves, and Dwarves, OH MY!', 0);
 
 GO
 SELECT * FROM book
@@ -72,4 +73,15 @@ SELECT * FROM book
 --Various tests
 SELECT * FROM reading_format;
 
-SELECT * FROM reading_log;
+SELECT 
+	u.username,
+	b.title,
+	b.book_id,
+	b.author_firstName,
+	b.author_lastName,
+	b.isbn,
+	rl.total_time
+FROM reading_log rl
+INNER JOIN users u ON rl.user_id = u.user_id
+INNER JOIN book b ON rl.book_id = b.book_id
+WHERE rl.user_id = 1;
