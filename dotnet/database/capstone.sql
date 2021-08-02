@@ -35,18 +35,18 @@ CREATE TABLE book(
 )
 --add a book url
 CREATE TABLE reading_format(
-	format_id int NOT NULL,
+	format_id int IDENTITY(1, 1) NOT NULL,
 	format_type varchar(50) NOT NULL,
 
 	CONSTRAINT PK_formatID PRIMARY KEY (format_id)
 )
 
 CREATE TABLE reading_log(
+	reading_log_id int IDENTITY(1,1) NOT NULL,
 	user_id int NOT NULL,
 	book_id int NOT NULL,
 	format_id int NOT NULL,
 	total_time int NOT NULL,
-	reading_log_id int IDENTITY(1,1) NOT NULL,
 	notes varchar(255) ,
 	isCompleted bit NOT NULL,
 
@@ -60,9 +60,16 @@ CREATE TABLE reading_log(
 -- These values should not be kept when going to Production
 INSERT INTO users (username, password_hash, salt, user_role) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user');
 INSERT INTO users (username, password_hash, salt, user_role) VALUES ('admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin');
-
-INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('HitchHikers Guide To the Galxy', 'Douglass', 'Adams', 9781529046137)
---INSERT INTO reading_log(user_id, book_id, format_id, total_time,reading_log_id,notes,isCompleted)
+INSERT INTO reading_format (format_type) VALUES ('Paperback'), ('ebook'), ('Audiobook'), ('Read-Aloud (Reader)'), ('Read-Aloud (Listener)'), ('Other');
+INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('HitchHikers Guide To the Galxy', 'Douglass', 'Adams', 9781529046137);
+INSERT INTO reading_log(user_id, book_id, format_id, total_time, notes, isCompleted)
+	VALUES (1, 1, 1, 30, 'book had words, would read again', 0);
 
 GO
 SELECT * FROM book
+
+
+--Various tests
+SELECT * FROM reading_format;
+
+SELECT * FROM reading_log;
