@@ -16,12 +16,13 @@ namespace Capstone.DAO
 	b.book_id AS book_id,
 	b.author_firstName AS author_firstName,
 	b.author_lastName AS author_lastName,
-	rl.format_id AS format_id,
+	rf.format_type AS format_type,
 	b.isbn AS isbn,
 	rl.total_time AS total_time
 FROM reading_log rl
 INNER JOIN users u ON rl.user_id = u.user_id
 INNER JOIN book b ON rl.book_id = b.book_id
+INNER JOIN reading_format rf ON rl.format_id = rf.format_id
 WHERE rl.user_id = @user_id;";
 
         private readonly string sqlCheckIfBookByISBN = @"SELECT book_Id FROM book WHERE isbn = @isbn";
@@ -32,9 +33,9 @@ WHERE rl.user_id = @user_id;";
             connectionString = dbConnectionString;
         }
 
-        public List<Book> GetUserBooks(int id)
+        public List<ReadingLog> GetUserBooks(int id)
         {
-            List<Book> userBooks = new List<Book>();
+            List<ReadingLog> readingLogs = new List<ReadingLog>();
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -47,31 +48,32 @@ WHERE rl.user_id = @user_id;";
 
                 while (reader.Read())
                 {
-                    Book book = new Book();
+                    
+                    ReadingLog readinglog = new ReadingLog();
 
-                    book.BookId = Convert.ToInt32(reader["book_id"]);
-                    book.Title = Convert.ToString(reader["title"]);
-                    book.AuthorFirstName = Convert.ToString(reader["author_firstName"]);
-                    book.AuthorLastName = Convert.ToString(reader["author_lastName"]);
-                    book.ISBN = Convert.ToInt64(reader["isbn"]);
-                    book.TimeRead = Convert.ToInt32(reader["total_time"]);
-                    book.FormatType = Convert.ToInt32(reader["format_id"]);
-                    userBooks.Add(book);
+                    readinglog.LoggedBook.BookId = Convert.ToInt32(reader["book_id"]);
+                    readinglog.LoggedBook.Title = Convert.ToString(reader["title"]);
+                    readinglog.LoggedBook.AuthorFirstName = Convert.ToString(reader["author_firstName"]);
+                    readinglog.LoggedBook.AuthorLastName = Convert.ToString(reader["author_lastName"]);
+                    readinglog.LoggedBook.ISBN = Convert.ToInt64(reader["isbn"]);
+                    readinglog.TimeRead = Convert.ToInt32(reader["total_time"]);
+                    readinglog.FormatType = Convert.ToString(reader["format_type"]);
+                    readingLogs.Add(readinglog);
                 }
             }
 
-            return userBooks;
+            return readingLogs;
         }
 
      
-        public void AddNewBookLog(Book book, int userid)
+        public void AddNewBookLog(ReadingLog book, int userid)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
 
                 SqlCommand addBook = new SqlCommand(sqlAddBookLog, conn);
-                addBook.Parameters.AddWithValue("@title", book.Title);
+                addBook.Parameters.AddWithValue("@title", book.LoggedBook.Title);
             }
         }
 

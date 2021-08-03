@@ -8,7 +8,7 @@ namespace Capstone.Models
     public class ReadingLog
     {
         public User Reader { get; set; }
-        public Book LoggedBook { get; set; }
+        public Book LoggedBook { get; set; } = new Book();
         public string FormatType { get; set; }
         public int TimeRead { get; set; }
         public List<string> Notes { get; set; }

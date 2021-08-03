@@ -25,9 +25,9 @@ namespace Capstone.Controllers
         //NEED TO DO SECURITY LATER!!!!!!
         [HttpGet("{id}")]
         [AllowAnonymous]
-        public ActionResult<List<Book>> GetUserBooks(int id)
+        public ActionResult<List<ReadingLog>> GetUserBooks(int id)
         {
-            List<Book> toReturn = new List<Book>();
+            List<ReadingLog> toReturn = new List<ReadingLog>();
             
             if(id != null)
             {

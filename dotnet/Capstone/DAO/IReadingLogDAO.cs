@@ -8,7 +8,7 @@ namespace Capstone.DAO
 {
     public interface IReadingLogDAO
     {
-        public List<Book> GetUserBooks(int id);
+        public List<ReadingLog> GetUserBooks(int id);
 
     }
 }

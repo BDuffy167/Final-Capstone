@@ -69,6 +69,7 @@ INSERT INTO reading_log(user_id, book_id, format_id, total_time, notes, isComple
 GO
 SELECT * FROM book
 
+SELECT book_id FROM book where isbn = 9780044403371 
 
 --Various tests
 SELECT * FROM reading_format;
@@ -80,8 +81,10 @@ SELECT
 	b.author_firstName,
 	b.author_lastName,
 	b.isbn,
+	rf.format_type AS format_type,
 	rl.total_time
 FROM reading_log rl
 INNER JOIN users u ON rl.user_id = u.user_id
 INNER JOIN book b ON rl.book_id = b.book_id
+INNER JOIN reading_format rf ON rl.format_id = rf.format_id 
 WHERE rl.user_id = 1;
