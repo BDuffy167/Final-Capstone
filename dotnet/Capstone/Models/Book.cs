@@ -14,7 +14,7 @@ namespace Capstone.Models
         public int FormatType { get; set; }
         public long ISBN { get; set; }
         public int TimeRead { get; set; }
-
+        public List<string> Notes { get; set; }
         
     }
 }

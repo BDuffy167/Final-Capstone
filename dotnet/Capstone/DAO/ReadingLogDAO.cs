@@ -23,6 +23,8 @@ FROM reading_log rl
 INNER JOIN users u ON rl.user_id = u.user_id
 INNER JOIN book b ON rl.book_id = b.book_id
 WHERE rl.user_id = @user_id;";
+
+        private readonly string sqlCheckIfBookByISBN = @"SELECT book_Id FROM book WHERE isbn = @isbn";
         private readonly string sqlAddBookLog = @"";
 
         public ReadingLogDAO(string dbConnectionString)
@@ -61,6 +63,7 @@ WHERE rl.user_id = @user_id;";
             return userBooks;
         }
 
+     
         public void AddNewBookLog(Book book, int userid)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
