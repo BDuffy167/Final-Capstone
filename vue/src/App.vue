@@ -40,6 +40,7 @@
 
 <script>
 import Books from './views/Books.vue';
+
 export default {
   name: 'app',
   component: Books

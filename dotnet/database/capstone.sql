@@ -85,3 +85,4 @@ FROM reading_log rl
 INNER JOIN users u ON rl.user_id = u.user_id
 INNER JOIN book b ON rl.book_id = b.book_id
 WHERE rl.user_id = 1;
+SELECT * FROM users
