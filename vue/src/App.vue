@@ -21,8 +21,10 @@
         v-bind:to="{ name: 'login' }"
         v-if="!$store.state.token"
       >
+      
         &nbsp;|&nbsp;Login
       </router-link>
+      <router-link v-bind:to="{ name: 'books'}">&nbsp;|&nbsp;Books</router-link>
       <router-link
         class="nav-item"
         v-bind:to="{ name: 'logout' }"
@@ -37,7 +39,11 @@
 </template>
 
 <script>
-export default {};
+import Books from './views/Books.vue';
+export default {
+  name: 'app',
+  component: Books
+};
 </script>
 
 <!-- Application-Wide Styles go here.  -->
