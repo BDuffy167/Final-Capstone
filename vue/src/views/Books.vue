@@ -5,13 +5,18 @@
       <thead>
         <tr>
           <th>Title</th>
-          <th>Author</th> <!-- firstname lastname concat -->
-          <th>Minutes Read</th>
-          <th>Finished?</th>
+          <th>Author</th><!-- firstname lastname concat -->
+          <th>Time Read</th>
+          <th>Format Type</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for=
+        <tr v-for="book of Books" v-bind:key="book.loggedbook.bookId"></tr><!--v-for, loop,tr for each-->
+        <td>{{book.loggedbook.title}}</td>
+        <td>{{book.loggedbook.authorFirstName}} {{book.loggedbook.authorlastName}}</td>
+        <td>{{book.loggedbook.timeRead}}</td>
+        <td>{{formatType}}</td>
+
       </tbody>
     </table>
   </main>
@@ -19,12 +24,12 @@
 
 <script>
 import BookService from "../services/BookService.js";
-import Book from '../components/Book.vue';
+//import BookList from "../components/BookList.vue";
 
 export default {
   name: "books",
   components: {
-    Book
+   // BookList
   },
   data() {
     return {};
