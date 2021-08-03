@@ -50,7 +50,6 @@ WHERE rl.user_id = @user_id;";
                 {
                     
                     ReadingLog readinglog = new ReadingLog();
-
                     readinglog.LoggedBook.BookId = Convert.ToInt32(reader["book_id"]);
                     readinglog.LoggedBook.Title = Convert.ToString(reader["title"]);
                     readinglog.LoggedBook.AuthorFirstName = Convert.ToString(reader["author_firstName"]);
