@@ -25,6 +25,14 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {} // If a user is an admin, their user.role will be 'admin'
   },
+  //state: {
+   // books: [
+   // {title: "The Hobbit"},
+    //{author: "J.R.R Tolkien"},
+    //{timeRead: "30 minutes"},
+   // {formatType: "E-book"}
+   // ]
+  //},
   mutations: {
     SET_AUTH_TOKEN(state, token) {
       state.token = token;
@@ -41,6 +49,10 @@ export default new Vuex.Store({
       state.token = '';
       state.user = {};
       axios.defaults.headers.common = {};
-    }
+    },
+   // SAVE_BOOKS(state, book){
+    //  state.books.push(book);
+   // }
   }
-})
+})//I think we need a separate store for the book stuff, look back at vuex videos
+

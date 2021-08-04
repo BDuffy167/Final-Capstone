@@ -10,14 +10,14 @@
           <th>Format Type</th>
         </tr>
       </thead>
-      <tbody>
-        <tr v-for="book of Books" v-bind:key="book.loggedbook.bookId"></tr><!--v-for, loop,tr for each-->
-        <td>{{book.loggedbook.title}}</td>
-        <td>{{book.loggedbook.authorFirstName}} {{book.loggedbook.authorlastName}}</td>
-        <td>{{book.loggedbook.timeRead}}</td>
-        <td>{{formatType}}</td>
+     <!-- <tbody>-->
+        <!--<tr v-for="book of Books" v-bind:key="book.loggedbook.bookId"></tr>v-for, loop,tr for each-->
+       <!-- <td>{{book.loggedbook.title}}</td>-->
+       <!-- <td>{{book.loggedbook.authorFirstName}} {{book.loggedbook.authorlastName}}</td>-->
+        <!--<td>{{book.loggedbook.timeRead}}</td>-->
+       <!-- <td>{{formatType}}</td>-->
+     <!-- </tbody>-->
 
-      </tbody>
     </table>
   </main>
 </template>

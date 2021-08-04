@@ -40,12 +40,12 @@
 
 <script>
 import Books from './views/Books.vue';
-import BookList from './components/BookList.vue';
+//import BookList from './components/BookList.vue';
 export default {
   name: 'app',
   component: {
     Books,
-    BookList,
+    //BookList,
     },
 };
 </script>
