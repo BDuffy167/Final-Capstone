@@ -26,7 +26,8 @@ INNER JOIN reading_format rf ON rl.format_id = rf.format_id
 WHERE rl.user_id = @user_id;";
 
         private readonly string sqlCheckIfBookByISBN = @"SELECT book_Id FROM book WHERE isbn = @isbn";
-        private readonly string sqlAddBookLog = @"";
+        private readonly string sqlAddBookLog = @"INSERT INTO reading_log(user_id, book_id, format_id, total_time, notes, isCompleted)
+	VALUES (@user_id, @book_id, @format_id, @total_time, @note, @isCompleted)";
 
         public ReadingLogDAO(string dbConnectionString)
         {
@@ -48,7 +49,7 @@ WHERE rl.user_id = @user_id;";
 
                 while (reader.Read())
                 {
-                    
+
                     ReadingLog readinglog = new ReadingLog();
                     readinglog.LoggedBook.BookId = Convert.ToInt32(reader["book_id"]);
                     readinglog.LoggedBook.Title = Convert.ToString(reader["title"]);
@@ -64,17 +65,30 @@ WHERE rl.user_id = @user_id;";
             return readingLogs;
         }
 
-     
-        public void AddNewBookLog(ReadingLog book, int userid)
+        public int AddNewReadingLog(ReadingLog newLog, int userID, int bookID)
         {
+            int readingLogID = 0;
+            int formatID = 1;
+
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
 
-                SqlCommand addBook = new SqlCommand(sqlAddBookLog, conn);
-                addBook.Parameters.AddWithValue("@title", book.LoggedBook.Title);
+                SqlCommand cmd = new SqlCommand(sqlAddBookLog, conn);
+                cmd.Parameters.AddWithValue("@user_id", userID);
+                cmd.Parameters.AddWithValue("@book_id", bookID);
+                cmd.Parameters.AddWithValue("@format_id", formatID);
+                cmd.Parameters.AddWithValue("@total_time", newLog.TimeRead);
+                cmd.Parameters.AddWithValue("@note", newLog.Notes);
+                cmd.Parameters.AddWithValue("@isCOmpleted", false);
+
+                readingLogID = (int)cmd.ExecuteScalar();
             }
+
+            return readingLogID;
+
         }
+        
 
     }
 }

@@ -9,6 +9,6 @@ namespace Capstone.DAO
     public interface IReadingLogDAO
     {
         public List<ReadingLog> GetUserBooks(int id);
-
+        public int AddNewReadingLog(ReadingLog newLog, int userID, int bookID);
     }
 }

@@ -7,6 +7,7 @@ namespace Capstone.Models
 {
     public class ReadingLog
     {
+        public int LogID { get; set; }
         public User Reader { get; set; }
         public Book LoggedBook { get; set; } = new Book();
         public string FormatType { get; set; }
