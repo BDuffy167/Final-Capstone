@@ -20,11 +20,11 @@
         class="nav-item"
         v-bind:to="{ name: 'login' }"
         v-if="!$store.state.token"
-      >
+      >&nbsp;|&nbsp;Login </router-link>
       
-        &nbsp;|&nbsp;Login
-      </router-link>
-      <router-link v-bind:to="{ name: 'books'}">&nbsp;|&nbsp;Books</router-link>
+      <router-link 
+        class="nav-item"
+        v-bind:to="{ name: 'activity'}">&nbsp;|&nbsp;Activity</router-link>
       <router-link
         class="nav-item"
         v-bind:to="{ name: 'logout' }"
@@ -39,12 +39,12 @@
 </template>
 
 <script>
-import Books from './views/Books.vue';
+import Activity from './views/Activity.vue';
 //import BookList from './components/BookList.vue';
 export default {
   name: 'app',
   component: {
-    Books,
+    Activity,
     //BookList,
     },
 };

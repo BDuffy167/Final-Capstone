@@ -5,7 +5,7 @@ import Login from "../views/Login.vue";
 import Logout from "../views/Logout.vue";
 import Register from "../views/Register.vue";
 import store from "../store/index";
-import Books from "../views/Books.vue";
+import Activity from "../views/Activity.vue";
 
 
 Vue.use(Router);
@@ -32,9 +32,9 @@ const router = new Router({
       },
     },
     {
-      path: "/books",
-      name: "books",
-      component: Books,
+      path: "/activity",
+      name: "activity",
+      component: Activity,
       meta: {
         requiresAuth: false,
       }

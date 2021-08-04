@@ -1,6 +1,6 @@
 <template>
   <main>
-    <h1>Book List</h1>
+    <h1>Activity List</h1>
     <table>
       <thead>
         <tr>
@@ -27,9 +27,12 @@ import BookService from "../services/BookService.js";
 //import BookList from "../components/BookList.vue";
 
 export default {
-  name: "books",
+  name: "activity",
   components: {
    // BookList
+  },
+  computed: {
+
   },
   data() {
     return {};
@@ -39,6 +42,7 @@ export default {
       .get(this.$store.state.user.userId)
       .then((response) => {
         console.log(response);
+        this.$store.commit('SET_READINGLOG', response.data);
       })
       .catch((response) => {
         console.error(response);
