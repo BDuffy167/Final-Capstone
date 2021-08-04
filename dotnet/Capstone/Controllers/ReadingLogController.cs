@@ -42,21 +42,22 @@ namespace Capstone.Controllers
         }
 
         [HttpPost("{id}/AddLog")]
-        public ActionResult<ReadingLog> AddNewReadingLog(ReadingLog newLog)
+        [AllowAnonymous]
+        public ActionResult<ReadingLog> AddNewReadingLog(int id, ReadingLog newLog)
         {
-            int rowsChanged = 0;
-            int user_id = int.Parse(this.User.FindFirst("sub").Value);
+            //int user_id = int.Parse(this.User.FindFirst("sub").Value);
+
             int bookId = bookDAO.CheckIfBookExistsOnDB(newLog.LoggedBook);
 
             if(bookId == 0)
             {
                 bookId = bookDAO.AddNewBook(newLog.LoggedBook);
-                newLog.LogID = readingLogDAO.AddNewReadingLog(newLog, user_id, bookId);
+                newLog.LogID = readingLogDAO.AddNewReadingLog(newLog, id, bookId);
                 return Ok(newLog);
             }
             else
             {
-                newLog.LogID = readingLogDAO.AddNewReadingLog(newLog, user_id, bookId);
+                newLog.LogID = readingLogDAO.AddNewReadingLog(newLog, id, bookId);
                 return Ok(newLog);
             }
         }

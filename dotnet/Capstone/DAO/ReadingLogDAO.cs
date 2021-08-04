@@ -27,7 +27,7 @@ WHERE rl.user_id = @user_id;";
 
         private readonly string sqlCheckIfBookByISBN = @"SELECT book_Id FROM book WHERE isbn = @isbn";
         private readonly string sqlAddBookLog = @"INSERT INTO reading_log(user_id, book_id, format_id, total_time, notes, isCompleted)
-	VALUES (@user_id, @book_id, @format_id, @total_time, @note, @isCompleted)";
+	VALUES (@user_id, @book_id, @format_id, @total_time, @note, @isCompleted); SELECT @@IDENTITY";
 
         public ReadingLogDAO(string dbConnectionString)
         {
@@ -70,7 +70,7 @@ WHERE rl.user_id = @user_id;";
         public int AddNewReadingLog(ReadingLog newLog, int userID, int bookID)
         {
             int readingLogID = 0;
-            int formatID = 1;
+            int formatID = GetFormatID(newLog.FormatType);
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -81,16 +81,42 @@ WHERE rl.user_id = @user_id;";
                 cmd.Parameters.AddWithValue("@book_id", bookID);
                 cmd.Parameters.AddWithValue("@format_id", formatID);
                 cmd.Parameters.AddWithValue("@total_time", newLog.TimeRead);
-                cmd.Parameters.AddWithValue("@note", newLog.Notes);
-                cmd.Parameters.AddWithValue("@isCOmpleted", false);
+                cmd.Parameters.AddWithValue("@note", newLog.Notes[0]);
+                cmd.Parameters.AddWithValue("@isCOmpleted", 0);
 
-                readingLogID = (int)cmd.ExecuteScalar();
+                readingLogID = Convert.ToInt32(cmd.ExecuteScalar());
             }
 
             return readingLogID;
 
         }
-        
+
+
+        private int GetFormatID(string format)
+        {
+           
+            switch (format.ToLower())
+            {
+                case "paperback":
+                    return 1;
+                    break;
+                case "ebook":
+                    return 2;
+                    break;
+                case "audiobook":
+                    return 3;
+                    break;
+                case "read-aloud (reader)":
+                    return 4;
+                    break;
+                case "read-aloud (listener)":
+                    return 5;
+                    break;
+                default:
+                    return 6;
+                    break;
+            }
+        }
 
     }
 }

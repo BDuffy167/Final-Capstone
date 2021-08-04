@@ -10,7 +10,7 @@ namespace Capstone.DAO
     public class BookDAO : IBookDAO
     {
         private readonly string sqlGetBookID = @"SELECT book_id FROM book where isbn = @isbn";
-        private readonly string sqlAddNewBook = @"INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES (@title, @firstName, @lastName, @isbn);";
+        private readonly string sqlAddNewBook = @"INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES (@title, @firstName, @lastName, @isbn); SELECT @@IDENTITY";
         private readonly string connectionString;
 
         public BookDAO(string dbConnectionString)
@@ -28,10 +28,13 @@ namespace Capstone.DAO
                 SqlCommand cmd = new SqlCommand(sqlGetBookID, conn);
                 cmd.Parameters.AddWithValue("@isbn", inputBook.ISBN);
 
-                if(!DBNull.Value.Equals(cmd.ExecuteScalar()));
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if(reader.Read())
                 {
-                    bookID = (Int32)cmd.ExecuteScalar();
+                    bookID = Convert.ToInt32(reader["book_id"]);
                 }
+
                 
             }
              return bookID;
@@ -51,7 +54,7 @@ namespace Capstone.DAO
                 cmd.Parameters.AddWithValue("@lastName", newBook.AuthorLastName);
                 cmd.Parameters.AddWithValue("@isbn", newBook.ISBN);
 
-                bookID = (Int32)cmd.ExecuteScalar();
+                bookID = Convert.ToInt32(cmd.ExecuteScalar());
 
             }
 
