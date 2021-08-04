@@ -33,6 +33,9 @@ export default new Vuex.Store({
     SET_READINGLOG(state, activityLog) {
       state.readingLog = activityLog;
     },
+    SET_BOOK(state, books) {
+      state.book = books;
+    },
     SET_AUTH_TOKEN(state, token) {
       state.token = token;
       localStorage.setItem('token', token);
