@@ -10,13 +10,13 @@
           <th>Format Type</th>
         </tr>
       </thead>
-     <!-- <tbody>-->
-        <!--<tr v-for="book of Books" v-bind:key="book.loggedbook.bookId"></tr>v-for, loop,tr for each-->
-       <!-- <td>{{book.loggedbook.title}}</td>-->
-       <!-- <td>{{book.loggedbook.authorFirstName}} {{book.loggedbook.authorlastName}}</td>-->
-        <!--<td>{{book.loggedbook.timeRead}}</td>-->
-       <!-- <td>{{formatType}}</td>-->
-     <!-- </tbody>-->
+     <!-- <tbody>
+        <tr v-for="activity of allActivity" v-bind:key="activity.loggedbook.title"></tr>v-for, loop,tr for each
+        <td>{{book.loggedbook.title}}</td>
+       <td>{{book.loggedbook.authorFirstName}} {{book.loggedbook.authorlastName}}</td>
+        <td>{{book.loggedbook.timeRead}}</td>
+       <td>{{formatType}}</td>
+     </tbody>-->
 
     </table>
   </main>
@@ -32,7 +32,9 @@ export default {
    // BookList
   },
   computed: {
-
+    allActivity() {
+      return this.$store.state.readingLog;
+    }
   },
   data() {
     return {};
