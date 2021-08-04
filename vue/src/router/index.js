@@ -6,6 +6,7 @@ import Logout from "../views/Logout.vue";
 import Register from "../views/Register.vue";
 import store from "../store/index";
 import Activity from "../views/Activity.vue";
+import YourLibrary from "../views/YourLibrary.vue";
 
 
 Vue.use(Router);
@@ -37,6 +38,14 @@ const router = new Router({
       component: Activity,
       meta: {
         requiresAuth: false,
+      }
+    },
+    {
+      path: "/yourLibrary",
+      name: "yourLibrary",
+      component: YourLibrary,
+      meta: {
+        requiresAuth: false
       }
     },
     {
