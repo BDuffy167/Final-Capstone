@@ -22,10 +22,15 @@ if(currentToken && currentToken != 'undefined') {
 
 export default new Vuex.Store({
   state: {
+    readingLog: [],
     token: currentToken || '',
     user: currentUser || {} // If a user is an admin, their user.role will be 'admin'
   },
+  
   mutations: {
+    SET_READINGLOG(state, activityLog) {
+      state.readingLog = activityLog;
+    },
     SET_AUTH_TOKEN(state, token) {
       state.token = token;
       localStorage.setItem('token', token);
@@ -41,6 +46,6 @@ export default new Vuex.Store({
       state.token = '';
       state.user = {};
       axios.defaults.headers.common = {};
-    }
+    },
   }
 })

@@ -7,3 +7,7 @@ export default {
        return axios.get(`/ReadingLog/${id}`);
    }
 }
+//add(book)
+//get(notes)--display notes
+//displayActivity
+//displayBooks

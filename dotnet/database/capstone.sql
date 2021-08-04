@@ -86,5 +86,10 @@ SELECT
 FROM reading_log rl
 INNER JOIN users u ON rl.user_id = u.user_id
 INNER JOIN book b ON rl.book_id = b.book_id
+<<<<<<< HEAD
+WHERE rl.user_id = 1;
+SELECT * FROM users
+=======
 INNER JOIN reading_format rf ON rl.format_id = rf.format_id 
 WHERE rl.user_id = 1;
+>>>>>>> b10299532c556286db6e7a4ff832135d4a0350ca
