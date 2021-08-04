@@ -91,4 +91,4 @@ INNER JOIN reading_format rf ON rl.format_id = rf.format_id
 WHERE rl.user_id = 1;
 
 
-SELECT book_id, COUNT(*) FROM book where isbn = 9780044403371 
+SELECT book_id FROM book where isbn = 9780044403371

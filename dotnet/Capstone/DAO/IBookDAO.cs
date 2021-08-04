@@ -10,5 +10,6 @@ namespace Capstone.DAO
     {
         public int CheckIfBookExistsOnDB(Book inputBook);
         public int AddNewBook(Book newBook);
+        public List<Book> GetAllBooks();
     }
 }

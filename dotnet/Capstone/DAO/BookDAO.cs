@@ -60,5 +60,35 @@ namespace Capstone.DAO
 
                 return bookID;
         }
+
+        public List<Book> GetAllBooks()
+        {
+            List<Book> books = new List<Book>();
+
+            using(SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(@"SELECT * FROM book", conn);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Book book = new Book();
+                    book.BookId = Convert.ToInt32(reader["book_id"]);
+                    book.Title = Convert.ToString(reader["title"]);
+                    book.AuthorFirstName = Convert.ToString(reader["author_firstName"]);
+                    book.AuthorLastName = Convert.ToString(reader["author_lastName"]);
+                    book.ISBN = Convert.ToInt64(reader["isbn"]);
+
+                    books.Add(book);
+                }
+
+                return books;
+
+            }
+
+        }
     }
 }
