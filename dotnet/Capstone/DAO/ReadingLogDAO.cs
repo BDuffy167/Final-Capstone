@@ -10,8 +10,9 @@ namespace Capstone.DAO
     public class ReadingLogDAO : IReadingLogDAO
     {
         private readonly string connectionString;
-        private readonly string sqlGetUserBooks = @"SELECT 
-	u.username AS username,
+        private readonly string sqlGetUserBooks = @"SELECT
+    rl.reading_log_id AS log_id,
+	rl.user_id AS user_id,
 	b.title AS title,
 	b.book_id AS book_id,
 	b.author_firstName AS author_firstName,
@@ -20,13 +21,13 @@ namespace Capstone.DAO
 	b.isbn AS isbn,
 	rl.total_time AS total_time
 FROM reading_log rl
-INNER JOIN users u ON rl.user_id = u.user_id
 INNER JOIN book b ON rl.book_id = b.book_id
 INNER JOIN reading_format rf ON rl.format_id = rf.format_id
 WHERE rl.user_id = @user_id;";
 
         private readonly string sqlCheckIfBookByISBN = @"SELECT book_Id FROM book WHERE isbn = @isbn";
-        private readonly string sqlAddBookLog = @"";
+        private readonly string sqlAddBookLog = @"INSERT INTO reading_log(user_id, book_id, format_id, total_time, notes, isCompleted)
+	VALUES (@user_id, @book_id, @format_id, @total_time, @note, @isCompleted)";
 
         public ReadingLogDAO(string dbConnectionString)
         {
@@ -48,8 +49,10 @@ WHERE rl.user_id = @user_id;";
 
                 while (reader.Read())
                 {
-                    
+
                     ReadingLog readinglog = new ReadingLog();
+                    readinglog.LogID = Convert.ToInt32(reader["log_id"]);
+                    readinglog.ReaderId = Convert.ToInt32(reader["user_id"]);
                     readinglog.LoggedBook.BookId = Convert.ToInt32(reader["book_id"]);
                     readinglog.LoggedBook.Title = Convert.ToString(reader["title"]);
                     readinglog.LoggedBook.AuthorFirstName = Convert.ToString(reader["author_firstName"]);
@@ -64,17 +67,30 @@ WHERE rl.user_id = @user_id;";
             return readingLogs;
         }
 
-     
-        public void AddNewBookLog(ReadingLog book, int userid)
+        public int AddNewReadingLog(ReadingLog newLog, int userID, int bookID)
         {
+            int readingLogID = 0;
+            int formatID = 1;
+
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
 
-                SqlCommand addBook = new SqlCommand(sqlAddBookLog, conn);
-                addBook.Parameters.AddWithValue("@title", book.LoggedBook.Title);
+                SqlCommand cmd = new SqlCommand(sqlAddBookLog, conn);
+                cmd.Parameters.AddWithValue("@user_id", userID);
+                cmd.Parameters.AddWithValue("@book_id", bookID);
+                cmd.Parameters.AddWithValue("@format_id", formatID);
+                cmd.Parameters.AddWithValue("@total_time", newLog.TimeRead);
+                cmd.Parameters.AddWithValue("@note", newLog.Notes);
+                cmd.Parameters.AddWithValue("@isCOmpleted", false);
+
+                readingLogID = (int)cmd.ExecuteScalar();
             }
+
+            return readingLogID;
+
         }
+        
 
     }
 }
