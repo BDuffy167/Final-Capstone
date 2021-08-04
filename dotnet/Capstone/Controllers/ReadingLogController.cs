@@ -11,6 +11,7 @@ namespace Capstone.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize]
     public class ReadingLogController : ControllerBase
     {
 
