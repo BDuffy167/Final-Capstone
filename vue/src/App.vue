@@ -51,4 +51,5 @@ export default {
 </script>
 
 <!-- Application-Wide Styles go here.  -->
-<style></style>
+<style>
+</style>

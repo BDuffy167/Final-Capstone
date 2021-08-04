@@ -1,7 +1,8 @@
 <template>
   <div class="home">
     <h1>Home</h1>
-    <p>Your content goes here. Make it look nice.</p>
+    <button>Add a book to your reading list</button>
+    <button>Start reading : D</button>
   </div>
 </template>
 
@@ -10,3 +11,10 @@ export default {
   name: "home"
 };
 </script>
+
+<style>
+button {
+  margin: 10px;
+  border-radius: 10px;
+}
+</style>
