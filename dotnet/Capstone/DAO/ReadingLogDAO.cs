@@ -10,8 +10,9 @@ namespace Capstone.DAO
     public class ReadingLogDAO : IReadingLogDAO
     {
         private readonly string connectionString;
-        private readonly string sqlGetUserBooks = @"SELECT 
-	u.username AS username,
+        private readonly string sqlGetUserBooks = @"SELECT
+    rl.reading_log_id AS log_id,
+	rl.user_id AS user_id,
 	b.title AS title,
 	b.book_id AS book_id,
 	b.author_firstName AS author_firstName,
@@ -20,7 +21,6 @@ namespace Capstone.DAO
 	b.isbn AS isbn,
 	rl.total_time AS total_time
 FROM reading_log rl
-INNER JOIN users u ON rl.user_id = u.user_id
 INNER JOIN book b ON rl.book_id = b.book_id
 INNER JOIN reading_format rf ON rl.format_id = rf.format_id
 WHERE rl.user_id = @user_id;";
@@ -51,6 +51,8 @@ WHERE rl.user_id = @user_id;";
                 {
 
                     ReadingLog readinglog = new ReadingLog();
+                    readinglog.LogID = Convert.ToInt32(reader["log_id"]);
+                    readinglog.ReaderId = Convert.ToInt32(reader["user_id"]);
                     readinglog.LoggedBook.BookId = Convert.ToInt32(reader["book_id"]);
                     readinglog.LoggedBook.Title = Convert.ToString(reader["title"]);
                     readinglog.LoggedBook.AuthorFirstName = Convert.ToString(reader["author_firstName"]);

@@ -26,13 +26,14 @@ namespace Capstone.Controllers
 
         //NEED TO DO SECURITY LATER!!!!!!
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public ActionResult<List<ReadingLog>> GetUserBooks(int id)
         {
-            int user_id = int.Parse(this.User.FindFirst("sub").Value);
+            //int user_id = int.Parse(this.User.FindFirst("sub").Value);
 
             List<ReadingLog> toReturn = new List<ReadingLog>();
             
-            if(id == user_id)
+            if(id != 0)
             {
                 toReturn = readingLogDAO.GetUserBooks(id);
                 return Ok(toReturn);
