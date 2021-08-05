@@ -20,7 +20,8 @@ CREATE TABLE users (
 	username varchar(50) NOT NULL,
 	password_hash varchar(200) NOT NULL,
 	salt varchar(200) NOT NULL,
-	user_role varchar(50) NOT NULL
+	user_role varchar(50) NOT NULL, 
+	family_library int NOT NULL
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 )
 
@@ -41,6 +42,15 @@ CREATE TABLE reading_format(
 	CONSTRAINT PK_formatID PRIMARY KEY (format_id)
 )
 
+CREATE TABLE family_library (
+	library_id int IDENTITY(1,1) NOT NULL,
+	book_id int NOT NULL,
+
+	CONSTRAINT PK_libraryID PRIMARY KEY (library_id),
+	CONSTRAINT fk_book_Id FOREIGN KEY (book_id) REFERENCES book(book_id)
+
+)
+
 CREATE TABLE reading_log(
 	reading_log_id int IDENTITY(1,1) NOT NULL,
 	user_id int NOT NULL,
@@ -58,8 +68,8 @@ CREATE TABLE reading_log(
 
 -- Populate default data for testing: user and admin with password of 'password'
 -- These values should not be kept when going to Production
-INSERT INTO users (username, password_hash, salt, user_role) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user');
-INSERT INTO users (username, password_hash, salt, user_role) VALUES ('admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin');
+INSERT INTO users (username, password_hash, salt, user_role, family_library) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user', 1);
+INSERT INTO users (username, password_hash, salt, user_role, family_library) VALUES ('admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin', 1);
 INSERT INTO reading_format (format_type) VALUES ('Paperback'), ('ebook'), ('Audiobook'), ('Read-Aloud (Reader)'), ('Read-Aloud (Listener)'), ('Other');
 INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('HitchHikers Guide To the Galxy', 'Douglass', 'Adams', 9781529046137);
 INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('The Hobbit', 'J.R.R', 'Tolken', 9780044403371);

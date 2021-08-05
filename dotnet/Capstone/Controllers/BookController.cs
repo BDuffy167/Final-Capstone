@@ -27,8 +27,24 @@ namespace Capstone.Controllers
         {
             List<Book> books = bookDAO.GetAllBooks();
 
-
             return books;
         }
+
+        [HttpGet("isbn")]
+        [AllowAnonymous]
+        public ActionResult<Book> GetSpecificBook(long isbn)
+        {
+            Book specificBook = bookDAO.GetSpecificBook(isbn);
+
+            if(specificBook == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return specificBook;
+            }
+        }
+
     }
 }

@@ -34,8 +34,6 @@ namespace Capstone.DAO
                 {
                     bookID = Convert.ToInt32(reader["book_id"]);
                 }
-
-                
             }
              return bookID;
         }
@@ -89,6 +87,36 @@ namespace Capstone.DAO
 
             }
 
+        }
+
+        public Book GetSpecificBook(long isbn)
+        {
+            Book book = new Book();
+            using(SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(@"SELECT * FROM book WHERE isbn = @isbn", conn);
+                cmd.Parameters.AddWithValue("@isbn", isbn);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if(reader.Read())
+                {
+                    book.BookId = Convert.ToInt32(reader["book_id"]);
+                    book.Title = Convert.ToString(reader["title"]);
+                    book.AuthorFirstName = Convert.ToString(reader["author_firstName"]);
+                    book.AuthorLastName = Convert.ToString(reader["author_lastName"]);
+                    book.ISBN = Convert.ToInt64(reader["isbn"]);
+
+                    return book;
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
         }
     }
 }
