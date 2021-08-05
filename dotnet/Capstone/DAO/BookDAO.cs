@@ -11,6 +11,18 @@ namespace Capstone.DAO
     {
         private readonly string sqlGetBookID = @"SELECT book_id FROM book where isbn = @isbn";
         private readonly string sqlAddNewBook = @"INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES (@title, @firstName, @lastName, @isbn); SELECT @@IDENTITY";
+        private readonly string sqlGetFamilyBooks = @"SELECT
+	b.book_id AS book_id,
+	b.title AS title,
+	b.author_firstName AS author_first,
+	b.author_lastName AS author_last,
+	b.isbn AS isbn
+FROM
+	family_library fl
+	INNER JOIN book b ON fl.book_id = b.book_id
+WHERE
+	library_id = @libID";
+
         private readonly string connectionString;
 
         public BookDAO(string dbConnectionString)
@@ -114,6 +126,32 @@ namespace Capstone.DAO
                 else
                 {
                     return null;
+                }
+
+            }
+        }
+
+        public bool AddToFamilyLibrary(int bookID, int libraryID)
+        {
+            int rowsChanged = 0;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(@"INSERT INTO family_library(library_id, book_id) VALUES (@libID, @bookID);", conn);
+                cmd.Parameters.AddWithValue("@libID", libraryID);
+                cmd.Parameters.AddWithValue("@bookID", bookID);
+
+                rowsChanged = cmd.ExecuteNonQuery();
+
+                if(rowsChanged == 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
                 }
 
             }
