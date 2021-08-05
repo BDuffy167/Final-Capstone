@@ -43,10 +43,11 @@ CREATE TABLE reading_format(
 )
 
 CREATE TABLE family_library (
-	library_id int IDENTITY(1,1) NOT NULL,
+	ID int IDENTITY(1, 1) NOT NULL,
+	library_id int NOT NULL,
 	book_id int NOT NULL,
 
-	CONSTRAINT PK_libraryID PRIMARY KEY (library_id),
+	CONSTRAINT PK_fl_id PRIMARY KEY (ID),
 	CONSTRAINT fk_book_Id FOREIGN KEY (book_id) REFERENCES book(book_id)
 
 )
@@ -76,9 +77,12 @@ INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('The H
 INSERT INTO reading_log(user_id, book_id, format_id, total_time, notes, isCompleted)
 	VALUES (1, 1, 1, 30, 'book had words, would read again', 0), (1, 2, 1, 120, 'Hobbits, and Elves, and Dwarves, OH MY!', 0);
 
+INSERT INTO family_library(library_id, book_id) VALUES (1, 1);
+
 GO
 SELECT * FROM book
 select * from reading_log
+SELECT * FROM users
 
 SELECT book_id FROM book where isbn = 9780044403371 
 

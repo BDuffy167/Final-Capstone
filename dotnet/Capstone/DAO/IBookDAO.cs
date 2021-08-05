@@ -12,5 +12,6 @@ namespace Capstone.DAO
         public int AddNewBook(Book newBook);
         public List<Book> GetAllBooks();
         public Book GetSpecificBook(long isbn);
+        public bool AddToFamilyLibrary(int bookID, int libraryID);
     }
 }

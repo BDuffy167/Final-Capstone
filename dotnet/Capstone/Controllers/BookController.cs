@@ -22,7 +22,6 @@ namespace Capstone.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public ActionResult<List<Book>> GetAllBooks()
         {
             List<Book> books = bookDAO.GetAllBooks();
@@ -31,7 +30,6 @@ namespace Capstone.Controllers
         }
 
         [HttpGet("isbn")]
-        [AllowAnonymous]
         public ActionResult<Book> GetSpecificBook(long isbn)
         {
             Book specificBook = bookDAO.GetSpecificBook(isbn);
@@ -43,6 +41,33 @@ namespace Capstone.Controllers
             else
             {
                 return specificBook;
+            }
+        }
+
+
+        [HttpPost("{familyID}/AddBook/")]
+        public ActionResult<Book> AddBookToFamilyLibrary(int familyID, Book book)
+        {
+            int bookID = bookDAO.CheckIfBookExistsOnDB(book);
+            bool completed = false;
+
+            if(bookID == 0)
+            {
+                book.BookId = bookDAO.AddNewBook(book);
+                completed = bookDAO.AddToFamilyLibrary(book.BookId, familyID);
+            }
+            else
+            {
+                completed = bookDAO.AddToFamilyLibrary(bookID, familyID);
+            }
+
+            if(completed)
+            {
+                return Ok(book);
+            }
+            else
+            {
+                return BadRequest();
             }
         }
 
