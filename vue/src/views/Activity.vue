@@ -23,31 +23,43 @@
         </tr>
       </tbody>
     </table>
-    <button>Record Activity</button>
-    <form>
-      <div class="field">
-        <label for="title">Title</label>
-        <input type="text" name="Title" id="bookTitle"/>
-      </div>
-        <br>
-      <div class="field">
-        <label for="author">Author</label>
-        <input type="text" name="First NAme" id="authorFirstName"/>
-        <input type="text" name="Last Name" id="authorLastName"/>
-      </div>
-        <br>
-      <div class="field">
-        <label for="timeRead">Time Read</label>
-        <input type="number" name="Minutes Spent Reading" id="timeRead"/>
-      </div>
-        <br>
-      <div class="fiels">
-        <label for="formatType">Format Type</label>
-        <input type="text" name="Format" id="formatType"/>
-      </div>
-      <br>
-      <button>Submit</button>
-    </form>
+    
+    <button v-if="!showForm" v-on:click.prevent="showForm = true">Record Activity</button>
+  <form class="row g-3" v-show="showForm" v-on:submit.prevent="addToList">
+  <div class="col-12">
+    <label for="Title" class="form-label">Book Title</label>
+    <input type="text" class="form-control" id="title" placeholder="Enter Book Title" >
+  </div>
+  <div class="col-md-6">
+    <label for="Author" class="form-label">Author First</label>
+    <input type="text" class="form-control" id="authorFirstName">
+  </div>
+  <div class="col-md-6">
+    <label for="Author" class="form-label">Author Last</label>
+    <input type="text" class="form-control" id="authorLastName">
+  </div>
+ 
+
+  <div class="col-md-4">
+    <label for="timeRead" class="form-label">Session Time</label>
+    <input type="number" class="form-control" id="timeRead" placeholder="minutes">
+  </div>
+  <div class="col-md-6">
+    <label for="formatType" class="form-label">Book Type</label>
+    <input type="text" class="form-control" id="formatType">
+  </div>
+  <div class="col-12">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="gridCheck">
+      <label class="form-check-label" for="gridCheck">
+        Add To List
+      </label>
+    </div>
+  </div>
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+</form>
   </main>
 </template>
 
@@ -66,7 +78,24 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      showForm: false,
+      filter: {
+        Title: "",
+        Author: "",
+        timeRead: "",
+        formatType: ""
+      },
+      newItem: {
+        Title: "",
+        Author: "",
+        timeRead: "",
+        formatType: ""
+      },
+      activityLog: [
+        
+      ]
+    };
   },
   created() {
     BookService.get(this.$store.state.user.userId)
@@ -78,7 +107,12 @@ export default {
         console.error(response);
       });
   },
-  methods: {},
+  methods: {
+    // addToList(){
+    //   let itemToAdd = this.newItem;
+    //   this.
+    // }
+  },
 };
 </script>
 

@@ -1,6 +1,9 @@
 <template>
   <main>
     <h1>BOOKS ARE COOL KIDS!!!!!!!!!!!!!!!!!!!</h1>
+
+    
+
     <table class="bookTable">
       <thead>
         <tr>
@@ -14,17 +17,44 @@
       </thead>
       <tbody>
         <tr v-for="book of allBooks" v-bind:key="book.logID">
-          <td>{{ book.loggedBook.title }}</td>
+          <td>{{ book.title }}</td>
           <td>
-            {{ book.loggedBook.authorFirstName }}
-            {{ book.loggedBook.authorLastName }}
+            {{ book.authorFirstName }}
+            {{ book.authorLastName }}
           </td>
-          <td>{{ book.loggedBook.ISBN }}</td>
+          <td>{{ book.isbn }}</td>
           <td>{{ book.timeRead }}</td>
           <td><input type="checkbox" /></td>
         </tr>
       </tbody>
     </table>
+
+    <button v-if="!isAddBookVisible" v-on:click.prevent="isAddBookVisible = true">Add a Book</button>
+
+    <form id="addBookForm"
+        class="row g-3"
+        v-show="isAddBookVisible" 
+        v-on:submit.prevent="addABook">
+      <div class="col-12">
+        <label for="inputTitle" class="form-label">Title</label>
+        <input type="text" class="form-control" id="inputTitle" v-model="newBook.title">
+      </div>
+      <div class="col-md-4">
+        <label for="inputAuthorFirstName" class="form-label">Author's First Name</label>
+        <input type="text" class="form-control" id="inputAuthorFirstName" v-model="newBook.authorFirstName">
+      </div>
+      <div class="col-md-4">
+        <label for="inputAuthorLastName" class="form-label">Author's Last Name</label>
+        <input type="text" class="form-control" id="inputAuthorLastName" v-model="newBook.authorLastName">
+      </div>
+      <div class="col-md-4">
+        <label for="inputISBN" class="form-label">ISBN</label>
+        <input type="text" class="form-control" id="inputISBN" v-model.number="newBook.isbn">
+      </div>
+      <input type="submit" value="Save" class="col-md-1"> 
+      <input type="button" value="Cancel" class="col-md-1" v-on:click="isAddBookVisible = false">
+    </form>
+
   </main>
 </template>
 
@@ -38,11 +68,21 @@ export default {
   },
   computed: {
     allBooks() {
-      return this.$store.state.book;
+      return this.$store.state.books;
     }
   },
   data() {
-      return {};
+      return {
+        isAddBookVisible: false,
+        newBook: {
+          bookId: null,
+          title: "",
+          authorFirstName: "",
+          authorLastName: "",
+          isbn: null
+        }
+
+      };
   },
   created() {
     BookService.get(this.$store.state.user.userId)
@@ -54,6 +94,18 @@ export default {
         console.error(response);
       });
   },
+  methods: {
+    addABook() {
+      BookService.post(this.$store.state.user.userId, this.newBook)
+        .then((response) => {
+          console.log(response);
+          this.$store.commit("SET_BOOK", [response.data]);
+        })
+        .catch((response) => {
+        console.error(response);
+      });
+    }
+  }
 }
 </script>
 
