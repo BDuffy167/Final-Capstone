@@ -23,6 +23,31 @@
         </tr>
       </tbody>
     </table>
+    <button>Record Activity</button>
+    <form>
+      <div class="field">
+        <label for="title">Title</label>
+        <input type="text" name="Title" id="bookTitle"/>
+      </div>
+        <br>
+      <div class="field">
+        <label for="author">Author</label>
+        <input type="text" name="First NAme" id="authorFirstName"/>
+        <input type="text" name="Last Name" id="authorLastName"/>
+      </div>
+        <br>
+      <div class="field">
+        <label for="timeRead">Time Read</label>
+        <input type="number" name="Minutes Spent Reading" id="timeRead"/>
+      </div>
+        <br>
+      <div class="fiels">
+        <label for="formatType">Format Type</label>
+        <input type="text" name="Format" id="formatType"/>
+      </div>
+      <br>
+      <button>Submit</button>
+    </form>
   </main>
 </template>
 
@@ -64,15 +89,17 @@ div {
 h1 {
   text-align: center;
 }
-.readingActivityTable  {
-margin-left: auto;
-margin-right: auto;
+.readingActivityTable {
+  margin-left: auto;
+  margin-right: auto;
 }
-td, th {
-  padding: .5em;
+td,
+th {
+  padding: 0.5em;
   text-align: center;
 }
 th {
   border: 2px solid black;
 }
+
 </style>
