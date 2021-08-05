@@ -14,7 +14,7 @@
       <router-link class="nav-item" 
         v-bind:to="{ name: 'yourLibrary' }"
         v-if="$store.state.token">
-        &nbsp;|&nbsp;Your Library
+        &nbsp;|&nbsp;Family Library
       </router-link>
 
       <router-link
@@ -64,4 +64,7 @@ export default {
 
 <!-- Application-Wide Styles go here.  -->
 <style>
+.nav-item {
+  text-decoration: none;
+}
 </style>

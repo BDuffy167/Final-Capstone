@@ -28,7 +28,7 @@
   <form class="row g-3" v-show="showForm" v-on:submit.prevent="addToList">
   <div class="col-12">
     <label for="Title" class="form-label">Book Title</label>
-    <input type="text" class="form-control" id="title" placeholder="Enter Book Title" v-model="newItem.">
+    <input type="text" class="form-control" id="title" placeholder="Enter Book Title" >
   </div>
   <div class="col-md-6">
     <label for="Author" class="form-label">Author First</label>
@@ -93,7 +93,7 @@ export default {
         formatType: ""
       },
       activityLog: [
-        Title
+        
       ]
     };
   },
@@ -108,10 +108,10 @@ export default {
       });
   },
   methods: {
-    addToList(){
-      let itemToAdd = this.newItem;
-      this.
-    }
+    // addToList(){
+    //   let itemToAdd = this.newItem;
+    //   this.
+    // }
   },
 };
 </script>
