@@ -1,7 +1,7 @@
 <template>
   <main>
     <h1>Activity List</h1>
-    <table class="readingActivityTable">
+    <table class="table table-hover">
       <thead>
         <tr>
           <th>Title</th>

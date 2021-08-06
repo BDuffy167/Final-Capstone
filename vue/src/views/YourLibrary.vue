@@ -4,7 +4,7 @@
 
     
 
-    <table class="bookTable">
+    <table class="bookTable ">
       <thead>
         <tr>
           <th>Title</th>
