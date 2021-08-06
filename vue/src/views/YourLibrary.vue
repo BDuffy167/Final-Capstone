@@ -34,7 +34,7 @@
       <div class="card-body">
         <h5 class="card-title">{{book.title}}</h5>
         <p class="card-text">
-          {{book.authorFirstName}} {{}}
+          {{book.authorFirstName}} {{book.authorLastName}}
         </p>
         <a href="#" class="btn btn-primary">Go somewhere</a>
       </div>
