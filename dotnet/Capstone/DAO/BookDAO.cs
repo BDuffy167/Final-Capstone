@@ -156,5 +156,35 @@ WHERE
 
             }
         }
+
+        public List<Book> GetAllFamilyBooks(int familyID)
+        {
+            List<Book> books = new List<Book>();
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(@sqlGetFamilyBooks, conn);
+                cmd.Parameters.AddWithValue("@libID", familyID);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Book book = new Book();
+                    book.BookId = Convert.ToInt32(reader["book_id"]);
+                    book.Title = Convert.ToString(reader["title"]);
+                    book.AuthorFirstName = Convert.ToString(reader["author_first"]);
+                    book.AuthorLastName = Convert.ToString(reader["author_last"]);
+                    book.ISBN = Convert.ToInt64(reader["isbn"]);
+
+                    books.Add(book);
+                }
+
+                return books;
+
+            }
+        }
     }
 }

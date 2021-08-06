@@ -46,29 +46,50 @@ namespace Capstone.Controllers
 
 
         [HttpPost("{familyID}/AddBook/")]
-        public ActionResult<Book> AddBookToFamilyLibrary(int familyID, Book book)
+        public ActionResult<List<Book>> AddBookToFamilyLibrary(int familyID, Book book)
         {
             int bookID = bookDAO.CheckIfBookExistsOnDB(book);
+            List<Book> toReturn = new List<Book>();
             bool completed = false;
 
             if(bookID == 0)
             {
                 book.BookId = bookDAO.AddNewBook(book);
                 completed = bookDAO.AddToFamilyLibrary(book.BookId, familyID);
+                toReturn = bookDAO.GetAllFamilyBooks(familyID);
             }
             else
             {
                 completed = bookDAO.AddToFamilyLibrary(bookID, familyID);
+                toReturn = bookDAO.GetAllFamilyBooks(familyID);
+
             }
 
             if(completed)
             {
-                return Ok(book);
+                return Ok(toReturn);
             }
             else
             {
                 return BadRequest();
             }
+        }
+
+        [HttpGet("{familyID}/GetFamilyBooks")]
+        public ActionResult<List<Book>> GetFamilyBooks(int familyID)
+        {
+            List<Book> famBooks = bookDAO.GetAllFamilyBooks(familyID);
+
+            if(famBooks == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                return famBooks;
+            }
+
+
         }
 
     }

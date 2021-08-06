@@ -78,11 +78,24 @@ INSERT INTO reading_log(user_id, book_id, format_id, total_time, notes, isComple
 	VALUES (1, 1, 1, 30, 'book had words, would read again', 0), (1, 2, 1, 120, 'Hobbits, and Elves, and Dwarves, OH MY!', 0);
 
 INSERT INTO family_library(library_id, book_id) VALUES (1, 1);
-
 GO
 SELECT * FROM book
 select * from reading_log
 SELECT * FROM users
+SELECT * FROM family_library
+
+
+SELECT
+	b.book_id AS book_id,
+	b.title AS title,
+	b.author_firstName AS author_first,
+	b.author_lastName AS author_last,
+	b.isbn AS isbn
+FROM
+	family_library fl
+	INNER JOIN book b ON fl.book_id = b.book_id
+WHERE
+	library_id = 1
 
 SELECT book_id FROM book where isbn = 9780044403371 
 

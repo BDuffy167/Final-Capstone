@@ -4,61 +4,111 @@
 <template>
   <div id="app" class="container">
     <!-- If you start to get random styling you don't like, remove container from this div -->
-    <div id="nav">
-      <router-link class="nav-item" v-bind:to="{ name: 'home' }">
-        <i class="fas fa-home"></i>
-        <!-- This is a font awesome icon -->
-        Home
-      </router-link>
-
-      <router-link class="nav-item" 
-        v-bind:to="{ name: 'yourLibrary' }"
-        v-if="$store.state.token">
-        &nbsp;|&nbsp;Family Library
-      </router-link>
-
-      <router-link
-        class="nav-item"
-        v-bind:to="{ name: 'register' }"
-        v-if="!$store.state.token">
-        &nbsp;|&nbsp;Register
-      </router-link>
-      
-      <router-link
-        class="nav-item"
-        v-bind:to="{ name: 'login' }"
-        v-if="!$store.state.token">
-        &nbsp;|&nbsp;Login 
-      </router-link>
-      
-      <router-link 
-        class="nav-item"
-        v-bind:to="{ name: 'activity'}"
-        v-if="$store.state.token">
-        &nbsp;|&nbsp;Activity
-      </router-link>
-
-      <router-link
-        class="nav-item"
-        v-bind:to="{ name: 'logout' }"
-        v-if="$store.state.token">
-        &nbsp;|&nbsp;Logout
-      </router-link>
+    <div
+      class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark"
+      style="width: 280px"
+      id = "sidebar"
+    >
+      <a
+        href="/"
+        class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
+      >
+        <svg class="bi me-2" width="40" height="32">
+          <use xlink:href="#bootstrap"></use>
+        </svg>
+        <span class="fs-4">Immersce</span>
+      </a>
+      <hr />
+      <div id="nav">
+        <ul class="nav nav-pills flex-column mb-auto">
+          <li class="nav-item">
+            <router-link class="nav-item" v-bind:to="{ name: 'home' }">
+              <svg class="bi me-2" width="16" height="16">
+                <use xlink:href="#home"></use>
+              </svg>
+              <i class="fas fa-home"></i>
+              <!-- This is a font awesome icon -->
+              Home
+            </router-link>
+          </li>
+          <li>
+            <router-link
+              class="nav-item"
+              v-bind:to="{ name: 'yourLibrary' }"
+              v-if="$store.state.token"
+            >
+              <svg class="bi me-2" width="16" height="16">
+                <use xlink:href="#speedometer2"></use>
+              </svg>
+              &nbsp;|&nbsp;Family Library
+            </router-link>
+          </li>
+          <li>
+            <router-link
+              class="nav-item"
+              v-bind:to="{ name: 'register' }"
+              v-if="!$store.state.token"
+            >
+              <svg class="bi me-2" width="16" height="16">
+                <use xlink:href="#table"></use>
+              </svg>
+              &nbsp;|&nbsp;Register
+            </router-link>
+          </li>
+          <li>
+            <router-link
+              class="nav-item"
+              v-bind:to="{ name: 'login' }"
+              v-if="!$store.state.token"
+            >
+              <svg class="bi me-2" width="16" height="16">
+                <use xlink:href="#table"></use>
+              </svg>
+              &nbsp;|&nbsp;Login
+            </router-link>
+          </li>
+          <li>
+            <router-link
+              class="nav-item"
+              v-bind:to="{ name: 'activity' }"
+              v-if="$store.state.token"
+            >
+              <svg class="bi me-2" width="16" height="16">
+                <use xlink:href="#table"></use>
+              </svg>
+              &nbsp;|&nbsp;Activity
+            </router-link>
+          </li>
+          <li>
+            <router-link
+              class="nav-item"
+              v-bind:to="{ name: 'logout' }"
+              v-if="$store.state.token"
+            >
+              <svg class="bi me-2" width="16" height="16">
+                <use xlink:href="#table"></use>
+              </svg>
+              &nbsp;|&nbsp;Logout
+            </router-link>
+          </li>
+        </ul>
+        <hr />
+        
+      </div>
     </div>
-
-    <router-view />
+    <router-view id="routerView"/> 
   </div>
 </template>
 
 <script>
-import Activity from './views/Activity.vue';
+import Activity from "./views/Activity.vue";
 //import BookList from './components/BookList.vue';
 export default {
-  name: 'app',
+  name: "app",
   component: {
     Activity,
     //BookList,
-    },
+  },
 };
 </script>
 
@@ -67,4 +117,26 @@ export default {
 .nav-item {
   text-decoration: none;
 }
+
+#app {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  height: 100vh;
+  max-height: 100vh;
+  overflow-x: auto;
+  overflow-y: hidden;
+  background-image: url("/assets/Background.jpg");
+}
+
+#sidebar{
+  display: flex;
+  align-items: space-around;
+  justify-content: stretch;
+  margin-right: 20px;
+}
+#routerView{
+  
+}
+
 </style>

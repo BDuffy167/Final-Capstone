@@ -30,6 +30,9 @@ export default new Vuex.Store({
   },
   
   mutations: {
+    SET_FAMILY_BOOKS(state, bookList){
+      state.books = bookList;
+    },
     SET_READINGLOG(state, activityLog) {
       state.readingLog = activityLog;
     },

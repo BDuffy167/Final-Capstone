@@ -23,7 +23,7 @@
             {{ book.authorLastName }}
           </td>
           <td>{{ book.isbn }}</td>
-          <td>{{ book.timeRead }}</td>
+          <td></td>
           <td><input type="checkbox" /></td>
         </tr>
       </tbody>
@@ -85,10 +85,10 @@ export default {
       };
   },
   created() {
-    BookService.get(this.$store.state.user.userId)
+    BookService.getFamilyBooks(this.$store.state.user.userId)
       .then((response) => {
         console.log(response);
-        this.$store.commit("SET_BOOK", response.data);
+        this.$store.commit("SET_FAMILY_BOOKS", response.data);
       })
       .catch((response) => {
         console.error(response);
@@ -99,7 +99,7 @@ export default {
       BookService.post(this.$store.state.user.userId, this.newBook)
         .then((response) => {
           console.log(response);
-          this.$store.commit("SET_BOOK", [response.data]);
+          this.$store.commit("SET_FAMILY_BOOKS", response.data);
         })
         .catch((response) => {
         console.error(response);

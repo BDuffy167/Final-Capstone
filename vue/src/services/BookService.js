@@ -2,7 +2,9 @@ import axios from 'axios';
 
 
 export default {
-
+    getFamilyBooks(familyId){
+        return axios.get(`/Book/${familyId}/GetFamilyBooks`);
+    },
    get(id){
        return axios.get(`/ReadingLog/${id}`);
    },
