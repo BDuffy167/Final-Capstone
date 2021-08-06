@@ -92,7 +92,10 @@ WHERE rl.user_id = @user_id;";
             return readingLogID;
 
         }
+        public List<BookHistoryObj> GetUserBookHistory(int userID)
+        {
 
+        }
 
         private int GetFormatID(string format)
         {

@@ -2,6 +2,30 @@
   <main>
     <h1>Activity List</h1>
     <div class="accordion">
+    <h2>Your Book List</h2>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Total Time</th>
+          <th>Completed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="book of allBooks" v-bind:key="book.bookId">
+          <td>{{ book.myBooks.title }}</td>
+          <td>
+            {{ book.myBooks.authorFirstName }}
+            {{ book.myBooks.authorLastName }}
+          </td>
+          <td>{{ book.myBooks.totalTime }}</td>
+          <td>{{ book.myBooks.isCompleted }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Your Reading History</h2>
     <table class="table table-hover">
       <thead>
         <tr>
@@ -144,6 +168,14 @@ export default {
         author: "",
         timeRead: "",
         formatType: "",
+      },
+      myBooks: {
+        bookId: 0,
+        title: "",
+        authorFirstName: "",
+        authorLastName: "",
+        totalTime: 0,
+        isCompleted: ""
       },
       newLog: {
         logID: 0,
