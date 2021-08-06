@@ -91,6 +91,10 @@ WHERE rl.user_id = @user_id;";
         {
             int readingLogID = 0;
             int formatID = GetFormatID(newLog.FormatType);
+            if (newLog.Note == null)
+            {
+                newLog.Note = "";
+            }
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {

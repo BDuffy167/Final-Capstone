@@ -5,7 +5,7 @@
   <div id="app" class="container position-absolute top-0 start-0">
     <!-- If you start to get random styling you don't like, remove container from this div -->
     <div
-      class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark"
+      class="d-flex flex-column flex-shrink-0 p-3 text-white"
       style="width: 280px"
       id = "sidebar"
     >
@@ -128,6 +128,7 @@ export default {
 <style>
 .nav-item {
   text-decoration: none;
+  color:beige;
 }
 
 #app {
@@ -135,9 +136,12 @@ export default {
   justify-content: flex-start;
   flex-wrap: nowrap;
   height: 100vh;
+  width: 100vw;
   max-height: 100vh;
   overflow-x: auto;
   overflow-y: auto;
+  background-color: #d7d7db;
+  font-family: 'Atkinson Hyperlegible', sans-serif;
   
 }
 
@@ -146,7 +150,9 @@ export default {
   align-items: space-around;
   justify-content: stretch;
   margin-right: 20px;
+  background-color: #0fa5db;
 }
+
 #routerView{
   
 }

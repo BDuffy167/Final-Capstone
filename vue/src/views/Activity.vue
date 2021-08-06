@@ -225,6 +225,14 @@ export default {
         .catch((respone) => {
           console.error(respone);
         });
+      BookService.getUserHistory(this.$store.state.user.userId)
+      .then((response) => {
+        console.log(response);
+        this.$store.commit("SET_USER_HISTORY", response.data)
+      })
+      .catch((response) => {
+        console.error(response);
+      });
     },
   },
 };
