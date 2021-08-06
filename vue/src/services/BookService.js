@@ -17,6 +17,25 @@ export default {
         authorLastName: newBook.authorLastName,
         isbn: newBook.isbn
        })
+   },
+   postLog(userId, newLog){
+       return axios.post(`/ReadingLog/${userId}/AddLog`,
+       {
+        logID: 0,
+        readerId: userId,
+        loggedBook: {
+          bookId: 0,
+          title: newLog.loggedBook.title,
+          authorFirstName: newLog.loggedBook.authorFirstName,
+          authorLastName:  newLog.loggedBook.authorLastName,
+          isbn: newLog.loggedBook.isbn
+        },
+        formatType: newLog.formatType,
+        timeRead: newLog.timeRead,
+        notes: [
+          "TestString"
+        ]
+       })
    }
 }
 //add(book)

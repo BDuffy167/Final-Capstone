@@ -41,8 +41,10 @@ namespace Capstone.Controllers
         }
 
         [HttpPost("{id}/AddLog")]
-        public ActionResult<ReadingLog> AddNewReadingLog(int id, ReadingLog newLog)
+        public ActionResult<List<ReadingLog>> AddNewReadingLog(int id, ReadingLog newLog)
         {
+            List<ReadingLog> toReturn = new List<ReadingLog>();
+
             int user_id = int.Parse(this.User.FindFirst("sub").Value);
             if(id == user_id)
             {
@@ -52,12 +54,14 @@ namespace Capstone.Controllers
                 {
                     bookId = bookDAO.AddNewBook(newLog.LoggedBook);
                     newLog.LogID = readingLogDAO.AddNewReadingLog(newLog, id, bookId);
-                    return Ok(newLog);
+                    toReturn = readingLogDAO.GetUserBooks(id);
+                    return Ok(toReturn);
                 }
                 else
                 {
                     newLog.LogID = readingLogDAO.AddNewReadingLog(newLog, id, bookId);
-                    return Ok(newLog);
+                    toReturn = readingLogDAO.GetUserBooks(id);
+                    return Ok(toReturn);
                 }
             }
             return Forbid();

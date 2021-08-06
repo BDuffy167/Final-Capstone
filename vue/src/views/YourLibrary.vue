@@ -51,7 +51,7 @@
         <label for="inputISBN" class="form-label">ISBN</label>
         <input type="text" class="form-control" id="inputISBN" v-model.number="newBook.isbn">
       </div>
-      <input type="submit" value="Save" class="col-md-1"> 
+      <input type="submit" value="Save" class="col-md-1" v-on:click ="isAddBookVisible = false"> 
       <input type="button" value="Cancel" class="col-md-1" v-on:click="isAddBookVisible = false">
     </form>
 

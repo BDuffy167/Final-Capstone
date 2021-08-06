@@ -6,6 +6,7 @@
         <tr>
           <th>Title</th>
           <th>Author</th>
+          <th>ISBN</th>
           <!-- firstname lastname concat -->
           <th>Time Read</th>
           <th>Format Type</th>
@@ -18,6 +19,7 @@
             {{ activity.loggedBook.authorFirstName }}
             {{ activity.loggedBook.authorLastName }}
           </td>
+          <td>{{activity.loggedBook.isbn}}</td>
           <td>{{ activity.timeRead }}</td>
           <td>{{ activity.formatType }}</td>
         </tr>
@@ -25,28 +27,37 @@
     </table>
     
     <button v-if="!showForm" v-on:click.prevent="showForm = true">Record Activity</button>
-  <form class="row g-3" v-show="showForm" v-on:submit.prevent="addToList">
+  <form class="row g-3" v-show="showForm" v-on:submit.prevent="addALog">
   <div class="col-12">
     <label for="Title" class="form-label">Book Title</label>
-    <input type="text" class="form-control" id="title" placeholder="Enter Book Title" >
+    <input type="text" class="form-control" id="title" placeholder="Enter Book Title" v-model="newLog.loggedBook.title">
   </div>
   <div class="col-md-6">
     <label for="Author" class="form-label">Author First</label>
-    <input type="text" class="form-control" id="authorFirstName">
+    <input type="text" class="form-control" id="authorFirstName" v-model="newLog.loggedBook.authorFirstName">
   </div>
   <div class="col-md-6">
     <label for="Author" class="form-label">Author Last</label>
-    <input type="text" class="form-control" id="authorLastName">
+    <input type="text" class="form-control" id="authorLastName" v-model="newLog.loggedBook.authorLastName">
   </div>
- 
-
+  <div class="col-md-4">
+    <label for="isbn" class="form-label">ISBN</label>
+    <input type="number" class="form-control" id="isbn" v-model.number="newLog.loggedBook.isbn">
+  </div>
   <div class="col-md-4">
     <label for="timeRead" class="form-label">Session Time</label>
-    <input type="number" class="form-control" id="timeRead" placeholder="minutes">
+    <input type="number" class="form-control" id="timeRead" placeholder="minutes" v-model.number="newLog.timeRead">
   </div>
-  <div class="col-md-6">
-    <label for="formatType" class="form-label">Book Type</label>
-    <input type="text" class="form-control" id="formatType">
+  <div class="col-md-4">
+    <label for="formatType" class="form-label" >Format</label>
+    <select class="form-control" id="formatSelect"  v-model="newLog.formatType">
+      <option>Paperback</option>
+      <option>Ebook</option>
+      <option>Audiobook</option>
+      <option>Read-Aloud (Reader)</option>
+      <option>Read-Aloud (Listener)</option>
+      <option>Other</option>
+    </select>
   </div>
   <div class="col-12">
     <div class="form-check">
@@ -57,7 +68,7 @@
     </div>
   </div>
   <div class="col-12">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <input type="submit" value="Save" class="col-md-1" v-on:click ="showForm = false"> 
   </div>
 </form>
   </main>
@@ -81,17 +92,27 @@ export default {
     return {
       showForm: false,
       filter: {
-        Title: "",
-        Author: "",
+        title: "",
+        author: "",
         timeRead: "",
         formatType: ""
       },
-      newItem: {
-        Title: "",
-        Author: "",
+      newLog: {
+        logID: 0,
+        readerId: null,
+        loggedBook: {
+          bookId: 0,
+          title: "",
+          authorFirstName: "",
+          authorLastName:  "",
+          isbn: 0
+        },
+        formatType: "",
         timeRead: "",
-        formatType: ""
-      },
+        notes: [
+          "TestString"
+        ]
+       },
       activityLog: [
         
       ]
@@ -108,10 +129,16 @@ export default {
       });
   },
   methods: {
-    // addToList(){
-    //   let itemToAdd = this.newItem;
-    //   this.
-    // }
+    addALog(){
+      BookService.postLog(this.$store.state.user.userId, this.newLog)
+        .then((response) => {
+          console.log(response);
+          this.$store.commit("SET_READINGLOG", response.data);
+        })
+        .catch((respone) => {
+          console.error(respone);
+        });
+    }
   },
 };
 </script>

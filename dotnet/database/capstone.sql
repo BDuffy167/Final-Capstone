@@ -117,5 +117,17 @@ INNER JOIN book b ON rl.book_id = b.book_id
 INNER JOIN reading_format rf ON rl.format_id = rf.format_id 
 WHERE rl.user_id = 1;
 
-
-SELECT book_id FROM book where isbn = 9780044403371
+SELECT
+	b.title,
+	b.author_firstName,
+	b.author_lastName,
+	SUM(rl.total_time) AS totalTime
+FROM
+	reading_log rl
+	INNER JOIN book b ON rl.book_id = b.book_id
+WHERE
+	rl.user_id = 1	
+GROUP BY
+	b.title,
+	b.author_firstName,
+	b.author_lastName
