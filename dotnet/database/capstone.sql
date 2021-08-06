@@ -71,11 +71,13 @@ CREATE TABLE reading_log(
 -- These values should not be kept when going to Production
 INSERT INTO users (username, password_hash, salt, user_role, family_library) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user', 1);
 INSERT INTO users (username, password_hash, salt, user_role, family_library) VALUES ('admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin', 1);
+
 INSERT INTO reading_format (format_type) VALUES ('Paperback'), ('ebook'), ('Audiobook'), ('Read-Aloud (Reader)'), ('Read-Aloud (Listener)'), ('Other');
+
 INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('HitchHikers Guide To the Galxy', 'Douglass', 'Adams', 9781529046137);
 INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('The Hobbit', 'J.R.R', 'Tolken', 9780044403371);
 INSERT INTO reading_log(user_id, book_id, format_id, total_time, notes, isCompleted)
-	VALUES (1, 1, 1, 30, 'book had words, would read again', 0), (1, 2, 1, 120, 'Hobbits, and Elves, and Dwarves, OH MY!', 0);
+	VALUES (1, 1, 1, 30, 'book had words, would read again', 1), (1, 2, 1, 120, 'Hobbits, and Elves, and Dwarves, OH MY!', 0);
 
 INSERT INTO family_library(library_id, book_id) VALUES (1, 1);
 GO
@@ -118,15 +120,31 @@ INNER JOIN reading_format rf ON rl.format_id = rf.format_id
 WHERE rl.user_id = 1;
 
 SELECT
-	b.title,
-	b.author_firstName,
-	b.author_lastName,
+	b.title as title,
+	b.author_firstName AS author_first,
+	b.author_lastName AS author_last,
 	SUM(rl.total_time) AS totalTime
 FROM
 	reading_log rl
 	INNER JOIN book b ON rl.book_id = b.book_id
 WHERE
 	rl.user_id = 1	
+GROUP BY
+	b.title,
+	b.author_firstName,
+	b.author_lastName
+
+SELECT
+	b.title as title,
+	b.author_firstName AS author_first,
+	b.author_lastName AS author_last,
+	SUM(rl.total_time) AS totalTime,
+	SUM(CAST (rl.isCompleted AS INT)) AS isCompleted
+FROM
+	reading_log rl
+	INNER JOIN book b on rl.book_id = b.book_id
+WHERE
+	rl.user_id = 1
 GROUP BY
 	b.title,
 	b.author_firstName,

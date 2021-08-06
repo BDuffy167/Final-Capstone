@@ -10,6 +10,22 @@ namespace Capstone.DAO
     public class ReadingLogDAO : IReadingLogDAO
     {
         private readonly string connectionString;
+        private readonly string sqlGetPersonalBook = @"SELECT
+	b.title as title,
+	b.author_firstName AS author_first,
+	b.author_lastName AS author_last,
+	SUM(rl.total_time) AS totalTime,
+	SUM(CAST (rl.isCompleted AS INT)) AS isCompleted
+FROM
+	reading_log rl
+	INNER JOIN book b on rl.book_id = b.book_id
+WHERE
+	rl.user_id = 1
+GROUP BY
+	b.title,
+	b.author_firstName,
+	b.author_lastName
+";
         private readonly string sqlGetUserBooks = @"SELECT
     rl.reading_log_id AS log_id,
 	rl.user_id AS user_id,
@@ -94,6 +110,20 @@ WHERE rl.user_id = @user_id;";
         }
         public List<BookHistoryObj> GetUserBookHistory(int userID)
         {
+            List<BookHistoryObj> bookHistory = new List<BookHistoryObj>();
+
+            using(SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sqlGetPersonalBook, conn);
+                cmd.Parameters.AddWithValue("@user_id", userID);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+            }
+
+            return bookHistory;
 
         }
 
