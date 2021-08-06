@@ -72,5 +72,22 @@ namespace Capstone.Controllers
             return Forbid();
         }
 
+        [HttpGet("/{id}/UserHistory")]
+        public ActionResult<List<BookHistoryObj>> GetUserBookHistory(int id)
+        {
+
+            int user_id = int.Parse(this.User.FindFirst("sub").Value);
+            if (id == user_id)
+            {
+                List<BookHistoryObj> toReturn = readingLogDAO.GetUserBookHistory(id);
+
+                return Ok(toReturn);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
     }
 }

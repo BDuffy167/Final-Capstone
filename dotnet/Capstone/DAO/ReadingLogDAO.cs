@@ -108,6 +108,7 @@ WHERE rl.user_id = @user_id;";
             return readingLogID;
 
         }
+
         public List<BookHistoryObj> GetUserBookHistory(int userID)
         {
             List<BookHistoryObj> bookHistory = new List<BookHistoryObj>();
@@ -120,9 +121,19 @@ WHERE rl.user_id = @user_id;";
                 cmd.Parameters.AddWithValue("@user_id", userID);
 
                 SqlDataReader reader = cmd.ExecuteReader();
+                while(reader.Read())
+                {
+                    BookHistoryObj bookLog = new BookHistoryObj();
+                    bookLog.Title = Convert.ToString(reader["title"]);
+                    bookLog.AuthorFirstName = Convert.ToString(reader["author_first"]);
+                    bookLog.AuthorLastName = Convert.ToString(reader["author_last"]);
+                    bookLog.TotalTime = Convert.ToInt32(reader["totalTime"]);
+                    bookLog.IsCompleted = Convert.ToInt32(reader["isCompleted"]);
+
+                    bookHistory.Add(bookLog);
+                }
 
             }
-
             return bookHistory;
 
         }

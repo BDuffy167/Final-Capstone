@@ -10,5 +10,6 @@ namespace Capstone.DAO
     {
         public List<ReadingLog> GetUserBooks(int id);
         public int AddNewReadingLog(ReadingLog newLog, int userID, int bookID);
+        public List<BookHistoryObj> GetUserBookHistory(int userID);
     }
 }
