@@ -15,4 +15,28 @@ namespace Capstone.Models
       
         
     }
+
+    public class BookHistoryObj : Book
+    {
+        public BookHistoryObj() : base() { }
+        public int TotalTime { get; set; }
+        public int IsCompleted { get; set; }
+        public string IsCompletedStr
+        {
+            get
+            {
+                if (this.IsCompleted == 1)
+                {
+                    return "Finished";
+                }
+                else
+                {
+                    return "Immersed";
+                }
+            }
+        }
+        
+        
+            
+    }
 }

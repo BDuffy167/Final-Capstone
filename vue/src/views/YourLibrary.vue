@@ -25,7 +25,7 @@
         </tr>
       </tbody>
     </table>
-    <div class="card" style="width: 18rem" v-for="book of allBooks" v-bind:key="book.logID">
+    <!-- <div class="card" style="width: 18rem" v-for="book of allBooks" v-bind:key="book.logID">
       <img
         src="../assets/Background.jpg"
         class="card-img-top"
@@ -38,7 +38,7 @@
         </p>
         <a href="#" class="btn btn-primary">Go somewhere</a>
       </div>
-    </div>
+    </div> -->
 
     <button
       v-if="!isAddBookVisible"

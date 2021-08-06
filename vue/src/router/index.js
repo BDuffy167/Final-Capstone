@@ -7,6 +7,7 @@ import Register from "../views/Register.vue";
 import store from "../store/index";
 import Activity from "../views/Activity.vue";
 import YourLibrary from "../views/YourLibrary.vue";
+import PersonalHistory from "../views/PersonalHistory.vue"
 
 
 Vue.use(Router);
@@ -44,6 +45,14 @@ const router = new Router({
       path: "/yourLibrary",
       name: "yourLibrary",
       component: YourLibrary,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/personalHistory",
+      name: "personalHistory",
+      component: PersonalHistory,
       meta: {
         requiresAuth: false
       }

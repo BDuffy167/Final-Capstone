@@ -16,7 +16,7 @@
         <svg class="bi me-2" width="40" height="32">
           <use xlink:href="#bootstrap"></use>
         </svg>
-        <span class="fs-4">Immersce</span>
+        <span class="fs-4">Immerse</span>
       </a>
       <hr />
       <div id="nav">
@@ -41,6 +41,18 @@
                 <use xlink:href="#speedometer2"></use>
               </svg>
               &nbsp;|&nbsp;Family Library
+            </router-link>
+          </li>
+          <li>
+            <router-link
+              class="nav-item"
+              v-bind:to="{ name: 'personalHistory' }"
+              v-if="$store.state.token"
+            >
+              <svg class="bi me-2" width="16" height="16">
+                <use xlink:href="#speedometer2"></use>
+              </svg>
+              &nbsp;|&nbsp;Reading History
             </router-link>
           </li>
           <li>
