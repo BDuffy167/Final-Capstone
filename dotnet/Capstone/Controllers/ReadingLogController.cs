@@ -44,6 +44,7 @@ namespace Capstone.Controllers
         public ActionResult<List<ReadingLog>> AddNewReadingLog(int id, ReadingLog newLog)
         {
             List<ReadingLog> toReturn = new List<ReadingLog>();
+            bool addedToFamily = false;
 
             int user_id = int.Parse(this.User.FindFirst("sub").Value);
             if(id == user_id)
@@ -53,12 +54,16 @@ namespace Capstone.Controllers
                 if(bookId == 0)
                 {
                     bookId = bookDAO.AddNewBook(newLog.LoggedBook);
+                    //TODO: change userID to family ID
+                    addedToFamily = bookDAO.AddToFamilyLibrary(bookId, user_id);
                     newLog.LogID = readingLogDAO.AddNewReadingLog(newLog, id, bookId);
                     toReturn = readingLogDAO.GetUserBooks(id);
                     return Ok(toReturn);
                 }
                 else
                 {
+                    //TODO: change userID to family ID
+                    addedToFamily = bookDAO.AddToFamilyLibrary(bookId, user_id);
                     newLog.LogID = readingLogDAO.AddNewReadingLog(newLog, id, bookId);
                     toReturn = readingLogDAO.GetUserBooks(id);
                     return Ok(toReturn);

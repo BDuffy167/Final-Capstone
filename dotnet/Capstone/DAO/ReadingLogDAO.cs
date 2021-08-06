@@ -19,7 +19,8 @@ namespace Capstone.DAO
 	b.author_lastName AS author_lastName,
 	rf.format_type AS format_type,
 	b.isbn AS isbn,
-	rl.total_time AS total_time
+	rl.total_time AS total_time,
+    rl.notes AS note
 FROM reading_log rl
 INNER JOIN book b ON rl.book_id = b.book_id
 INNER JOIN reading_format rf ON rl.format_id = rf.format_id
@@ -60,6 +61,7 @@ WHERE rl.user_id = @user_id;";
                     readinglog.LoggedBook.ISBN = Convert.ToInt64(reader["isbn"]);
                     readinglog.TimeRead = Convert.ToInt32(reader["total_time"]);
                     readinglog.FormatType = Convert.ToString(reader["format_type"]);
+                    readinglog.Note = Convert.ToString(reader["note"]);
                     readingLogs.Add(readinglog);
                 }
             }
@@ -81,7 +83,7 @@ WHERE rl.user_id = @user_id;";
                 cmd.Parameters.AddWithValue("@book_id", bookID);
                 cmd.Parameters.AddWithValue("@format_id", formatID);
                 cmd.Parameters.AddWithValue("@total_time", newLog.TimeRead);
-                cmd.Parameters.AddWithValue("@note", newLog.Notes[0]);
+                cmd.Parameters.AddWithValue("@note", newLog.Note);
                 cmd.Parameters.AddWithValue("@isCOmpleted", 0);
 
                 readingLogID = Convert.ToInt32(cmd.ExecuteScalar());

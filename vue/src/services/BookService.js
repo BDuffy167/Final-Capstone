@@ -32,9 +32,7 @@ export default {
         },
         formatType: newLog.formatType,
         timeRead: newLog.timeRead,
-        notes: [
-          "TestString"
-        ]
+        note: newLog.note
        })
    }
 }

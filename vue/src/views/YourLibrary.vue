@@ -1,10 +1,7 @@
 <template>
   <main>
-    <h1>BOOKS ARE COOL KIDS!!!!!!!!!!!!!!!!!!!</h1>
-
-    
-
-    <table class="bookTable ">
+    <h1>The Family Library</h1>
+    <table class="table table-hover">
       <thead>
         <tr>
           <th>Title</th>

@@ -12,7 +12,7 @@ namespace Capstone.Models
         public Book LoggedBook { get; set; } = new Book();
         public string FormatType { get; set; }
         public int TimeRead { get; set; }
-        public List<string> Notes { get; set; }
+        public string Note { get; set; }
 
     }
 }
