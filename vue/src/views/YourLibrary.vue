@@ -25,33 +25,87 @@
         </tr>
       </tbody>
     </table>
+    <div class="card" style="width: 18rem" v-for="book of allBooks" v-bind:key="book.logID">
+      <img
+        src="../assets/Background.jpg"
+        class="card-img-top"
+        alt="Some Books"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{book.title}}</h5>
+        <p class="card-text">
+          {{book.authorFirstName}} {{}}
+        </p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
 
-    <button v-if="!isAddBookVisible" v-on:click.prevent="isAddBookVisible = true">Add a Book</button>
+    <button
+      v-if="!isAddBookVisible"
+      v-on:click.prevent="isAddBookVisible = true"
+    >
+      Add a Book
+    </button>
 
-    <form id="addBookForm"
-        class="row g-3"
-        v-show="isAddBookVisible" 
-        v-on:submit.prevent="addABook">
+    <form
+      id="addBookForm"
+      class="row g-3"
+      v-show="isAddBookVisible"
+      v-on:submit.prevent="addABook"
+    >
       <div class="col-12">
         <label for="inputTitle" class="form-label">Title</label>
-        <input type="text" class="form-control" id="inputTitle" v-model="newBook.title">
+        <input
+          type="text"
+          class="form-control"
+          id="inputTitle"
+          v-model="newBook.title"
+        />
       </div>
       <div class="col-md-4">
-        <label for="inputAuthorFirstName" class="form-label">Author's First Name</label>
-        <input type="text" class="form-control" id="inputAuthorFirstName" v-model="newBook.authorFirstName">
+        <label for="inputAuthorFirstName" class="form-label"
+          >Author's First Name</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="inputAuthorFirstName"
+          v-model="newBook.authorFirstName"
+        />
       </div>
       <div class="col-md-4">
-        <label for="inputAuthorLastName" class="form-label">Author's Last Name</label>
-        <input type="text" class="form-control" id="inputAuthorLastName" v-model="newBook.authorLastName">
+        <label for="inputAuthorLastName" class="form-label"
+          >Author's Last Name</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="inputAuthorLastName"
+          v-model="newBook.authorLastName"
+        />
       </div>
       <div class="col-md-4">
         <label for="inputISBN" class="form-label">ISBN</label>
-        <input type="text" class="form-control" id="inputISBN" v-model.number="newBook.isbn">
+        <input
+          type="text"
+          class="form-control"
+          id="inputISBN"
+          v-model.number="newBook.isbn"
+        />
       </div>
-      <input type="submit" value="Save" class="col-md-1" v-on:click ="isAddBookVisible = false"> 
-      <input type="button" value="Cancel" class="col-md-1" v-on:click="isAddBookVisible = false">
+      <input
+        type="submit"
+        value="Save"
+        class="col-md-1"
+        v-on:click="isAddBookVisible = false"
+      />
+      <input
+        type="button"
+        value="Cancel"
+        class="col-md-1"
+        v-on:click="isAddBookVisible = false"
+      />
     </form>
-
   </main>
 </template>
 
@@ -66,20 +120,19 @@ export default {
   computed: {
     allBooks() {
       return this.$store.state.books;
-    }
+    },
   },
   data() {
-      return {
-        isAddBookVisible: false,
-        newBook: {
-          bookId: null,
-          title: "",
-          authorFirstName: "",
-          authorLastName: "",
-          isbn: null
-        }
-
-      };
+    return {
+      isAddBookVisible: false,
+      newBook: {
+        bookId: null,
+        title: "",
+        authorFirstName: "",
+        authorLastName: "",
+        isbn: null,
+      },
+    };
   },
   created() {
     BookService.getFamilyBooks(this.$store.state.user.userId)
@@ -99,11 +152,11 @@ export default {
           this.$store.commit("SET_FAMILY_BOOKS", response.data);
         })
         .catch((response) => {
-        console.error(response);
-      });
-    }
-  }
-}
+          console.error(response);
+        });
+    },
+  },
+};
 </script>
 
 <style scoped>
