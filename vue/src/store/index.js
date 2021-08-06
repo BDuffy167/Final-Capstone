@@ -24,12 +24,16 @@ export default new Vuex.Store({
   state: {
     readingLog: [],
     books: [],
+    userHistory: [],
     token: currentToken || '',
     user: currentUser || {} // If a user is an admin, their user.role will be 'admin'
     
   },
   
   mutations: {
+    SET_USER_HISTORY(state, userBooks){
+      state.userHistory = userBooks;
+    },
     SET_FAMILY_BOOKS(state, bookList){
       state.books = bookList;
     },

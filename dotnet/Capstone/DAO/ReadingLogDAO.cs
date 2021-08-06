@@ -11,6 +11,7 @@ namespace Capstone.DAO
     {
         private readonly string connectionString;
         private readonly string sqlGetPersonalBook = @"SELECT
+    b.book_id AS bookID,
 	b.title as title,
 	b.author_firstName AS author_first,
 	b.author_lastName AS author_last,
@@ -22,6 +23,7 @@ FROM
 WHERE
 	rl.user_id = 1
 GROUP BY
+    b.book_id,
 	b.title,
 	b.author_firstName,
 	b.author_lastName
@@ -124,6 +126,7 @@ WHERE rl.user_id = @user_id;";
                 while(reader.Read())
                 {
                     BookHistoryObj bookLog = new BookHistoryObj();
+                    bookLog.BookId = Convert.ToInt32(reader["bookID"]);
                     bookLog.Title = Convert.ToString(reader["title"]);
                     bookLog.AuthorFirstName = Convert.ToString(reader["author_first"]);
                     bookLog.AuthorLastName = Convert.ToString(reader["author_last"]);

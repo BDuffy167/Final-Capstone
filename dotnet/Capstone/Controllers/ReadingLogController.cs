@@ -72,7 +72,7 @@ namespace Capstone.Controllers
             return Forbid();
         }
 
-        [HttpGet("/{id}/UserHistory")]
+        [HttpGet("{id}/UserHistory")]
         public ActionResult<List<BookHistoryObj>> GetUserBookHistory(int id)
         {
 

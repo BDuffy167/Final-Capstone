@@ -13,14 +13,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="book of allBooks" v-bind:key="book.bookId">
-          <td>{{ book.myBooks.title }}</td>
+        <tr v-for="book of allMyBooks" v-bind:key="book.bookId">
+          <td>{{ book.title }}</td>
           <td>
-            {{ book.myBooks.authorFirstName }}
-            {{ book.myBooks.authorLastName }}
+            {{ book.authorFirstName }}
+            {{ book.authorLastName }}
           </td>
-          <td>{{ book.myBooks.totalTime }}</td>
-          <td>{{ book.myBooks.isCompleted }}</td>
+          <td>{{ book.totalTime }}</td>
+          <td>{{ book.isCompleted }}</td>
         </tr>
       </tbody>
     </table>
@@ -159,6 +159,9 @@ export default {
     allActivity() {
       return this.$store.state.readingLog;
     },
+    allMyBooks(){
+      return this.$store.state.userHistory;
+    }
   },
   data() {
     return {
@@ -199,6 +202,14 @@ export default {
       .then((response) => {
         console.log(response);
         this.$store.commit("SET_READINGLOG", response.data);
+      })
+      .catch((response) => {
+        console.error(response);
+      });
+      BookService.getUserHistory(this.$store.state.user.userId)
+      .then((response) => {
+        console.log(response);
+        this.$store.commit("SET_USER_HISTORY", response.data)
       })
       .catch((response) => {
         console.error(response);

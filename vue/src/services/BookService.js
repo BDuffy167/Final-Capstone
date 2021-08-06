@@ -34,7 +34,11 @@ export default {
         timeRead: newLog.timeRead,
         note: newLog.note
        })
-   }
+   },
+   getUserHistory(userId){
+       return axios.get(`/ReadingLog/${userId}/UserHistory`);
+       
+   },
 }
 //add(book)
 //get(notes)--display notes
