@@ -40,6 +40,7 @@
               <svg class="bi me-2" width="16" height="16">
                 <use xlink:href="#speedometer2"></use>
               </svg>
+              <i class="fas fa-book-open"></i>
               &nbsp;|&nbsp;Family Library
             </router-link>
           </li>
@@ -88,6 +89,7 @@
               <svg class="bi me-2" width="16" height="16">
                 <use xlink:href="#table"></use>
               </svg>
+              <i class="fas fa-book-reader"></i>
               &nbsp;|&nbsp;Activity
             </router-link>
           </li>
