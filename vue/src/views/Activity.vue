@@ -1,6 +1,6 @@
 <template>
   <main>
-    <h1>Activity List</h1>
+    <h1>Reading History</h1>
     <div class="accordion">
     <h2>Your Book List</h2>
     <table class="table table-hover">

@@ -1,6 +1,6 @@
 <template>
   <main>
-    <h1>Reading History</h1>
+    <h1>Personal Library</h1>
     <table class="table table-hover">
       <thead>
         <tr>
