@@ -134,7 +134,7 @@ export default {
 #app {
   display: flex;
   justify-content: flex-start;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   height: 100vh;
   width: 100vw;
   max-height: 100vh;
