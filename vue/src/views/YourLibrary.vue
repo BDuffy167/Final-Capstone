@@ -1,30 +1,7 @@
 <template>
   <main>
     <h1>The Family Library</h1>
-    <!-- <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Author</th>
-          <th>ISBN</th>
-          <th>Minutes Read</th>
-          <th>Completed</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="book of allBooks" v-bind:key="book.logID">
-          <td>{{ book.title }}</td>
-          <td>
-            {{ book.authorFirstName }}
-            {{ book.authorLastName }}
-          </td>
-          <td>{{ book.isbn }}</td>
-          <td></td>
-          <td><input type="checkbox" /></td>
-        </tr>
-      </tbody>
-    </table> -->
-    <div class="card" style="width: 18rem" v-for="book of allBooks" v-bind:key="book.logID">
+    <div class="card bookList" style="width: 18rem" v-for="book of allBooks" v-bind:key="book.logID">
       <img v-if="book.isbn" v-bind:src="'http://covers.openlibrary.org/b/isbn/' + book.isbn + '-M.jpg'" />
       <div class="card-body">
         <h5 class="card-title">{{book.title}}</h5>
