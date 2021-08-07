@@ -2,7 +2,7 @@
      Note that you have classes from bootstrap available to you.
      See https://getbootstrap.com/docs/4.5/getting-started/introduction/ for reference on bootstrap -->
 <template>
-  <div id="app" class="container position-absolute top-0 start-0">
+  <div id="app" class="position-absolute top-0 start-0">
     <!-- If you start to get random styling you don't like, remove container from this div -->
     <div
       class="d-flex flex-column flex-shrink-0 p-3 text-white"
@@ -154,6 +154,7 @@ export default {
 }
 
 #routerView{
+
   
 }
 
