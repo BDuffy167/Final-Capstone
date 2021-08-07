@@ -1,14 +1,26 @@
 <template>
   <main>
     <h1>The Family Library</h1>
-    <div class="card bookList" style="width: 18rem" v-for="book of allBooks" v-bind:key="book.logID">
-      <img v-if="book.isbn" v-bind:src="'http://covers.openlibrary.org/b/isbn/' + book.isbn + '-M.jpg'" />
-      <div class="card-body">
-        <h5 class="card-title">{{book.title}}</h5>
-        <p class="card-text">
-          {{book.authorFirstName}} {{book.authorLastName}}
-        </p>
-        <a href="#" class="btn btn-primary">Add to library</a>
+    <div class="bookList">
+      <div
+        class="card cardStyling"
+        style="width: 18rem"
+        v-for="book of allBooks"
+        v-bind:key="book.logID"
+      >
+        <img
+          v-if="book.isbn"
+          v-bind:src="
+            'http://covers.openlibrary.org/b/isbn/' + book.isbn + '-M.jpg'
+          "
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{ book.title }}</h5>
+          <p class="card-text">
+            {{ book.authorFirstName }} {{ book.authorLastName }}
+          </p>
+          <a href="#" class="btn btn-primary">Add to library</a>
+        </div>
       </div>
     </div>
 
@@ -135,9 +147,17 @@ export default {
 h1 {
   text-align: center;
 }
-.bookTable {
-  margin-left: auto;
-  margin-right: auto;
+.bookList {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.cardStyling{
+  border-radius: 10px;
+    width: 250px;
+    height: 550px;
+    margin: 20px;
 }
 td,
 th {
