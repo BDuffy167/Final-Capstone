@@ -31,7 +31,6 @@
         <tr>
           <th>Title</th>
           <th>Author</th>
-          <th>ISBN</th>
           <!-- firstname lastname concat -->
           <th>Time Read</th>
           <th>Format Type</th>
@@ -45,7 +44,6 @@
             {{ activity.loggedBook.authorFirstName }}
             {{ activity.loggedBook.authorLastName }}
           </td>
-          <td>{{ activity.loggedBook.isbn }}</td>
           <td>{{ activity.timeRead }}</td>
           <td>{{ activity.formatType }}</td>
           <td>{{activity.note}}</td>
@@ -244,6 +242,9 @@ div {
 }
 h1 {
   text-align: center;
+}
+table{
+  background-color: #dbdbd7;
 }
 .readingActivityTable {
   margin-left: auto;
