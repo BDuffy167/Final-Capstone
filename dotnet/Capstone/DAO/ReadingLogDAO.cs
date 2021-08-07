@@ -15,6 +15,7 @@ namespace Capstone.DAO
 	b.title as title,
 	b.author_firstName AS author_first,
 	b.author_lastName AS author_last,
+    b.isbn AS isbn,
 	SUM(rl.total_time) AS totalTime,
 	SUM(CAST (rl.isCompleted AS INT)) AS isCompleted
 FROM
@@ -26,7 +27,8 @@ GROUP BY
     b.book_id,
 	b.title,
 	b.author_firstName,
-	b.author_lastName
+	b.author_lastName,
+    b.isbn
 ";
         private readonly string sqlGetUserBooks = @"SELECT
     rl.reading_log_id AS log_id,
@@ -134,6 +136,7 @@ WHERE rl.user_id = @user_id;";
                     bookLog.Title = Convert.ToString(reader["title"]);
                     bookLog.AuthorFirstName = Convert.ToString(reader["author_first"]);
                     bookLog.AuthorLastName = Convert.ToString(reader["author_last"]);
+                    bookLog.ISBN = Convert.ToInt64(reader["isbn"]);
                     bookLog.TotalTime = Convert.ToInt32(reader["totalTime"]);
                     bookLog.IsCompleted = Convert.ToInt32(reader["isCompleted"]);
 

@@ -12,7 +12,6 @@
 <script>
 import Activity from "./views/Activity.vue";
 import ToolBar from "./components/ToolBar.vue";
-//import BookList from './components/BookList.vue';
 export default {
   components: { ToolBar },
   name: "app",

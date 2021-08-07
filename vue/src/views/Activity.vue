@@ -146,7 +146,6 @@
 
 <script>
 import BookService from "../services/BookService.js";
-//import BookList from "../components/BookList.vue";
 
 export default {
   name: "activity",
@@ -242,6 +241,7 @@ div {
 }
 h1 {
   text-align: center;
+  background-color: #dbdbd7;
 }
 table{
   background-color: #dbdbd7;
