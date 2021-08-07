@@ -1,13 +1,12 @@
 <template>
   <main>
     <h1>The Family Library</h1>
-    <table class="table table-hover">
+    <!-- <table class="table table-hover">
       <thead>
         <tr>
           <th>Title</th>
           <th>Author</th>
           <th>ISBN</th>
-          <!-- maybe? -->
           <th>Minutes Read</th>
           <th>Completed</th>
         </tr>
@@ -24,21 +23,17 @@
           <td><input type="checkbox" /></td>
         </tr>
       </tbody>
-    </table>
-    <!-- <div class="card" style="width: 18rem" v-for="book of allBooks" v-bind:key="book.logID">
-      <img
-        src="../assets/Background.jpg"
-        class="card-img-top"
-        alt="Some Books"
-      />
+    </table> -->
+    <div class="card" style="width: 18rem" v-for="book of allBooks" v-bind:key="book.logID">
+      <img v-if="book.isbn" v-bind:src="'http://covers.openlibrary.org/b/isbn/' + book.isbn + '-M.jpg'" />
       <div class="card-body">
         <h5 class="card-title">{{book.title}}</h5>
         <p class="card-text">
           {{book.authorFirstName}} {{book.authorLastName}}
         </p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <a href="#" class="btn btn-primary">Add to library</a>
       </div>
-    </div> -->
+    </div>
 
     <button
       v-if="!isAddBookVisible"
