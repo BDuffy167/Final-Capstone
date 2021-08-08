@@ -22,6 +22,19 @@ FROM
 	INNER JOIN book b ON fl.book_id = b.book_id
 WHERE
 	library_id = @libID";
+        private readonly string sqlGetPersonalLibrary = @"SELECT
+	pl.id AS pl_id,
+	b.title AS title,
+	b.author_firstName AS a_first,
+	b.author_lastName AS a_last,
+	b.isbn AS isbn,
+	pl.isCompleted AS is_completed
+FROM
+	personal_library pl
+	INNER JOIN users u ON pl.user_id = u.user_id
+	INNER JOIN book b ON pl.book_id = b.book_id
+WHERE
+	u.user_id = @userId";
 
         private readonly string connectionString;
 
@@ -165,7 +178,7 @@ WHERE
             {
                 conn.Open();
 
-                SqlCommand cmd = new SqlCommand(@sqlGetFamilyBooks, conn);
+                SqlCommand cmd = new SqlCommand(sqlGetFamilyBooks, conn);
                 cmd.Parameters.AddWithValue("@libID", familyID);
 
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -185,6 +198,37 @@ WHERE
                 return books;
 
             }
+        }
+        
+        public List<PersonalBook> GetPersonalBooks(int userId)
+        {
+            List<PersonalBook> books = new List<PersonalBook>();
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sqlGetPersonalLibrary, conn);
+                cmd.Parameters.AddWithValue("@userId", userId);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    PersonalBook book = new PersonalBook();
+                    book.PersnalLibraryId = Convert.ToInt32(reader["pl_id"]);
+                    book.Title = Convert.ToString(reader["title"]);
+                    book.AuthorFirstName = Convert.ToString(reader["a_first"]);
+                    book.AuthorLastName = Convert.ToString(reader["a_last"]);
+                    book.ISBN = Convert.ToInt64(reader["isbn"]);
+                    book.IsCompleted = Convert.ToInt32(reader["is_completed"]);
+
+                    books.Add(book);
+                   
+
+                }
+            }
+
+            return books;
         }
     }
 }

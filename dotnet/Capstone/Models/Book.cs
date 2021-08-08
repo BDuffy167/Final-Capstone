@@ -16,11 +16,12 @@ namespace Capstone.Models
         
     }
 
-    public class BookHistoryObj : Book
+    public class PersonalBook : Book
     {
-        public BookHistoryObj() : base() { }
-        public int TotalTime { get; set; }
+        public PersonalBook() : base() { }
+        public int PersnalLibraryId { get; set; }
         public int IsCompleted { get; set; }
+
         public string IsCompletedStr
         {
             get
@@ -35,7 +36,13 @@ namespace Capstone.Models
                 }
             }
         }
-        
+
+    }
+    public class BookHistoryObj : PersonalBook
+    {
+        public BookHistoryObj() : base() { }
+        public int TotalTime { get; set; }
+       
         
             
     }

@@ -89,17 +89,17 @@ INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('The H
 INSERT INTO personal_library(user_id, book_id, isCompleted) VALUES (2, 1, 1), (2, 2, 0)
 
 INSERT INTO family_library(library_id, book_id) VALUES (1, 1);
-INSERT INTO reading_log(personal_book_id, format_id, total_time, notes) VALUES (3, 1, 30, 'foo'), (4, 2, 1, 'buzz!');
+INSERT INTO reading_log(personal_book_id, format_id, total_time, notes) VALUES (1, 1, 30, 'foo'), (1, 2, 1, 'buzz!');
 GO
 
 --User views personal library
 SELECT
-	pl.id,
-	b.title,
-	b.author_firstName,
-	b.author_lastName,
-	b.isbn,
-	pl.isCompleted
+	pl.id AS pl_id,
+	b.title AS title,
+	b.author_firstName AS a_first,
+	b.author_lastName AS a_last,
+	b.isbn AS isbn,
+	pl.isCompleted AS is_completed
 FROM
 	personal_library pl
 	INNER JOIN users u ON pl.user_id = u.user_id

@@ -91,6 +91,18 @@ namespace Capstone.Controllers
 
 
         }
+        [HttpGet("{userId}/GetPersonalBooks")]
+        public ActionResult<List<PersonalBook>> GetPersonalBooks(int userId)
+        {
+            int user_id = int.Parse(this.User.FindFirst("sub").Value);
+            if (userId == user_id)
+            {
 
+                List<PersonalBook> BookItems = bookDAO.GetPersonalBooks(userId);
+                
+                return Ok(BookItems);
+            }
+            return Forbid();
+        }
     }
 }
