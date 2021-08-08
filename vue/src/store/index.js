@@ -23,11 +23,11 @@ if(currentToken && currentToken != 'undefined') {
 export default new Vuex.Store({
   state: {
     readingLog: [],
-    books: [],
+    books: [], // figure out where this goes, to name it better
     userHistory: [],
     token: currentToken || '',
-    user: currentUser || {} // If a user is an admin, their user.role will be 'admin'
-    
+    user: currentUser || {}, // If a user is an admin, their user.role will be 'admin'
+    userBooks: []
   },
   
   mutations: {
@@ -42,6 +42,9 @@ export default new Vuex.Store({
     },
     SET_BOOK(state, books) {
       state.books = books;
+    },
+    SET_PERSONAL_LIBRARY(state, books) {
+      state.userBooks = books;
     },
     SET_AUTH_TOKEN(state, token) {
       state.token = token;

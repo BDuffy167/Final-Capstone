@@ -39,6 +39,9 @@ export default {
        return axios.get(`/ReadingLog/${userId}/UserHistory`);
        
    },
+   getPersonalLibrary(userId) {
+       return axios.get(`Book/${userId}/GetPersonalBooks`);
+   }
 }
 //add(book)
 //get(notes)--display notes
