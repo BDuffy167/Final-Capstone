@@ -86,10 +86,49 @@ INSERT INTO reading_format (format_type) VALUES ('Paperback'), ('ebook'), ('Audi
 INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('HitchHikers Guide To the Galxy', 'Douglass', 'Adams', 9781529046137);
 INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('The Hobbit', 'J.R.R', 'Tolken', 9780044403371);
 
-INSERT INTO personal_library(user_id, book_id, isCompleted) VALUES (1, 1, 0), (1,2, 0)
+INSERT INTO personal_library(user_id, book_id, isCompleted) VALUES (2, 1, 1), (2, 2, 0)
 
 INSERT INTO family_library(library_id, book_id) VALUES (1, 1);
+INSERT INTO reading_log(personal_book_id, format_id, total_time, notes) VALUES (3, 1, 30, 'foo'), (4, 2, 1, 'buzz!');
 GO
+
+--User views personal library
+SELECT
+	pl.id,
+	b.title,
+	b.author_firstName,
+	b.author_lastName,
+	b.isbn,
+	pl.isCompleted
+FROM
+	personal_library pl
+	INNER JOIN users u ON pl.user_id = u.user_id
+	INNER JOIN book b ON pl.book_id = b.book_id
+WHERE
+	u.user_id = 2; --make dynamic
+
+--User views personal reading log
+SELECT
+	b.title,
+	b.author_firstName,
+	b.author_lastName,
+	b.isbn,
+	rl.total_time,
+	rf.format_type,
+	rl.notes,
+	pl.isCompleted
+FROM
+	reading_log rl
+	INNER JOIN personal_library pl ON rl.personal_book_id = pl.ID
+	INNER JOIN book b ON pl.book_id = b.book_id
+	INNER JOIN reading_format rf ON rl.format_id = rf.format_id
+WHERE
+	pl.user_id = 2;
+
+
+
+
+
 
 SELECT * FROM personal_library
 SELECT * FROM book
