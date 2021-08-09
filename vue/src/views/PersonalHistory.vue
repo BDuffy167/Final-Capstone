@@ -37,7 +37,7 @@ export default {
   },
   computed: {
     allBooks() {
-      return this.$store.state.books;
+      return this.$store.state.userBooks;
   },
   },
   data() {
@@ -63,4 +63,28 @@ export default {
 </script>
 
 <style>
+h1 {
+  text-align: center;
+}
+.bookList {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.cardStyling{
+  border-radius: 10px;
+    width: 250px;
+    height: 550px;
+    margin: 20px;
+}
+td,
+th {
+  padding: 0.5em;
+  text-align: center;
+}
+th {
+  border: 2px solid black;
+}
+
 </style>

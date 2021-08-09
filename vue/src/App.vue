@@ -45,8 +45,9 @@ export default {
 }
 
 
-#routerView{
 
+#routerView > h1{
+   background-color: #d7d7db;
   
 }
 
