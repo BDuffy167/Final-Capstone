@@ -38,15 +38,16 @@ export default {
   overflow-x: auto;
   overflow-y: auto;
   background-color: #d7d7db;
-  background-image: url("assets/Background.jpg");
+  /*background-image: url("assets/Background.jpg");*/
   background-size: cover;
   font-family: 'Atkinson Hyperlegible', sans-serif;
   
 }
 
 
-#routerView{
 
+#routerView > h1{
+   background-color: #d7d7db;
   
 }
 

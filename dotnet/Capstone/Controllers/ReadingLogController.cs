@@ -26,7 +26,7 @@ namespace Capstone.Controllers
 
         
         [HttpGet("{id}")]
-        public ActionResult<List<ReadingLog>> GetUserBooks(int id)
+        public ActionResult<List<ReadingLog>> GetUserReadingLogs(int id)
         {
             int user_id = int.Parse(this.User.FindFirst("sub").Value);
 

@@ -10,19 +10,20 @@ namespace Capstone.DAO
     public class ReadingLogDAO : IReadingLogDAO
     {
         private readonly string connectionString;
-        private readonly string sqlGetPersonalBook = @"SELECT
+        private readonly string sqlGetTotaledReadingLog = @"SELECT
     b.book_id AS bookID,
 	b.title as title,
 	b.author_firstName AS author_first,
 	b.author_lastName AS author_last,
     b.isbn AS isbn,
 	SUM(rl.total_time) AS totalTime,
-	SUM(CAST (rl.isCompleted AS INT)) AS isCompleted
+	SUM(CAST (pl.isCompleted AS INT)) AS isCompleted
 FROM
 	reading_log rl
-	INNER JOIN book b on rl.book_id = b.book_id
+	INNER JOIN personal_library pl ON rl.personal_library_id = pl.ID
+	INNER JOIN book b ON pl.book_id = b.book_id
 WHERE
-	rl.user_id = 1
+	pl.user_id = @user_id
 GROUP BY
     b.book_id,
 	b.title,
@@ -30,21 +31,25 @@ GROUP BY
 	b.author_lastName,
     b.isbn
 ";
-        private readonly string sqlGetUserBooks = @"SELECT
+        private readonly string sqlGetLineItemReadingLogs = @"SELECT
     rl.reading_log_id AS log_id,
-	rl.user_id AS user_id,
+    pl.user_id AS user_id,
+    b.book_id AS book_id,
 	b.title AS title,
-	b.book_id AS book_id,
-	b.author_firstName AS author_firstName,
-	b.author_lastName AS author_lastName,
-	rf.format_type AS format_type,
+	b.author_firstName AS author_first,
+	b.author_lastName AS author_last,
 	b.isbn AS isbn,
 	rl.total_time AS total_time,
-    rl.notes AS note
-FROM reading_log rl
-INNER JOIN book b ON rl.book_id = b.book_id
-INNER JOIN reading_format rf ON rl.format_id = rf.format_id
-WHERE rl.user_id = @user_id;";
+	rf.format_type AS format_type,
+	rl.notes AS note,
+	pl.isCompleted AS isCompleted
+FROM
+	reading_log rl
+	INNER JOIN personal_library pl ON rl.personal_library_id = pl.ID
+	INNER JOIN book b ON pl.book_id = b.book_id
+	INNER JOIN reading_format rf ON rl.format_id = rf.format_id
+WHERE
+	pl.user_id = @user_id;";
 
         private readonly string sqlCheckIfBookByISBN = @"SELECT book_Id FROM book WHERE isbn = @isbn";
         private readonly string sqlAddBookLog = @"INSERT INTO reading_log(user_id, book_id, format_id, total_time, notes, isCompleted)
@@ -63,7 +68,7 @@ WHERE rl.user_id = @user_id;";
             {
                 conn.Open();
 
-                SqlCommand cmd = new SqlCommand(sqlGetUserBooks, conn);
+                SqlCommand cmd = new SqlCommand(sqlGetLineItemReadingLogs, conn);
                 cmd.Parameters.AddWithValue("@user_id", id);
 
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -76,8 +81,8 @@ WHERE rl.user_id = @user_id;";
                     readinglog.ReaderId = Convert.ToInt32(reader["user_id"]);
                     readinglog.LoggedBook.BookId = Convert.ToInt32(reader["book_id"]);
                     readinglog.LoggedBook.Title = Convert.ToString(reader["title"]);
-                    readinglog.LoggedBook.AuthorFirstName = Convert.ToString(reader["author_firstName"]);
-                    readinglog.LoggedBook.AuthorLastName = Convert.ToString(reader["author_lastName"]);
+                    readinglog.LoggedBook.AuthorFirstName = Convert.ToString(reader["author_first"]);
+                    readinglog.LoggedBook.AuthorLastName = Convert.ToString(reader["author_last"]);
                     readinglog.LoggedBook.ISBN = Convert.ToInt64(reader["isbn"]);
                     readinglog.TimeRead = Convert.ToInt32(reader["total_time"]);
                     readinglog.FormatType = Convert.ToString(reader["format_type"]);
@@ -125,7 +130,7 @@ WHERE rl.user_id = @user_id;";
             {
                 conn.Open();
 
-                SqlCommand cmd = new SqlCommand(sqlGetPersonalBook, conn);
+                SqlCommand cmd = new SqlCommand(sqlGetTotaledReadingLog, conn);
                 cmd.Parameters.AddWithValue("@user_id", userID);
 
                 SqlDataReader reader = cmd.ExecuteReader();

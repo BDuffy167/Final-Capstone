@@ -24,6 +24,7 @@ WHERE
 	library_id = @libID";
         private readonly string sqlGetPersonalLibrary = @"SELECT
 	pl.id AS pl_id,
+    b.book_id AS book_id,
 	b.title AS title,
 	b.author_firstName AS a_first,
 	b.author_lastName AS a_last,
@@ -216,6 +217,7 @@ WHERE
                 {
                     PersonalBook book = new PersonalBook();
                     book.PersnalLibraryId = Convert.ToInt32(reader["pl_id"]);
+                    book.BookId = Convert.ToInt32(reader["book_id"]);
                     book.Title = Convert.ToString(reader["title"]);
                     book.AuthorFirstName = Convert.ToString(reader["a_first"]);
                     book.AuthorLastName = Convert.ToString(reader["a_last"]);

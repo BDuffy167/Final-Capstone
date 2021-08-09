@@ -66,13 +66,13 @@ CREATE TABLE personal_library(
 
 CREATE TABLE reading_log(
 	reading_log_id int IDENTITY(1,1) NOT NULL,
-	personal_book_id int NOT NULL,
+	personal_library_id int NOT NULL,
 	format_id int NOT NULL,
 	total_time int NOT NULL,
 	notes varchar(255)
 
 	CONSTRAINT PK_reading_id PRIMARY KEY (reading_log_id),
-	CONSTRAINT fk_pl_id FOREIGN KEY (personal_book_id) REFERENCES personal_library(id),
+	CONSTRAINT fk_pl_id FOREIGN KEY (personal_library_id) REFERENCES personal_library(id),
 	CONSTRAINT FK_formatID FOREIGN KEY (format_id) REFERENCES reading_format(format_id)
 )
 
@@ -84,12 +84,13 @@ INSERT INTO users (username, password_hash, salt, user_role, family_library) VAL
 INSERT INTO reading_format (format_type) VALUES ('Paperback'), ('ebook'), ('Audiobook'), ('Read-Aloud (Reader)'), ('Read-Aloud (Listener)'), ('Other');
 
 INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('HitchHikers Guide To the Galxy', 'Douglass', 'Adams', 9781529046137);
-INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('The Hobbit', 'J.R.R', 'Tolken', 9780044403371);
+INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('The Hobbit', 'J.R.R', 'Tolken', 9780345253422);
+INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('Dune', 'Frank', 'Herbert', 9780425027066)
 
 INSERT INTO personal_library(user_id, book_id, isCompleted) VALUES (1, 1, 1), (1, 2, 0)
 
-INSERT INTO family_library(library_id, book_id) VALUES (1, 1);
-INSERT INTO reading_log(personal_book_id, format_id, total_time, notes) VALUES (1, 1, 30, 'foo'), (1, 2, 1, 'buzz!');
+INSERT INTO family_library(library_id, book_id) VALUES (1,1), (1, 2), (1, 3);
+INSERT INTO reading_log(personal_library_id, format_id, total_time, notes) VALUES (1, 1, 30, 'foo'), (1, 2, 1, 'buzz!');
 GO
 
 --User views personal library
@@ -105,29 +106,52 @@ FROM
 	INNER JOIN users u ON pl.user_id = u.user_id
 	INNER JOIN book b ON pl.book_id = b.book_id
 WHERE
-	u.user_id = 2; --make dynamic
+	u.user_id = 1; --make dynamic
 
 --User views personal reading log
 SELECT
-	b.title,
-	b.author_firstName,
-	b.author_lastName,
-	b.isbn,
-	rl.total_time,
-	rf.format_type,
-	rl.notes,
-	pl.isCompleted
+	rl.reading_log_id AS logID,
+	pl.user_id AS user_id,
+	b.book_id AS book_id,
+	b.title AS title,
+	b.author_firstName AS author_first,
+	b.author_lastName AS author_last,
+	b.isbn AS isbn,
+	rl.total_time AS total_time,
+	rf.format_type AS format_type,
+	rl.notes AS note,
+	pl.isCompleted AS isCompleted
 FROM
 	reading_log rl
-	INNER JOIN personal_library pl ON rl.personal_book_id = pl.ID
+	INNER JOIN personal_library pl ON rl.personal_library_id = pl.ID
 	INNER JOIN book b ON pl.book_id = b.book_id
 	INNER JOIN reading_format rf ON rl.format_id = rf.format_id
 WHERE
-	pl.user_id = 2;
+	pl.user_id = 1;
 
+--Get summed reading logs for each book
+SELECT
+    b.book_id AS bookID,
+	b.title as title,
+	b.author_firstName AS author_first,
+	b.author_lastName AS author_last,
+    b.isbn AS isbn,
+	SUM(rl.total_time) AS totalTime,
+	SUM(CAST (pl.isCompleted AS INT)) AS isCompleted
+FROM
+	reading_log rl
+	INNER JOIN personal_library pl ON rl.personal_library_id = pl.ID
+	INNER JOIN book b ON pl.book_id = b.book_id
+WHERE
+	pl.user_id = 1
+GROUP BY
+    b.book_id,
+	b.title,
+	b.author_firstName,
+	b.author_lastName,
+    b.isbn
 
-
-
+SELECT * FROM users
 
 
 SELECT * FROM personal_library

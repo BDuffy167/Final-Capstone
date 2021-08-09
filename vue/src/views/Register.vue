@@ -1,6 +1,8 @@
 <template>
-  <div id="register" class="text-center">
-    <form class="form-register" @submit.prevent="register">
+<main>
+  <h1>Registration</h1>
+  <div id="register" class="text-center col-md-10 mx-auto col-lg-5">
+    <form class="form-register p-4 p-md-5 border rounded-3 bg-light" @submit.prevent="register">
       <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
@@ -41,6 +43,7 @@
       </button>
     </form>
   </div>
+</main>
 </template>
 
 <script>
