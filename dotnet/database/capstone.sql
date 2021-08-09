@@ -86,7 +86,7 @@ INSERT INTO reading_format (format_type) VALUES ('Paperback'), ('ebook'), ('Audi
 INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('HitchHikers Guide To the Galxy', 'Douglass', 'Adams', 9781529046137);
 INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('The Hobbit', 'J.R.R', 'Tolken', 9780044403371);
 
-INSERT INTO personal_library(user_id, book_id, isCompleted) VALUES (2, 1, 1), (2, 2, 0)
+INSERT INTO personal_library(user_id, book_id, isCompleted) VALUES (1, 1, 1), (1, 2, 0)
 
 INSERT INTO family_library(library_id, book_id) VALUES (1, 1);
 INSERT INTO reading_log(personal_book_id, format_id, total_time, notes) VALUES (1, 1, 30, 'foo'), (1, 2, 1, 'buzz!');
