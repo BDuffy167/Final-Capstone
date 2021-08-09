@@ -1,46 +1,58 @@
 <template>
-  <div id="login" class="text-center">
-    <form class="form-signin" @submit.prevent="login">
-      <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
-      <div class="alert alert-danger" role="alert" v-if="invalidCredentials">
-        Invalid username and password!
-      </div>
+<main>
+<h1>Log in</h1>
+        <div id="login" class="text-center col-md-10 mx-auto col-lg-5">
+          <form class="form-signin p-4 p-md-5 border rounded-3 bg-light" @submit.prevent="login">
+            <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
+            <div
+              class="alert alert-danger"
+              role="alert"
+              v-if="invalidCredentials"
+            >
+              Invalid username and password!
+            </div>
 
-      <div class="alert alert-danger" role="alert" v-if="networkError">
-        Network error!
-      </div>
+            <div class="alert alert-danger" role="alert" v-if="networkError">
+              Network error!
+            </div>
 
-      <div
-        class="alert alert-success"
-        role="alert"
-        v-if="this.$route.query.registration">
-        Thank you for registering, please sign in.
-      </div>
-      <div class="form-group">
-        <input
-          type="text"
-          id="username"
-          class="form-control"
-          placeholder="Username"
-          v-model="user.username"
-          required
-          autofocus />
-      </div>
-      <div class="form-group">
-        <input
-          type="password"
-          id="password"
-          class="form-control"
-          placeholder="Password"
-          v-model="user.password"
-          required />
-      </div>
-      <div class="form-group">
-        <router-link :to="{ name: 'register' }">Need an account?</router-link>
-      </div>
-      <button class="btn btn-primary" type="submit">Sign in</button>
-    </form>
-  </div>
+            <div
+              class="alert alert-success"
+              role="alert"
+              v-if="this.$route.query.registration"
+            >
+              Thank you for registering, please sign in.
+            </div>
+            <div class="form-group">
+              <input
+                type="text"
+                id="username"
+                class="form-control"
+                placeholder="Username"
+                v-model="user.username"
+                required
+                autofocus
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="password"
+                id="password"
+                class="form-control"
+                placeholder="Password"
+                v-model="user.password"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <router-link :to="{ name: 'register' }"
+                >Need an account?</router-link
+              >
+            </div>
+            <button class="btn btn-primary" type="submit">Sign in</button>
+          </form>
+        </div>
+</main>
 </template>
 
 <script>
@@ -75,9 +87,7 @@ export default {
 
           if (response == null || response.status === 500) {
             this.networkError = true;
-          }
-
-          else if (response.status === 401) {
+          } else if (response.status === 401) {
             this.invalidCredentials = true;
           }
         });
