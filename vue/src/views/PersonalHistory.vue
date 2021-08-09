@@ -1,5 +1,68 @@
 <template>
   <main>
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Record Reading Activity</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              
+          <div class="mb-3">
+            <label for="timeRead" class="col-form-label">Session Time</label>
+        <input
+          type="number"
+          class="form-control"
+          id="timeRead"
+          placeholder="minutes"
+        />
+        <div class="mb-3">
+        <label for="formatType" class="form-label">Format</label>
+        <select
+          class="form-control"
+          id="formatSelect"
+        >
+          <option>Paperback</option>
+          <option>Ebook</option>
+          <option>Audiobook</option>
+          <option>Read-Aloud (Reader)</option>
+          <option>Read-Aloud (Listener)</option>
+          <option>Other</option>
+        </select>
+      </div>
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Notes:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <h1>Personal Library</h1>
     <div class="bookList">
       <div
@@ -19,7 +82,14 @@
           <p class="card-text">
             {{ book.authorFirstName }} {{ book.authorLastName }}
           </p>
-          <a href="#" class="btn btn-primary">Add A Reading Log</a>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
+            Record Reading Activity
+          </button>
         </div>
       </div>
     </div>
@@ -29,21 +99,16 @@
 <script>
 import BookService from "../services/BookService.js";
 
-
 export default {
   name: "personalHistory",
-  components: {
-    
-  },
+  components: {},
   computed: {
     allBooks() {
       return this.$store.state.userBooks;
-  },
+    },
   },
   data() {
-    return {
-
-    }
+    return {};
   },
   created() {
     BookService.getPersonalLibrary(this.$store.state.user.userId)
@@ -55,11 +120,8 @@ export default {
         console.error(response);
       });
   },
-  methods: {
-
-  },
+  methods: {},
 };
-  
 </script>
 
 <style>
@@ -72,11 +134,11 @@ h1 {
   flex-wrap: wrap;
 }
 
-.cardStyling{
+.cardStyling {
   border-radius: 10px;
-    width: 250px;
-    height: 550px;
-    margin: 20px;
+  width: 250px;
+  height: 550px;
+  margin: 20px;
 }
 td,
 th {
@@ -86,5 +148,4 @@ th {
 th {
   border: 2px solid black;
 }
-
 </style>
