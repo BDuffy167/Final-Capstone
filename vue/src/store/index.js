@@ -43,8 +43,8 @@ export default new Vuex.Store({
     SET_BOOK(state, books) {
       state.books = books;
     },
-    SET_PERSONAL_LIBRARY(state, books) {
-      state.userBooks = books;
+    SET_PERSONAL_LIBRARY(state, personalBooks) {
+      state.userBooks = personalBooks;
     },
     SET_AUTH_TOKEN(state, token) {
       state.token = token;

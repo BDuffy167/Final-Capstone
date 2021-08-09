@@ -19,7 +19,7 @@
           <p class="card-text">
             {{ book.authorFirstName }} {{ book.authorLastName }}
           </p>
-          <a href="#" class="btn btn-primary">Add to library</a>
+          <a href="#" class="btn btn-primary">Add A Reading Log</a>
         </div>
       </div>
     </div>
