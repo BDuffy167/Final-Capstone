@@ -84,11 +84,12 @@ INSERT INTO users (username, password_hash, salt, user_role, family_library) VAL
 INSERT INTO reading_format (format_type) VALUES ('Paperback'), ('ebook'), ('Audiobook'), ('Read-Aloud (Reader)'), ('Read-Aloud (Listener)'), ('Other');
 
 INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('HitchHikers Guide To the Galxy', 'Douglass', 'Adams', 9781529046137);
-INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('The Hobbit', 'J.R.R', 'Tolken', 9780044403371);
+INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('The Hobbit', 'J.R.R', 'Tolken', 9780345253422);
+INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('Dune', 'Frank', 'Herbert', 9780425027066)
 
 INSERT INTO personal_library(user_id, book_id, isCompleted) VALUES (1, 1, 1), (1, 2, 0)
 
-INSERT INTO family_library(library_id, book_id) VALUES (1, 1);
+INSERT INTO family_library(library_id, book_id) VALUES (1,1), (1, 2), (1, 3);
 INSERT INTO reading_log(personal_library_id, format_id, total_time, notes) VALUES (1, 1, 30, 'foo'), (1, 2, 1, 'buzz!');
 GO
 
@@ -105,7 +106,7 @@ FROM
 	INNER JOIN users u ON pl.user_id = u.user_id
 	INNER JOIN book b ON pl.book_id = b.book_id
 WHERE
-	u.user_id = 2; --make dynamic
+	u.user_id = 1; --make dynamic
 
 --User views personal reading log
 SELECT
@@ -150,7 +151,7 @@ GROUP BY
 	b.author_lastName,
     b.isbn
 
-
+SELECT * FROM users
 
 
 SELECT * FROM personal_library
