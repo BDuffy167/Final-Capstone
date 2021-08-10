@@ -91,7 +91,7 @@
             class="btn btn-primary"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
-           v-on:click="newReadingLog.personalLibraryID = book.personalLibrarID">
+           v-on:click="newReadingLog.personalLibraryID = book.personalLibraryID">
             Record Reading Activity
           </button>
         </div>
@@ -115,7 +115,7 @@ export default {
     return {
       recordActivity: false,
       newReadingLog: {
-        personalLibrarID: 0,
+        personalLibraryID: 0,
         formatType: "",
         timeRead: 0,
         notes: "",
