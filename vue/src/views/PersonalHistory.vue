@@ -108,7 +108,11 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      newReadingLog: {
+        
+      }
+    };
   },
   created() {
     BookService.getPersonalLibrary(this.$store.state.user.userId)
