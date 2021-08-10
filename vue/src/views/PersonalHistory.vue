@@ -12,6 +12,7 @@
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Record Reading Activity</h5>
             <button 
+              
               type="button"
               class="btn-close"
               data-bs-dismiss="modal"
@@ -50,7 +51,7 @@
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">Notes:</label>
-            <textarea class="form-control" id="message-text" v-model="newReadingLog.notes">
+            <textarea class="form-control" id="message-text" v-model="newReadingLog.note">
              </textarea>
           </div>
             </form>
@@ -73,7 +74,7 @@
         class="card cardStyling"
         style="width: 18rem"
         v-for="book of allBooks"
-        v-bind:key="book.logID"
+        v-bind:key="book.personalLibraryId"
       >
         <img
           v-if="book.isbn"
@@ -91,7 +92,7 @@
             class="btn btn-primary"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
-           v-on:click="newReadingLog.personalLibraryID = book.personalLibraryID">
+           v-on:click="newReadingLog.personalLibraryID = book.personalLibraryId">
             Record Reading Activity
           </button>
         </div>
@@ -118,7 +119,7 @@ export default {
         personalLibraryID: 0,
         formatType: "",
         timeRead: 0,
-        notes: "",
+        note: "",
       }
     };
   },
@@ -131,6 +132,7 @@ export default {
       .catch((response) => {
         console.error(response);
       });
+
   },
   methods: {
     addALog() {
@@ -142,7 +144,15 @@ export default {
       .catch((response) => {
         console.error(response);
       });
-    }
+      BookService.getUserHistory(this.$store.state.user.userId)
+      .then((response) => {
+        console.error(response);
+        this.$store.commit("SET_USER_HISTOTY", response.data)
+      })
+      .catch((response) => {
+        console.error(response);
+      });
+    },
   },
 };
 </script>
