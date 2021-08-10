@@ -91,6 +91,7 @@ INSERT INTO personal_library(user_id, book_id, isCompleted) VALUES (1, 1, 1), (1
 
 INSERT INTO family_library(library_id, book_id) VALUES (1,1), (1, 2), (1, 3);
 INSERT INTO reading_log(personal_library_id, format_id, total_time, notes) VALUES (1, 1, 30, 'foo'), (1, 2, 1, 'buzz!');
+
 GO
 
 --User views personal library
