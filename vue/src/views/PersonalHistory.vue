@@ -1,3 +1,4 @@
+<!-- THIS IS PERSONAL LIBRARY -->
 <template>
   <main>
     <div
@@ -29,7 +30,7 @@
           class="form-control"
           id="timeRead"
           placeholder="minutes"
-          v-model.number="newReadingLog.timeRead"
+          v-model.number="newReadingLog.totalTime"
           
         />
         <div class="mb-3">
@@ -63,7 +64,7 @@
               data-bs-dismiss="modal">
               Close
             </button>
-            <button type="button" class="btn btn-primary" v-on:click.prevent="addALog">Save changes</button>
+            <button type="button" class="btn btn-primary" v-on:click.prevent="addALog" data-bs-dismiss="modal">Save changes</button>
           </div>
         </div>
       </div>
@@ -92,7 +93,7 @@
             class="btn btn-primary"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
-           v-on:click="newReadingLog.personalLibraryID = book.personalLibraryId">
+           v-on:click="newReadingLog.personalLibraryId = book.personalLibraryId">
             Record Reading Activity
           </button>
         </div>
@@ -118,7 +119,7 @@ export default {
       newReadingLog: {
         personalLibraryID: 0,
         formatType: "",
-        timeRead: 0,
+        totalTime: 0,
         note: "",
       }
     };

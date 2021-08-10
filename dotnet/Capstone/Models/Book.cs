@@ -19,7 +19,7 @@ namespace Capstone.Models
     public class PersonalBook : Book
     {
         public PersonalBook() : base() { }
-        public int PersnalLibraryId { get; set; }
+        public int PersonalLibraryId { get; set; }
         public int IsCompleted { get; set; }
 
         public string IsCompletedStr
