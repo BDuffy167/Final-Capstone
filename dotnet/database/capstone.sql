@@ -21,7 +21,7 @@ CREATE TABLE users (
 	password_hash varchar(200) NOT NULL,
 	salt varchar(200) NOT NULL,
 	user_role varchar(50) NOT NULL, 
-	family_library int NOT NULL
+	family_library int,
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 )
 
