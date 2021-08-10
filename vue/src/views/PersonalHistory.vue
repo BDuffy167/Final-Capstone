@@ -50,7 +50,7 @@
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">Notes:</label>
-            <textarea class="form-control" id="message-text" v-model="newReadingLog.notes">
+            <textarea class="form-control" id="message-text" v-model="newReadingLog.note">
              </textarea>
           </div>
             </form>
@@ -62,7 +62,7 @@
               data-bs-dismiss="modal">
               Close
             </button>
-            <button type="button" class="btn btn-primary" v-on:click.prevent="addALog">Save changes</button>
+            <button type="button" class="btn btn-primary" v-on:click="addALog">Save changes</button>
           </div>
         </div>
       </div>
@@ -73,7 +73,7 @@
         class="card cardStyling"
         style="width: 18rem"
         v-for="book of allBooks"
-        v-bind:key="book.logID"
+        v-bind:key="book.personalLibraryId"
       >
         <img
           v-if="book.isbn"
@@ -81,6 +81,7 @@
             'http://covers.openlibrary.org/b/isbn/' + book.isbn + '-M.jpg'
           "
         />
+        <div class= "libraryId"> {{book.personalLibraryId}} </div>
         <div class="card-body">
           <h5 class="card-title">{{ book.title }}</h5>
           <p class="card-text">
@@ -91,7 +92,8 @@
             class="btn btn-primary"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
-           v-on:click="newReadingLog.personalLibraryID = book.personalLibrarID">
+           v-on:click="setPersonalLibraryId(book.personalLibraryId)"
+           >
             Record Reading Activity
           </button>
         </div>
@@ -115,10 +117,10 @@ export default {
     return {
       recordActivity: false,
       newReadingLog: {
-        personalLibrarID: 0,
+        personalLibraryID: 0,
         formatType: "",
         timeRead: 0,
-        notes: "",
+        note: "",
       }
     };
   },
@@ -133,6 +135,9 @@ export default {
       });
   },
   methods: {
+    setPersonalLibraryId(input){
+      this.newReadingLog.personalLibraryID =input;
+    },
     addALog() {
       BookService.postLog(this.$store.state.user.userId, this.newReadingLog)
       .then((response) => {
