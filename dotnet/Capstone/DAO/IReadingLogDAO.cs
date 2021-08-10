@@ -9,7 +9,7 @@ namespace Capstone.DAO
     public interface IReadingLogDAO
     {
         public List<ReadingLog> GetUserBooks(int id);
-        public int AddNewReadingLog(ReadingLog newLog, int userID, int bookID);
+        public int AddNewReadingLog(NewLog newLog);
         public List<BookHistoryObj> GetUserBookHistory(int userID);
     }
 }

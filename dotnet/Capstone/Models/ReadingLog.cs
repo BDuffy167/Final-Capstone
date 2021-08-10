@@ -13,6 +13,7 @@ namespace Capstone.Models
         public string FormatType { get; set; }
         public int TimeRead { get; set; }
         public string Note { get; set; }
+        public bool isCopleted { get; set; } = false;
 
     }
 }

@@ -52,9 +52,8 @@ WHERE
 	pl.user_id = @user_id;";
 
         private readonly string sqlCheckIfBookByISBN = @"SELECT book_Id FROM book WHERE isbn = @isbn";
-        private readonly string sqlAddBookLog = @"INSERT INTO reading_log(user_id, book_id, format_id, total_time, notes, isCompleted)
-	VALUES (@user_id, @book_id, @format_id, @total_time, @note, @isCompleted); SELECT @@IDENTITY";
-
+        private readonly string sqlAddReadingLog = @"INSERT INTO reading_log(personal_library_id, format_id, total_time, notes) VALUES
+        (@PL_ID, @formatID, @TotalTime, @Notes ); SELECT @@IDENTITY";
         public ReadingLogDAO(string dbConnectionString)
         {
             connectionString = dbConnectionString;
@@ -94,7 +93,7 @@ WHERE
             return readingLogs;
         }
 
-        public int AddNewReadingLog(ReadingLog newLog, int userID, int bookID)
+        public int AddNewReadingLog(NewLog newLog)
         {
             int readingLogID = 0;
             int formatID = GetFormatID(newLog.FormatType);
@@ -107,13 +106,11 @@ WHERE
             {
                 conn.Open();
 
-                SqlCommand cmd = new SqlCommand(sqlAddBookLog, conn);
-                cmd.Parameters.AddWithValue("@user_id", userID);
-                cmd.Parameters.AddWithValue("@book_id", bookID);
-                cmd.Parameters.AddWithValue("@format_id", formatID);
-                cmd.Parameters.AddWithValue("@total_time", newLog.TimeRead);
-                cmd.Parameters.AddWithValue("@note", newLog.Note);
-                cmd.Parameters.AddWithValue("@isCOmpleted", 0);
+                SqlCommand cmd = new SqlCommand(sqlAddReadingLog, conn);
+                cmd.Parameters.AddWithValue("@PL_ID", newLog.PersonalLibraryID);
+                cmd.Parameters.AddWithValue("@formatID", newLog.FormatType);
+                cmd.Parameters.AddWithValue("@TotalTime", newLog.TotalTime);
+                cmd.Parameters.AddWithValue("@Notes", newLog.Note);
 
                 readingLogID = Convert.ToInt32(cmd.ExecuteScalar());
             }
