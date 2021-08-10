@@ -11,7 +11,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Record Reading Activity</h5>
-            <button
+            <button v-if="!recordActivity" v-on:click.prevent="recordActivity = true"
               type="button"
               class="btn-close"
               data-bs-dismiss="modal"
@@ -27,13 +27,14 @@
           type="number"
           class="form-control"
           id="timeRead"
-          placeholder="minutes"
+          placeholder="minutes" v-model="newLog.timeRead"
         />
         <div class="mb-3">
         <label for="formatType" class="form-label">Format</label>
         <select
           class="form-control"
           id="formatSelect"
+          v-model="newLog.formatType"
         >
           <option>Paperback</option>
           <option>Ebook</option>
@@ -46,7 +47,9 @@
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">Notes:</label>
-            <textarea class="form-control" id="message-text"></textarea>
+            <textarea class="form-control" id="message-text"
+             v-model="newLog.notes">
+             </textarea>
           </div>
             </form>
           </div>
@@ -55,10 +58,11 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
+              v-on:click="recordActivity = false"
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-primary" v-show="recordActivity" v-on:button.prevent="addALog">Save changes</button>
           </div>
         </div>
       </div>
@@ -109,8 +113,12 @@ export default {
   },
   data() {
     return {
+      recordActivity: false,
       newReadingLog: {
-        
+        personalLibrarID: 0,
+        formatType: "",
+        timeRead: "",
+        notes: "",
       }
     };
   },
@@ -124,7 +132,18 @@ export default {
         console.error(response);
       });
   },
-  methods: {},
+  methods: {
+    addALog() {
+      BookService.postLog(this.$store.state.user.userId, this.newReadingLog)
+      .then((response) => {
+        console.log(response);
+        this.$store.commit("SET_READINGLOG", response.data);
+      })
+      .catch((response) => {
+        console.error(response);
+      });
+    }
+  },
 };
 </script>
 
