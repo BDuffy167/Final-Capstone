@@ -216,7 +216,7 @@ WHERE
                 while (reader.Read())
                 {
                     PersonalBook book = new PersonalBook();
-                    book.PersnalLibraryId = Convert.ToInt32(reader["pl_id"]);
+                    book.PersonalLibraryId = Convert.ToInt32(reader["pl_id"]);
                     book.BookId = Convert.ToInt32(reader["book_id"]);
                     book.Title = Convert.ToString(reader["title"]);
                     book.AuthorFirstName = Convert.ToString(reader["a_first"]);
