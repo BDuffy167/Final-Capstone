@@ -108,7 +108,7 @@ WHERE
 
                 SqlCommand cmd = new SqlCommand(sqlAddReadingLog, conn);
                 cmd.Parameters.AddWithValue("@PL_ID", newLog.PersonalLibraryID);
-                cmd.Parameters.AddWithValue("@formatID", newLog.FormatType);
+                cmd.Parameters.AddWithValue("@formatID", formatID);
                 cmd.Parameters.AddWithValue("@TotalTime", newLog.TotalTime);
                 cmd.Parameters.AddWithValue("@Notes", newLog.Note);
 

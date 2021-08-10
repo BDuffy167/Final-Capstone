@@ -41,6 +41,7 @@ namespace Capstone.Controllers
         }
 
         [HttpPost("{id}/AddLog")]
+        [AllowAnonymous]
         public ActionResult<List<ReadingLog>> AddNewReadingLog(int id, NewLog newLog)
         {
             List<ReadingLog> toReturn = new List<ReadingLog>();
