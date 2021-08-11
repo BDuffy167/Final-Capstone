@@ -13,7 +13,7 @@
       </li>
       <hr />
       <div>
-        <ul  id ="navBar" class="nav nav-pills flex-row mb-auto align-items-center">
+        <ul  id ="navBar" class="nav flex-row mt-1 align-items-center">
           <li class="nav-item">
             <router-link class="nav-item" v-bind:to="{ name: 'home' }">
               <svg class="bi me-2" width="16" height="16">

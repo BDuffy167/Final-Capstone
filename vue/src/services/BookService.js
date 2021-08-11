@@ -34,6 +34,9 @@ export default {
    },
    getPersonalLibrary(userId) {
        return axios.get(`Book/${userId}/GetPersonalBooks`);
+   },
+   postPersonalBook(userId, bookId){
+       return axios.post(`Book/${userId}/AddPersonalBook`, bookId);
    }
 }
 //add(book)

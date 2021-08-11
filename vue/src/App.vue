@@ -30,7 +30,7 @@ export default {
 }
 
 #app {
-  justify-content: stretch;
+  justify-content: cover;
   height: 100vh;
   width: 100vw;
   max-height: 100%;
