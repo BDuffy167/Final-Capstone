@@ -4,7 +4,7 @@
 <template>
   <div id="app">
     <!-- If you start to get random styling you don't like, remove container from this div -->
-    <tool-bar></tool-bar>
+    <tool-bar ></tool-bar>
     <router-view id="routerView"/> 
   </div>
 </template>
@@ -40,7 +40,10 @@ export default {
   /*background-image: url("assets/Background.jpg");*/
   background-size: cover;
   font-family: 'Atkinson Hyperlegible', sans-serif;
-  
+}
+
+#routerView{
+  height:95vh
 }
 
 #routerView > h1{
