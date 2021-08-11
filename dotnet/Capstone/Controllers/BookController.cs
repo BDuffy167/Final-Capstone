@@ -106,7 +106,7 @@ namespace Capstone.Controllers
             return Forbid();
         }
 
-        [HttpPost("{userId}/AddPersonalBook")]
+        [HttpPost("{userId}/AddPersonalBook/{bookId}")]
         public ActionResult<List<PersonalBook>> AddPersonalBook(int userId, int bookId)
         {
             if(bookId == 0)

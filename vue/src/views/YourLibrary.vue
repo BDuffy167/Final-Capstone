@@ -36,7 +36,7 @@
               type="button"
               class="btn btn-success"
               data-bs-dismiss="modal"
-              v-on:click.prevent="addToPersonalLibrary"
+              v-on:click="addToPersonalLibrary"
             >
               Let's go!
             </button>
