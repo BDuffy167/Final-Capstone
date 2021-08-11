@@ -11,9 +11,10 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Record Reading Activity</h5>
-            <button 
-              
+            <h5 class="modal-title" id="exampleModalLabel">
+              Record Reading Activity
+            </h5>
+            <button
               type="button"
               class="btn-close"
               data-bs-dismiss="modal"
@@ -22,49 +23,60 @@
           </div>
           <div class="modal-body">
             <form>
-              
-          <div class="mb-3">
-            <label for="timeRead" class="col-form-label">Session Time</label>
-        <input
-          type="number"
-          class="form-control"
-          id="timeRead"
-          placeholder="minutes"
-          v-model.number="newReadingLog.totalTime"
-          
-        />
-        <div class="mb-3">
-        <label for="formatType" class="form-label">Format</label>
-        <select
-          class="form-control"
-          id="formatSelect"
-          v-model="newReadingLog.formatType"
-        
-        >
-          <option>Paperback</option>
-          <option>Ebook</option>
-          <option>Audiobook</option>
-          <option>Read-Aloud (Reader)</option>
-          <option>Read-Aloud (Listener)</option>
-          <option>Other</option>
-        </select>
-      </div>
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Notes:</label>
-            <textarea class="form-control" id="message-text" v-model="newReadingLog.note">
-             </textarea>
-          </div>
+              <div class="mb-3">
+                <label for="timeRead" class="col-form-label"
+                  >Session time in minutes:</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="timeRead"
+                  placeholder="minutes"
+                  v-model.number="newReadingLog.totalTime"
+                />
+                <div class="mb-3">
+                  <label for="formatSelect" class="form-label">Format:</label>
+                  <select
+                    class="form-control"
+                    id="formatSelect"
+                    v-model="newReadingLog.formatType"
+                  >
+                    <option>Paperback</option>
+                    <option>Ebook</option>
+                    <option>Audiobook</option>
+                    <option>Read-Aloud (Reader)</option>
+                    <option>Read-Aloud (Listener)</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="message-text" class="col-form-label">Notes:</label>
+                <textarea
+                  class="form-control"
+                  id="message-text"
+                  v-model="newReadingLog.note"
+                >
+                </textarea>
+              </div>
             </form>
           </div>
           <div class="modal-footer">
             <button
               type="button"
               class="btn btn-secondary"
-              data-bs-dismiss="modal">
+              data-bs-dismiss="modal"
+            >
               Close
             </button>
-            <button type="button" class="btn btn-primary" v-on:click.prevent="addALog" data-bs-dismiss="modal">Save changes</button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              v-on:click.prevent="addALog"
+              data-bs-dismiss="modal"
+            >
+              Save changes
+            </button>
           </div>
         </div>
       </div>
@@ -83,7 +95,7 @@
             'http://covers.openlibrary.org/b/isbn/' + book.isbn + '-M.jpg'
           "
         />
-        <div class= "libraryId"> {{book.personalLibraryId}} </div>
+        <div class="libraryId">{{ book.personalLibraryId }}</div>
         <div class="card-body">
           <h5 class="card-title">{{ book.title }}</h5>
           <p class="card-text">
@@ -94,7 +106,10 @@
             class="btn btn-primary"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
-           v-on:click="newReadingLog.personalLibraryId = book.personalLibraryId">
+            v-on:click="
+              newReadingLog.personalLibraryId = book.personalLibraryId
+            "
+          >
             Record Reading Activity
           </button>
         </div>
@@ -122,7 +137,7 @@ export default {
         formatType: "",
         totalTime: 0,
         note: "",
-      }
+      },
     };
   },
   created() {
@@ -134,29 +149,28 @@ export default {
       .catch((response) => {
         console.error(response);
       });
-
   },
   methods: {
-    setPersonalLibraryId(input){
-      this.newReadingLog.personalLibraryID =input;
+    setPersonalLibraryId(input) {
+      this.newReadingLog.personalLibraryID = input;
     },
     addALog() {
       BookService.postLog(this.$store.state.user.userId, this.newReadingLog)
-      .then((response) => {
-        console.log(response);
-        this.$store.commit("SET_READINGLOG", response.data);
-      })
-      .catch((response) => {
-        console.error(response);
-      });
+        .then((response) => {
+          console.log(response);
+          this.$store.commit("SET_READINGLOG", response.data);
+        })
+        .catch((response) => {
+          console.error(response);
+        });
       BookService.getUserHistory(this.$store.state.user.userId)
-      .then((response) => {
-        console.error(response);
-        this.$store.commit("SET_USER_HISTOTY", response.data)
-      })
-      .catch((response) => {
-        console.error(response);
-      });
+        .then((response) => {
+          console.error(response);
+          this.$store.commit("SET_USER_HISTOTY", response.data);
+        })
+        .catch((response) => {
+          console.error(response);
+        });
     },
   },
 };

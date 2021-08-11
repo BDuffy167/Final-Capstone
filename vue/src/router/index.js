@@ -7,7 +7,8 @@ import Register from "../views/Register.vue";
 import store from "../store/index";
 import Activity from "../views/Activity.vue";
 import YourLibrary from "../views/YourLibrary.vue";
-import PersonalHistory from "../views/PersonalHistory.vue"
+import PersonalHistory from "../views/PersonalHistory.vue";
+import RegisterFamilyMem from "../views/RegisterFamilyMem.vue";
 
 
 Vue.use(Router);
@@ -63,6 +64,14 @@ const router = new Router({
       component: Login,
       meta: {
         requiresAuth: false,
+      },
+    },
+    {
+      path: "/registerFamilyMem",
+      name: "registerFamilyMem",
+      component: RegisterFamilyMem,
+      meta: {
+        requiresAuth: true,
       },
     },
     {

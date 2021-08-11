@@ -10,4 +10,9 @@
         public string ConfirmPassword { get; set; }
         public string Role { get; set; }
     }
+
+    public class RegisterFamilyMember : RegisterUser
+    {
+        public int ParentId { get; set; }
+    }
 }

@@ -62,6 +62,18 @@
             </router-link>
           </li>
           <li>
+          <router-link
+              class="nav-item"
+              v-bind:to="{ name: 'registerFamilyMem' }"
+              v-if="$store.state.token"
+            >
+              <svg class="bi me-2" width="16" height="16">
+                <use xlink:href="#table"></use>
+              </svg>
+              &nbsp;&nbsp;Register Family Member
+            </router-link>
+          </li>
+          <li>
             <router-link
               class="nav-item"
               v-bind:to="{ name: 'register' }"
