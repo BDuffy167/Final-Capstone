@@ -11,7 +11,7 @@ export default {
   },
 
   registerNewMember(user){
-    return axios.post('/login/register', user)
+    return axios.post('/login/register/newMember', user)
   }
 
 }

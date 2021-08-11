@@ -91,7 +91,7 @@ namespace Capstone.DAO
                 cmd.Parameters.AddWithValue("@password_hash", hash.Password);
                 cmd.Parameters.AddWithValue("@salt", hash.Salt);
                 cmd.Parameters.AddWithValue("@user_role", role);
-                cmd.Parameters.AddWithValue("@parent_id", parentId);
+                cmd.Parameters.AddWithValue("@user_id", parentId);
                 cmd.ExecuteNonQuery();
             }
 

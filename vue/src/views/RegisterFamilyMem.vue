@@ -6,7 +6,7 @@
         class="form-register p-4 p-md-5 border rounded-3 bg-light"
         @submit.prevent="register"
       >
-        <h1 class="h3 mb-3 font-weight-normal">Add Account</h1>
+        <h1 class="h3 mb-3 font-weight-normal">Add A Family Member</h1>
         <div class="alert alert-danger" role="alert" v-if="registrationErrors">
           {{ registrationErrorMsg }}
         </div>
@@ -53,7 +53,7 @@
           </select>
         </div>
         <button class="btn btn-primary" type="submit" >
-          Add a family member!
+          Add member!
         </button>
       </form>
     </div>
@@ -72,7 +72,7 @@ export default {
         password: "",
         confirmPassword: "",
         role: "",
-        parentId: 0
+        parentId: this.$store.state.user.userId
       },
       registrationErrors: false,
       registrationErrorMsg: "There were problems registering this user.",
@@ -80,17 +80,16 @@ export default {
   },
   methods: {
     register() {
-        this.fUser.parentId = this.$store.state.user.userId;
       if (this.fUser.password != this.fUser.confirmPassword) {
         this.registrationErrors = true;
         this.registrationErrorMsg = "Password & Confirm Password do not match.";
       } else {
         authService
-          .register(this.fUser)
+          .registerNewMember(this.fUser)
           .then((response) => {
             if (response.status == 201) {
               this.$router.push({
-                name: "login",
+                name: "home",
                 query: { registration: "success" },
               });
             }
