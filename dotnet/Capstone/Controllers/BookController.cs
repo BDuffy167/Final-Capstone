@@ -75,10 +75,11 @@ namespace Capstone.Controllers
             }
         }
 
-        [HttpGet("{familyID}/GetFamilyBooks")]
-        public ActionResult<List<Book>> GetFamilyBooks(int familyID)
+        [HttpGet("{id}/GetFamilyBooks")]
+        public ActionResult<List<Book>> GetFamilyBooks(int id)
         {
-            List<Book> famBooks = bookDAO.GetAllFamilyBooks(familyID);
+
+            List<Book> famBooks = bookDAO.GetAllFamilyBooks(id);
 
             if(famBooks == null)
             {

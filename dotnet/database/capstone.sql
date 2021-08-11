@@ -113,7 +113,18 @@ VALUES
 
 
 GO
-
+SELECT DISTINCT
+	b.book_id AS book_id,
+	b.title AS title,
+	b.author_firstName AS author_first,
+	b.author_lastName AS author_last,
+	b.isbn AS isbn
+FROM
+	users u
+	INNER JOIN personal_library pl ON u.user_id = pl.user_id
+	INNER JOIN book b ON b.book_id = pl.book_id
+WHERE
+	u.family_id = (SELECT family_id FROM users WHERE user_id = 2);
 
 --displays family library
 SELECT 

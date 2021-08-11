@@ -78,7 +78,6 @@ namespace Capstone.Controllers
                         UserId = user.UserId,
                         Username = user.Username,
                         Role = user.Role,
-                        FamilyId = user.FamilyId
                     },
                     Token = token
                 };
