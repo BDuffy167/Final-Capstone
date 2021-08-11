@@ -1,146 +1,33 @@
 <template>
   <main>
     <h1>Reading History</h1>
-    <div class="accordion">
-    <h2>Your Book List</h2>
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Author</th>
-          <th>Total Time</th>
-          <th>Completed</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="book of allMyBooks" v-bind:key="book.bookId">
-          <td>{{ book.title }}</td>
-          <td>
-            {{ book.authorFirstName }}
-            {{ book.authorLastName }}
-          </td>
-          <td>{{ book.totalTime }}</td>
-          <td>{{ book.isCompleted }}</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h2>Your Reading History</h2>
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Author</th>
-          <!-- firstname lastname concat -->
-          <th>Time Read</th>
-          <th>Format Type</th>
-          <th>Notes</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="activity of allActivity" v-bind:key="activity.logID" >
-          <td>{{ activity.loggedBook.title }}</td>
-          <td>
-            {{ activity.loggedBook.authorFirstName }}
-            {{ activity.loggedBook.authorLastName }}
-          </td>
-          <td>{{ activity.timeRead }}</td>
-          <td>{{ activity.formatType }}</td>
-          <td>{{activity.note}}</td>
-        </tr>
-        <tr>
-          
-        </tr>
-      </tbody>
-    </table>
+    <div class="container-fluid">
+      <h2>Your Reading History</h2>
+      <table class="table table-hover">
+        <thead>
+          <tr class="d-flex">
+            <th class="col-2">Title</th>
+            <th class="col-2">Author</th>
+            <!-- firstname lastname concat -->
+            <th class="col-1">Time Read</th>
+            <th class="col-1">Format Type</th>
+            <th class="col-6">Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="activity of allActivity" v-bind:key="activity.logID" class="d-flex">
+            <td class="col-2">{{ activity.loggedBook.title }}</td>
+            <td class="col-2">
+              {{ activity.loggedBook.authorFirstName }}
+              {{ activity.loggedBook.authorLastName }}
+            </td>
+            <td class="col-1">{{ activity.timeRead }}</td>
+            <td class="col-1">{{ activity.formatType }}</td>
+            <td class="col-6">{{ activity.note }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-
-    <button v-if="!showForm" v-on:click.prevent="showForm = true">
-      Record Activity
-    </button>
-    <form class="row g-3" v-show="showForm" v-on:submit.prevent="addALog">
-      <div class="col-12">
-        <label for="Title" class="form-label">Book Title</label>
-        <input
-          type="text"
-          class="form-control"
-          id="title"
-          placeholder="Enter Book Title"
-          v-model="newLog.loggedBook.title"
-        />
-      </div>
-      <div class="col-md-6">
-        <label for="Author" class="form-label">Author First</label>
-        <input
-          type="text"
-          class="form-control"
-          id="authorFirstName"
-          v-model="newLog.loggedBook.authorFirstName"
-        />
-      </div>
-      <div class="col-md-6">
-        <label for="Author" class="form-label">Author Last</label>
-        <input
-          type="text"
-          class="form-control"
-          id="authorLastName"
-          v-model="newLog.loggedBook.authorLastName"
-        />
-      </div>
-      <div class="col-md-4">
-        <label for="isbn" class="form-label">ISBN</label>
-        <input
-          type="number"
-          class="form-control"
-          id="isbn"
-          v-model.number="newLog.loggedBook.isbn"
-        />
-      </div>
-      <div class="col-md-4">
-        <label for="timeRead" class="form-label">Session Time</label>
-        <input
-          type="number"
-          class="form-control"
-          id="timeRead"
-          placeholder="minutes"
-          v-model.number="newLog.timeRead"
-        />
-      </div>
-      <div class="col-md-4">
-        <label for="formatType" class="form-label">Format</label>
-        <select
-          class="form-control"
-          id="formatSelect"
-          v-model="newLog.formatType"
-        >
-          <option>Paperback</option>
-          <option>Ebook</option>
-          <option>Audiobook</option>
-          <option>Read-Aloud (Reader)</option>
-          <option>Read-Aloud (Listener)</option>
-          <option>Other</option>
-        </select>
-      </div>
-      <div class="input-group">
-        <span class="input-group-text">Notes</span>
-        <textarea class="form-control" maxlength="250" aria-label="With textarea" placeholder="Reading log note"
-        v-model="newLog.note"></textarea>
-      </div>
-      <div class="col-12">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="gridCheck" />
-          <label class="form-check-label" for="gridCheck"> Add To List </label>
-        </div>
-      </div>
-      <div class="col-12">
-        <input
-          type="submit"
-          value="Save"
-          class="col-md-1"
-          v-on:click="showForm = false"
-        />
-      </div>
-    </form>
   </main>
 </template>
 
@@ -156,9 +43,9 @@ export default {
     allActivity() {
       return this.$store.state.readingLog;
     },
-    allMyBooks(){
+    allMyBooks() {
       return this.$store.state.userHistory;
-    }
+    },
   },
   data() {
     return {
@@ -175,7 +62,7 @@ export default {
         authorFirstName: "",
         authorLastName: "",
         totalTime: 0,
-        isCompleted: ""
+        isCompleted: "",
       },
       newLog: {
         logID: 0,
@@ -203,10 +90,10 @@ export default {
       .catch((response) => {
         console.error(response);
       });
-      BookService.getUserHistory(this.$store.state.user.userId)
+    BookService.getUserHistory(this.$store.state.user.userId)
       .then((response) => {
         console.log(response);
-        this.$store.commit("SET_USER_HISTORY", response.data)
+        this.$store.commit("SET_USER_HISTORY", response.data);
       })
       .catch((response) => {
         console.error(response);
@@ -223,13 +110,13 @@ export default {
           console.error(respone);
         });
       BookService.getUserHistory(this.$store.state.user.userId)
-      .then((response) => {
-        console.log(response);
-        this.$store.commit("SET_USER_HISTORY", response.data)
-      })
-      .catch((response) => {
-        console.error(response);
-      });
+        .then((response) => {
+          console.log(response);
+          this.$store.commit("SET_USER_HISTORY", response.data);
+        })
+        .catch((response) => {
+          console.error(response);
+        });
     },
   },
 };
@@ -243,7 +130,7 @@ h1 {
   text-align: center;
   background-color: #dbdbd7;
 }
-table{
+table {
   background-color: #dbdbd7;
 }
 .readingActivityTable {
@@ -255,5 +142,4 @@ th {
   padding: 0.5em;
   text-align: center;
 }
-
 </style>
