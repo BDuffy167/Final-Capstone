@@ -64,11 +64,7 @@
               data-bs-dismiss="modal">
               Close
             </button>
-<<<<<<< HEAD
-            <button type="button" class="btn btn-primary" v-on:click="addALog">Save changes</button>
-=======
             <button type="button" class="btn btn-primary" v-on:click.prevent="addALog" data-bs-dismiss="modal">Save changes</button>
->>>>>>> b46b10ca7d6d963dce6096554aed85041c6b7219
           </div>
         </div>
       </div>
@@ -98,12 +94,7 @@
             class="btn btn-primary"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
-<<<<<<< HEAD
-           v-on:click="setPersonalLibraryId(book.personalLibraryId)"
-           >
-=======
            v-on:click="newReadingLog.personalLibraryId = book.personalLibraryId">
->>>>>>> b46b10ca7d6d963dce6096554aed85041c6b7219
             Record Reading Activity
           </button>
         </div>
@@ -129,11 +120,7 @@ export default {
       newReadingLog: {
         personalLibraryID: 0,
         formatType: "",
-<<<<<<< HEAD
-        timeRead: 0,
-=======
         totalTime: 0,
->>>>>>> b46b10ca7d6d963dce6096554aed85041c6b7219
         note: "",
       }
     };

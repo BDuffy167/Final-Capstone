@@ -21,7 +21,7 @@ CREATE TABLE users (
 	password_hash varchar(200) NOT NULL,
 	salt varchar(200) NOT NULL,
 	user_role varchar(50) NOT NULL, 
-	family_library int,
+	family_id int NOT NULL,
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 )
 
@@ -42,15 +42,14 @@ CREATE TABLE reading_format(
 	CONSTRAINT PK_formatID PRIMARY KEY (format_id)
 )
 
-CREATE TABLE family_library (
-	ID int IDENTITY(1, 1) NOT NULL,
-	library_id int NOT NULL,
-	book_id int NOT NULL,
+--CREATE TABLE family (
+--	ID int IDENTITY(1,1) NOT NULL,
+--	user_id int NOT NULL,
+--	family_id int NOT NULL,
 
-	CONSTRAINT PK_fl_id PRIMARY KEY (ID),
-	CONSTRAINT fk_book_Id FOREIGN KEY (book_id) REFERENCES book(book_id)
-
-)
+--	CONSTRAINT fk_user_Id FOREIGN KEY (user_id) REFERENCES users(user_id),
+--	CONSTRAINT pk_family_id PRIMARY KEY (family_id)
+--)
 
 CREATE TABLE personal_library(
 	ID INT IDENTITY(1, 1) NOT NULL,
@@ -63,6 +62,18 @@ CREATE TABLE personal_library(
 	CONSTRAINT fk_pl_usr_id FOREIGN KEY (user_id) REFERENCES users(user_id),
 	CONSTRAINT fk_pl_bookID FOREIGN KEY (book_id) REFERENCES book(book_id),
 )
+
+--CREATE TABLE family_library (
+--	ID int IDENTITY(1, 1) NOT NULL,
+--	family_id int NOT NULL,
+--	book_id int NOT NULL,
+
+--	CONSTRAINT PK_fl_id PRIMARY KEY (ID),
+--	CONSTRAINT fk_family_id FOREIGN KEY (family_id) REFERENCES family(family_id),
+--	CONSTRAINT fk_book_id FOREIGN KEY (book_id) REFERENCES book(book_id)
+
+--)
+
 
 CREATE TABLE reading_log(
 	reading_log_id int IDENTITY(1,1) NOT NULL,
@@ -78,103 +89,87 @@ CREATE TABLE reading_log(
 
 -- Populate default data for testing: user and admin with password of 'password'
 -- These values should not be kept when going to Production
-INSERT INTO users (username, password_hash, salt, user_role, family_library) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user', 1);
-INSERT INTO users (username, password_hash, salt, user_role, family_library) VALUES ('admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin', 1);
+INSERT INTO users (username, password_hash, salt, user_role, family_id) 
+VALUES 
+	('parent','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','parent', 1),
+	('child','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','child', 1);
+
+
+
 
 INSERT INTO reading_format (format_type) VALUES ('Paperback'), ('ebook'), ('Audiobook'), ('Read-Aloud (Reader)'), ('Read-Aloud (Listener)'), ('Other');
 
-INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('HitchHikers Guide To the Galxy', 'Douglass', 'Adams', 9781529046137);
+INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('HitchHikers Guide To the Galaxy', 'Douglas', 'Adams', 9781529046137);
 INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('The Hobbit', 'J.R.R', 'Tolken', 9780345253422);
 INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('Dune', 'Frank', 'Herbert', 9780425027066)
 
-INSERT INTO personal_library(user_id, book_id, isCompleted) VALUES (1, 1, 1), (1, 2, 0)
+INSERT INTO personal_library(user_id, book_id, isCompleted) 
+VALUES 
+	(1, 1, 0), 
+	(1, 2, 0),
+	(1, 3, 0),
+	(2, 2, 0);
 
-INSERT INTO family_library(library_id, book_id) VALUES (1,1), (1, 2), (1, 3);
-INSERT INTO reading_log(personal_library_id, format_id, total_time, notes) VALUES (1, 1, 30, 'foo'), (1, 2, 1, 'buzz!');
+--INSERT INTO family_library(library_id, book_id) VALUES (1,1), (1, 2), (1, 3);
+--INSERT INTO reading_log(personal_library_id, format_id, total_time, notes) 
+--VALUES 
+--	(1, 1, 30, 'foo'), 
+--	(1, 2, 1, 'buzz!');
 
 GO
 
---User views personal library
-SELECT
-	pl.id AS pl_id,
-	b.title AS title,
-	b.author_firstName AS a_first,
-	b.author_lastName AS a_last,
-	b.isbn AS isbn,
-	pl.isCompleted AS is_completed
-FROM
-	personal_library pl
-	INNER JOIN users u ON pl.user_id = u.user_id
-	INNER JOIN book b ON pl.book_id = b.book_id
-WHERE
-	u.user_id = 1; --make dynamic
 
---User views personal reading log
-SELECT
-	rl.reading_log_id AS logID,
-	pl.user_id AS user_id,
-	b.book_id AS book_id,
-	b.title AS title,
-	b.author_firstName AS author_first,
-	b.author_lastName AS author_last,
-	b.isbn AS isbn,
-	rl.total_time AS total_time,
-	rf.format_type AS format_type,
-	rl.notes AS note,
-	pl.isCompleted AS isCompleted
-FROM
-	reading_log rl
-	INNER JOIN personal_library pl ON rl.personal_library_id = pl.ID
-	INNER JOIN book b ON pl.book_id = b.book_id
-	INNER JOIN reading_format rf ON rl.format_id = rf.format_id
-WHERE
-	pl.user_id = 1;
-
---Get summed reading logs for each book
-SELECT
-    b.book_id AS bookID,
-	b.title as title,
-	b.author_firstName AS author_first,
-	b.author_lastName AS author_last,
-    b.isbn AS isbn,
-	SUM(rl.total_time) AS totalTime,
-	SUM(CAST (pl.isCompleted AS INT)) AS isCompleted
-FROM
-	reading_log rl
-	INNER JOIN personal_library pl ON rl.personal_library_id = pl.ID
-	INNER JOIN book b ON pl.book_id = b.book_id
-WHERE
-	pl.user_id = 1
-GROUP BY
-    b.book_id,
+--displays family library
+SELECT 
 	b.title,
-	b.author_firstName,
-	b.author_lastName,
-    b.isbn
-
-SELECT * FROM users
-
-
-SELECT * FROM personal_library
-SELECT * FROM book
-select * from reading_log
-SELECT * FROM users
-SELECT * FROM family_library
-
-
-SELECT
-	b.book_id AS book_id,
-	b.title AS title,
-	b.author_firstName AS author_first,
-	b.author_lastName AS author_last,
-	b.isbn AS isbn
+	b.author_firstname,
+	b.author_lastname
 FROM
-	family_library fl
-	INNER JOIN book b ON fl.book_id = b.book_id
+	users u
+	INNER JOIN personal_library pl ON u.user_id = pl.user_id
+	INNER JOIN book b ON b.book_id = pl.book_id
 WHERE
-	library_id = 1
+	u.family_id = 1
+GROUP BY
+	b.title,
+	b.author_firstname,
+	b.author_lastname;
 
-SELECT book_id FROM book where isbn = 9780044403371 
+-- Non user registers (just needs to add family library)
+--INSERT INTO users
+--	(username,
+--	password_hash,
+--	salt,
+--	user_role,
+--	family_id)
+--VALUES
+--	('a',
+--	'asdf',
+--	'asdf',
+--	'parent',
+--	(1 + (SELECT MAX(family_id)
+--	FROM users)))
 
---Various tests
-SELECT * FROM reading_format;
+--user registers new family member
+--INSERT INTO users
+--	(username,
+--	password_hash,
+--	salt,
+--	user_role,
+--	family_id)
+--VALUES
+--	('a',
+--	'asdf',
+--	'asdf',
+--	'child',
+--	(SELECT family_id
+--	FROM users
+--	WHERE user_id = 4))
+
+
+SELECT * FROM users
+
+SELECT 
+	MAX(family_id)
+FROM
+	users
