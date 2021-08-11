@@ -22,15 +22,9 @@ export default {
        return axios.post(`/ReadingLog/${userId}/AddLog`,
        {
         logID: 0,
-<<<<<<< HEAD
-        personalLibraryId: newLog.personalLibraryID,
-        formatType: newLog.formatType,
-        totalTime: newLog.timeRead,
-=======
         personalLibraryId: newLog.personalLibraryId,
         formatType: newLog.formatType,
         totalTime: newLog.totalTime,
->>>>>>> b46b10ca7d6d963dce6096554aed85041c6b7219
         note: newLog.note
        })
    },
