@@ -116,5 +116,30 @@ namespace Capstone.Controllers
 
             return result;
         }
+
+        [Authorize(Roles = "parent")]
+        [HttpPost("register/newMember")]
+        public IActionResult RegisterFamilyMember(RegisterFamilyMember userParam)
+        {
+            IActionResult result;
+
+            User existingUser = userDAO.GetUser(userParam.Username);
+            if (existingUser != null)
+            {
+                return Conflict(new { message = "Username already taken. Please choose a different username." });
+            }
+
+            User user = userDAO.AddNewFamilyMember(userParam.Username, userParam.Password, userParam.Role, userParam.ParentId);
+            if (user != null)
+            {
+                result = Created(user.Username, null); //values aren't read on client
+            }
+            else
+            {
+                result = BadRequest(new { message = "An error occurred and user was not created." });
+            }
+
+            return result;
+        }
     }
 }

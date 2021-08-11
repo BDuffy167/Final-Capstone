@@ -110,7 +110,7 @@ WHERE
                 cmd.Parameters.AddWithValue("@PL_ID", newLog.PersonalLibraryID);
                 cmd.Parameters.AddWithValue("@formatID", formatID);
                 cmd.Parameters.AddWithValue("@TotalTime", newLog.TotalTime);
-                cmd.Parameters.AddWithValue("@Notes", newLog.Note);
+                cmd.Parameters.AddWithValue("@Notes", TruncateNote(newLog.Note, 255));
 
                 readingLogID = Convert.ToInt32(cmd.ExecuteScalar());
             }
@@ -174,6 +174,11 @@ WHERE
                     return 6;
                     break;
             }
+        }
+        private string TruncateNote(string note, int maxLength)
+        {
+            if (string.IsNullOrEmpty(note)) return note;
+            return note.Length <= maxLength ? note : note.Substring(0, maxLength);
         }
 
     }

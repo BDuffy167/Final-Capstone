@@ -34,7 +34,7 @@ namespace Capstone.Controllers
         {
             Book specificBook = bookDAO.GetSpecificBook(isbn);
 
-            if(specificBook == null)
+            if (specificBook == null)
             {
                 return NotFound();
             }
@@ -52,7 +52,7 @@ namespace Capstone.Controllers
             List<Book> toReturn = new List<Book>();
             bool completed = false;
 
-            if(bookID == 0)
+            if (bookID == 0)
             {
                 book.BookId = bookDAO.AddNewBook(book);
                 completed = bookDAO.AddToFamilyLibrary(book.BookId, familyID);
@@ -65,7 +65,7 @@ namespace Capstone.Controllers
 
             }
 
-            if(completed)
+            if (completed)
             {
                 return Ok(toReturn);
             }
@@ -81,7 +81,7 @@ namespace Capstone.Controllers
 
             List<Book> famBooks = bookDAO.GetAllFamilyBooks(id);
 
-            if(famBooks == null)
+            if (famBooks == null)
             {
                 return BadRequest();
             }
@@ -100,10 +100,33 @@ namespace Capstone.Controllers
             {
 
                 List<PersonalBook> BookItems = bookDAO.GetPersonalBooks(userId);
-                
+
                 return Ok(BookItems);
             }
             return Forbid();
+        }
+
+        [HttpPost("{userId}/AddPersonalBook")]
+        public ActionResult<List<PersonalBook>> AddPersonalBook(int userId, int bookId)
+        {
+            if(bookId == 0)
+            {
+                return BadRequest();
+            }
+            int user_id = int.Parse(this.User.FindFirst("sub").Value);
+            if (userId == user_id)
+            {
+                bool isCompleted = bookDAO.AddPersonalBook(userId, bookId);
+                if (isCompleted)
+                {
+                    List<PersonalBook> BookItems = bookDAO.GetPersonalBooks(userId);
+                    return Ok(BookItems);
+
+                }
+
+            }
+
+            return BadRequest();
         }
     }
 }

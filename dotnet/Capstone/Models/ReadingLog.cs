@@ -14,6 +14,5 @@ namespace Capstone.Models
         public int TimeRead { get; set; }
         public string Note { get; set; }
         public bool isCopleted { get; set; } = false;
-
     }
 }

@@ -13,6 +13,8 @@ namespace Capstone.DAO
         private string sqlGetUser = "SELECT user_id, username, password_hash, salt, user_role FROM users WHERE username = @username";
         private string sqlAddUser = "INSERT INTO users (username, password_hash, salt, user_role, family_id) VALUES " +
             "(@username, @password_hash, @salt, @user_role, (1 + (SELECT MAX(family_id) FROM users)))";
+        private string sqlAddNewFamilyMember = "INSERT INTO users (username, password_hash, salt, user_role, family_id) VALUES " +
+            "(@username, @password_hash, @salt, @user_role, (SELECT family_id FROM users WHERE user_id = @user_id))";
 
         public UserSqlDAO(string dbConnectionString)
         {
@@ -74,7 +76,27 @@ namespace Capstone.DAO
 
             return u;
         }
-        
+
+        public User AddNewFamilyMember(string username, string password, string role, int parentId)
+        {
+            IPasswordHasher passwordHasher = new PasswordHasher();
+            PasswordHash hash = passwordHasher.ComputeHash(password);
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sqlAddNewFamilyMember, conn);
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Parameters.AddWithValue("@password_hash", hash.Password);
+                cmd.Parameters.AddWithValue("@salt", hash.Salt);
+                cmd.Parameters.AddWithValue("@user_role", role);
+                cmd.Parameters.AddWithValue("@user_id", parentId);
+                cmd.ExecuteNonQuery();
+            }
+
+            return GetUser(username);
+        }
 
     }
 }
