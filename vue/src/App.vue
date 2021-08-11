@@ -30,7 +30,6 @@ export default {
 }
 
 #app {
-
   justify-content: stretch;
   height: 100vh;
   width: 100vw;
@@ -43,8 +42,6 @@ export default {
   font-family: 'Atkinson Hyperlegible', sans-serif;
   
 }
-
-
 
 #routerView > h1{
    background-color: #d7d7db;

@@ -1,7 +1,6 @@
 <template>
   <div class="home">
     <body>
-      <h1>Home</h1>
 
       <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
@@ -29,24 +28,7 @@
           ></button>
         </div>
         <div class="carousel-inner">
-          <div class="carousel-item active">
-            <svg
-              class=""
-              width="100%"
-              height="100%"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-              preserveAspectRatio="xMidYMid slice"
-              focusable="false"
-            >
-              <rect width="100%" height="100%" fill="#777"></rect>
-              <image
-                href="../assets/failyReadingtogether.jpg"
-                height="100%"
-                width="100%"
-              />
-            </svg>
-
+          <div class="carousel-item active" id="cItemOne">
             <div class="container">
               <div class="carousel-caption text-start">
                 <h1>Fun for the whole family.</h1>
@@ -59,19 +41,7 @@
               </div>
             </div>
           </div>
-          <div class="carousel-item">
-            <svg
-              class="bd-placeholder-img"
-              width="100%"
-              height="100%"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-              preserveAspectRatio="xMidYMid slice"
-              focusable="false"
-            >
-              <rect width="100%" height="100%" fill="#777"></rect>
-            </svg>
-
+          <div class="carousel-item" id="cItemTwo">
             <div class="container">
               <div class="carousel-caption">
                 <h1>Another example headline.</h1>
@@ -83,19 +53,7 @@
               </div>
             </div>
           </div>
-          <div class="carousel-item">
-            <svg
-              class="bd-placeholder-img"
-              width="100%"
-              height="100%"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-              preserveAspectRatio="xMidYMid slice"
-              focusable="false"
-            >
-              <rect width="100%" height="100%" fill="#777"></rect>
-            </svg>
-
+          <div class="carousel-item" id="cItemThree">
             <div class="container">
               <div class="carousel-caption text-end">
                 <h1>One more for good measure.</h1>
@@ -347,7 +305,6 @@ button {
 /* Padding below the footer and lighter body text */
 
 body {
-  padding-top: 3rem;
   padding-bottom: 3rem;
   color: #5a5a5a;
 }
@@ -368,12 +325,19 @@ body {
 /* Declare heights because of positioning of img element */
 .carousel-item {
   height: 32rem;
+  background-color: #777;
+  position: relative;
+  background-position: center;
+  background-size: cover;
+  opacity: 150%;
 }
-.carousel-item > img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  min-width: 100%;
-  height: 32rem;
+#cItemOne{
+   background-image:url(../assets/PickingABook.jpg);
+}
+#cItemTwo{
+   background-image:url(../assets/TopDownReading.jpg);
+}
+#cItemThree{
+   background-image:url(../assets/ExcitedKid.jpg);
 }
 </style>
