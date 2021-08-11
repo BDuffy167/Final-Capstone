@@ -210,6 +210,7 @@ export default {
 
 <style scoped>
 #familyLibrary {
+  height: 100%;
   background-image: url("../assets/Background.jpg");
   background-size: cover;
 }

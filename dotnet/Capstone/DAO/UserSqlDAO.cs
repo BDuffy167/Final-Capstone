@@ -11,8 +11,9 @@ namespace Capstone.DAO
         private readonly string connectionString;
 
         private string sqlGetUser = "SELECT user_id, username, password_hash, salt, user_role FROM users WHERE username = @username";
-        private string sqlAddUser = "INSERT INTO users (username, password_hash, salt, user_role, family_id) VALUES " +
-            "(@username, @password_hash, @salt, @user_role, (1 + (SELECT MAX(family_id) FROM users)))";
+        private string sqlAddUser = "INSERT INTO family DEFAULT VALUES; " +
+                                    "INSERT INTO users (username, password_hash, salt, user_role, family_id) VALUES " +
+                                    "(@username, @password_hash, @salt, @user_role, (SELECT MAX(family_id) FROM family))";
         private string sqlAddNewFamilyMember = "INSERT INTO users (username, password_hash, salt, user_role, family_id) VALUES " +
             "(@username, @password_hash, @salt, @user_role, (SELECT family_id FROM users WHERE user_id = @user_id))";
 

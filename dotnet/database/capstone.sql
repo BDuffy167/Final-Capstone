@@ -15,6 +15,12 @@ USE final_capstone
 GO
 
 -- Create Tables
+CREATE TABLE family (
+	family_id int IDENTITY (1, 1) NOT NULL
+	-- family_name varchar(50) ??? add later?
+	PRIMARY KEY (family_id)
+)
+
 CREATE TABLE users (
 	user_id int IDENTITY(1,1) NOT NULL,
 	username varchar(50) NOT NULL,
@@ -22,7 +28,9 @@ CREATE TABLE users (
 	salt varchar(200) NOT NULL,
 	user_role varchar(50) NOT NULL, 
 	family_id int NOT NULL,
-	CONSTRAINT PK_user PRIMARY KEY (user_id)
+
+	PRIMARY KEY (user_id),
+	FOREIGN KEY (family_id) REFERENCES family(family_id)
 )
 
 CREATE TABLE book(
@@ -32,24 +40,17 @@ CREATE TABLE book(
 	author_lastName varchar(50) NOT NULL,
 	isbn bigint NOT NULL,
 	--maybe link isbn to format?
-	CONSTRAINT PK_id PRIMARY KEY (book_id)
+
+	PRIMARY KEY (book_id)
 )
 --add a book url
 CREATE TABLE reading_format(
 	format_id int IDENTITY(1, 1) NOT NULL,
 	format_type varchar(50) NOT NULL,
 
-	CONSTRAINT PK_formatID PRIMARY KEY (format_id)
+	PRIMARY KEY (format_id)
 )
 
---CREATE TABLE family (
---	ID int IDENTITY(1,1) NOT NULL,
---	user_id int NOT NULL,
---	family_id int NOT NULL,
-
---	CONSTRAINT fk_user_Id FOREIGN KEY (user_id) REFERENCES users(user_id),
---	CONSTRAINT pk_family_id PRIMARY KEY (family_id)
---)
 
 CREATE TABLE personal_library(
 	ID INT IDENTITY(1, 1) NOT NULL,
@@ -58,21 +59,18 @@ CREATE TABLE personal_library(
 	isCompleted int NOT NULL
 
 	CHECK(isCompleted <= 1 AND isCompleted >= 0),
-	CONSTRAINT pk_personLib_id PRIMARY KEY(ID), 
-	CONSTRAINT fk_pl_usr_id FOREIGN KEY (user_id) REFERENCES users(user_id),
-	CONSTRAINT fk_pl_bookID FOREIGN KEY (book_id) REFERENCES book(book_id),
+	PRIMARY KEY(ID), 
+	FOREIGN KEY (user_id) REFERENCES users(user_id),
+	FOREIGN KEY (book_id) REFERENCES book(book_id),
 )
 
---CREATE TABLE family_library (
---	ID int IDENTITY(1, 1) NOT NULL,
---	family_id int NOT NULL,
---	book_id int NOT NULL,
+CREATE TABLE family_library (
+	family_id int NOT NULL,
+	book_id int NOT NULL,
 
---	CONSTRAINT PK_fl_id PRIMARY KEY (ID),
---	CONSTRAINT fk_family_id FOREIGN KEY (family_id) REFERENCES family(family_id),
---	CONSTRAINT fk_book_id FOREIGN KEY (book_id) REFERENCES book(book_id)
-
---)
+	FOREIGN KEY (family_id) REFERENCES family(family_id),
+	FOREIGN KEY (book_id) REFERENCES book(book_id)
+)
 
 
 CREATE TABLE reading_log(
@@ -82,19 +80,25 @@ CREATE TABLE reading_log(
 	total_time int NOT NULL,
 	notes varchar(255)
 
-	CONSTRAINT PK_reading_id PRIMARY KEY (reading_log_id),
-	CONSTRAINT fk_pl_id FOREIGN KEY (personal_library_id) REFERENCES personal_library(id),
-	CONSTRAINT FK_formatID FOREIGN KEY (format_id) REFERENCES reading_format(format_id)
+	PRIMARY KEY (reading_log_id),
+	FOREIGN KEY (personal_library_id) REFERENCES personal_library(id),
+	FOREIGN KEY (format_id) REFERENCES reading_format(format_id)
 )
 
 -- Populate default data for testing: user and admin with password of 'password'
 -- These values should not be kept when going to Production
+INSERT INTO family DEFAULT VALUES;
+INSERT INTO family DEFAULT VALUES;
+
 INSERT INTO users (username, password_hash, salt, user_role, family_id) 
 VALUES 
 	('parent','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','parent', 1),
-	('child','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','child', 1);
-
-
+	('child','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','child', 1),
+	('test11','P1n7OKD0UZv6x6s5UguksbdqNkY=', 'z2CZYXw40Rc=','parent', 2),
+	('test12','F4AqN3NQ+UsJyZZRCzDg3U6C7mA=', 'IFuP6bTa4WE=','parent', 2),
+	('test13','GqjbxhkbMUqmachwMF3Z5VU6NZo=', 'mLeFk7Ub16o=','child', 2),
+	('test14','vDjyBpvCAbpb4ZYpV+aZ8tSBHE0=', 'biDQv1eD7p4=','child', 2),
+	('test15','gES0wgFWu3X+JmZa1EcBzAiJD8k=', 'gDbWwxonR8I=','child', 2);
 
 
 INSERT INTO reading_format (format_type) VALUES ('Paperback'), ('ebook'), ('Audiobook'), ('Read-Aloud (Reader)'), ('Read-Aloud (Listener)'), ('Other');
@@ -113,6 +117,8 @@ VALUES
 
 
 GO
+
+
 SELECT DISTINCT
 	b.book_id AS book_id,
 	b.title AS title,
@@ -141,6 +147,8 @@ GROUP BY
 	b.title,
 	b.author_firstname,
 	b.author_lastname;
+
+
 
 -- Non user registers (just needs to add family library)
 --INSERT INTO users
@@ -176,7 +184,18 @@ GROUP BY
 
 SELECT * FROM users
 
+SELECT * FROM book
+
+SELECT * FROM reading_log
+
 SELECT 
 	MAX(family_id)
 FROM
 	users
+
+--INSERT INTO family DEFAULT VALUES;
+
+SELECT * from users
+
+SELECT * from family
+	

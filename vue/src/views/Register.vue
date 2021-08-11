@@ -1,8 +1,10 @@
 <template>
 <main>
+  <div id="registrationPage">
   <h1>Registration</h1>
   <div id="register" class="text-center col-md-10 mx-auto col-lg-5">
     <form class="form-register p-4 p-md-5 border rounded-3 bg-light" @submit.prevent="register">
+      <img src="../assets/Immerse Logo.png" alt="immerse">
       <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
@@ -42,6 +44,7 @@
         Create Account
       </button>
     </form>
+  </div>
   </div>
 </main>
 </template>
@@ -96,4 +99,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+  #registrationPage{
+    padding-top: 3rem;
+    height: 100%;
+    background-color: #777;
+    background-size: cover;
+    background-image: url("../assets/hipster.jpg");
+  }
+</style>
