@@ -7,7 +7,7 @@
         public string PasswordHash { get; set; }
         public string Salt { get; set; }
         public string Role { get; set; }
-        public int FamilyID { get; set; }
+        public int FamilyId { get; set; }
 
     }
 }

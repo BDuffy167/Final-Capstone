@@ -11,17 +11,18 @@ namespace Capstone.DAO
     {
         private readonly string sqlGetBookID = @"SELECT book_id FROM book where isbn = @isbn";
         private readonly string sqlAddNewBook = @"INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES (@title, @firstName, @lastName, @isbn); SELECT @@IDENTITY";
-        private readonly string sqlGetFamilyBooks = @"SELECT
-	b.book_id AS book_id,
-	b.title AS title,
-	b.author_firstName AS author_first,
-	b.author_lastName AS author_last,
-	b.isbn AS isbn
-FROM
-	family_library fl
-	INNER JOIN book b ON fl.book_id = b.book_id
-WHERE
-	library_id = @libID";
+        private readonly string sqlGetFamilyBooks = @"SELECT DISTINCT
+	                                                    b.book_id AS book_id,
+	                                                    b.title AS title,
+	                                                    b.author_firstName AS author_first,
+	                                                    b.author_lastName AS author_last,
+	                                                    b.isbn AS isbn
+                                                    FROM
+	                                                    users u
+	                                                    INNER JOIN personal_library pl ON u.user_id = pl.user_id
+	                                                    INNER JOIN book b ON b.book_id = pl.book_id
+                                                    WHERE
+	                                                    u.family_id = @FamilyId;";
         private readonly string sqlGetPersonalLibrary = @"SELECT
 	pl.id AS pl_id,
     b.book_id AS book_id,
@@ -180,7 +181,7 @@ WHERE
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand(sqlGetFamilyBooks, conn);
-                cmd.Parameters.AddWithValue("@libID", familyID);
+                cmd.Parameters.AddWithValue("@FamilyId", familyID);
 
                 SqlDataReader reader = cmd.ExecuteReader();
 

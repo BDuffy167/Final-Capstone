@@ -110,11 +110,7 @@ VALUES
 	(1, 3, 0),
 	(2, 2, 0);
 
---INSERT INTO family_library(library_id, book_id) VALUES (1,1), (1, 2), (1, 3);
---INSERT INTO reading_log(personal_library_id, format_id, total_time, notes) 
---VALUES 
---	(1, 1, 30, 'foo'), 
---	(1, 2, 1, 'buzz!');
+
 
 GO
 
