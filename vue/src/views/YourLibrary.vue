@@ -163,6 +163,7 @@ export default {
   data() {
     return {
       isAddBookVisible: false,
+      pBookId: 0,
       newBook: {
         bookId: null,
         title: "",
