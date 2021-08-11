@@ -2,7 +2,7 @@
   <main>
     <h1>Reading History</h1>
     <div class="accordion">
-    <h2>Your Book List</h2>
+    <!-- <h2>Your Book List</h2>
     <table class="table table-hover">
       <thead>
         <tr>
@@ -23,7 +23,7 @@
           <td>{{ book.isCompleted }}</td>
         </tr>
       </tbody>
-    </table>
+    </table> -->
 
     <h2>Your Reading History</h2>
     <table class="table table-hover">
@@ -55,7 +55,7 @@
     </table>
     </div>
 
-    <button v-if="!showForm" v-on:click.prevent="showForm = true">
+    <!-- <button v-if="!showForm" v-on:click.prevent="showForm = true">
       Record Activity
     </button>
     <form class="row g-3" v-show="showForm" v-on:submit.prevent="addALog">
@@ -140,7 +140,7 @@
           v-on:click="showForm = false"
         />
       </div>
-    </form>
+    </form> -->
   </main>
 </template>
 
