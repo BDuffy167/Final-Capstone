@@ -38,7 +38,7 @@
               data-bs-dismiss="modal"
               v-on:click.prevent="addToPersonalLibrary"
             >
-              Lets go!
+              Let's go!
             </button>
           </div>
         </div>
@@ -59,7 +59,6 @@
               'http://covers.openlibrary.org/b/isbn/' + book.isbn + '-M.jpg'
             "
           />
-          <div class="hidden">{{book.bookId}}</div>
           <div class="card-body">
             <h5 class="card-title">{{ book.title }}</h5>
             <p class="card-text">
@@ -164,7 +163,6 @@ export default {
   data() {
     return {
       isAddBookVisible: false,
-      pBookId: 0,
       newBook: {
         bookId: null,
         title: "",
