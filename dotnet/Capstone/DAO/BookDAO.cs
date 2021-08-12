@@ -11,7 +11,14 @@ namespace Capstone.DAO
     {
         private readonly string sqlGetBookID = @"SELECT book_id FROM book where isbn = @isbn";
         private readonly string sqlAddNewBook = @"INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES (@title, @firstName, @lastName, @isbn); SELECT @@IDENTITY";
-        private readonly string sqlAddToPersonalLibrary = @"INSERT INTO personal_library(user_id, book_id, isCompleted) VALUES (@user_id, @book_id, 0)";
+        private readonly string sqlAddToPersonalLibrary = @"INSERT  personal_library(user_id, book_id, isCompleted) 
+                                                            SELECT  @user_id, @book_id, 0
+                                                            WHERE   NOT EXISTS 
+                                                                    (   SELECT  1
+                                                                        FROM    personal_library 
+                                                                        WHERE   user_id = @user_id 
+                                                                        AND     book_id = @book_id
+                                                                    );";
         private readonly string sqlGetFamilyBooks = @"SELECT DISTINCT
 	                                                    b.book_id AS book_id,
 	                                                    b.title AS title,
@@ -20,24 +27,24 @@ namespace Capstone.DAO
 	                                                    b.isbn AS isbn
                                                     FROM
 	                                                    users u
-	                                                    INNER JOIN personal_library pl ON u.user_id = pl.user_id
-	                                                    INNER JOIN book b ON b.book_id = pl.book_id
+	                                                    INNER JOIN family_library fl ON u.family_id = fl.family_id
+	                                                    INNER JOIN book b ON fl.book_id = b.book_id
                                                     WHERE
-	                                                    u.family_id = (SELECT family_id FROM users WHERE user_id = @user_id);";
-        private readonly string sqlGetPersonalLibrary = @"SELECT
-	pl.id AS pl_id,
-    b.book_id AS book_id,
-	b.title AS title,
-	b.author_firstName AS a_first,
-	b.author_lastName AS a_last,
-	b.isbn AS isbn,
-	pl.isCompleted AS is_completed
-FROM
-	personal_library pl
-	INNER JOIN users u ON pl.user_id = u.user_id
-	INNER JOIN book b ON pl.book_id = b.book_id
-WHERE
-	u.user_id = @userId";
+	                                                    u.user_id = @user_id;";
+        private readonly string sqlGetPersonalLibrary = @"SELECT DISTINCT
+	                                                        pl.id AS pl_id,
+                                                            b.book_id AS book_id,
+	                                                        b.title AS title,
+	                                                        b.author_firstName AS a_first,
+	                                                        b.author_lastName AS a_last,
+	                                                        b.isbn AS isbn,
+	                                                        pl.isCompleted AS is_completed
+                                                        FROM
+	                                                        personal_library pl
+	                                                        INNER JOIN users u ON pl.user_id = u.user_id
+	                                                        INNER JOIN book b ON pl.book_id = b.book_id
+                                                        WHERE
+	                                                        u.user_id = @userId";
 
         private readonly string connectionString;
 
@@ -147,7 +154,7 @@ WHERE
             }
         }
 
-        public bool AddToFamilyLibrary(int bookID, int libraryID)
+        public bool AddToFamilyLibrary(int bookID, int userId)
         {
             int rowsChanged = 0;
 
@@ -155,9 +162,9 @@ WHERE
             {
                 conn.Open();
 
-                SqlCommand cmd = new SqlCommand(@"INSERT INTO family_library(library_id, book_id) VALUES (@libID, @bookID);", conn);
-                cmd.Parameters.AddWithValue("@libID", libraryID);
-                cmd.Parameters.AddWithValue("@bookID", bookID);
+                SqlCommand cmd = new SqlCommand(@"INSERT INTO family_library(family_id, book_id) VALUES ((SELECT family_id FROM users WHERE user_id = @user_id), @book_id);", conn);
+                cmd.Parameters.AddWithValue("@user_id", userId);
+                cmd.Parameters.AddWithValue("@book_id", bookID);
 
                 rowsChanged = cmd.ExecuteNonQuery();
 

@@ -107,6 +107,12 @@ INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('Hitch
 INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('The Hobbit', 'J.R.R', 'Tolken', 9780345253422);
 INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('Dune', 'Frank', 'Herbert', 9780425027066)
 
+INSERT INTO family_library (family_id, book_id) 
+VALUES
+	(1, 1),
+	(1, 2),
+	(1, 3)
+
 INSERT INTO personal_library(user_id, book_id, isCompleted) 
 VALUES 
 	(1, 1, 0), 
@@ -188,6 +194,8 @@ SELECT * FROM book
 
 SELECT * FROM reading_log
 
+SELECT * FROM personal_library
+
 SELECT 
 	MAX(family_id)
 FROM
@@ -197,5 +205,17 @@ FROM
 
 SELECT * from users
 
-SELECT * from family
-	
+SELECT DISTINCT * from family_library
+
+SELECT DISTINCT
+	b.book_id AS book_id,
+	b.title AS title,
+	b.author_firstName AS author_first,
+	b.author_lastName AS author_last,
+	b.isbn AS isbn
+FROM
+	users u
+	INNER JOIN family_library fl ON u.family_id = fl.family_id
+	INNER JOIN book b ON fl.book_id = b.book_id
+WHERE
+	u.user_id = 1

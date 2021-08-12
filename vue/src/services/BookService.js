@@ -8,6 +8,9 @@ export default {
    get(id){
        return axios.get(`/ReadingLog/${id}`);
    },
+   getChildReadingLogs(id){
+    return axios.get(`/ReadingLog/${id}/GetChildReading`);
+},
    post(familyID, newBook) {
        return axios.post(`/Book/${familyID}/AddBook`, 
        {

@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" id="homePage">
     <body>
       <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
@@ -43,12 +43,11 @@
           <div class="carousel-item" id="cItemTwo">
             <div class="container">
               <div class="carousel-caption">
-                <h1>Another example headline.</h1>
+                <h1>Want to learn more?</h1>
                 <p>
-                  Some representative placeholder content for the second slide
-                  of the carousel.
+                  Check out the information below to learn more about the application.
                 </p>
-                <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
+                <p><a class="btn btn-lg btn-primary" href="#appMarketing">Learn more</a></p>
               </div>
             </div>
           </div>
@@ -90,7 +89,7 @@
   ================================================== -->
       <!-- Wrap the rest of the page in another container to center all the content. -->
 
-      <div class="container marketing">
+      <div class="container marketing" id="appMarketing">
         
         <!-- START THE FEATURETTES -->
 
@@ -99,16 +98,16 @@
           <div class="col-md-7 order-md-2">
             <h2 class="featurette-heading">
               <span class="text-muted">Immerse.</span>
-              An app desgined to help families.
+              An app desgined for families. 
             </h2>
             <p class="lead">
-              Designed with accessibility at the forfront. This application is there to help families track their reading history.
+              For families who wish to track their reading.
             </p>
           </div>
           <div class="col-md-5 order-md-1">
             <svg
               class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-              width="500"
+              width="450"
               height="300"
               xmlns="http://www.w3.org/2000/svg"
               role="img"
@@ -121,7 +120,7 @@
               <image
                 href="../assets/Immerse Logo.png"
                 height="300"
-                width="500"
+                width="450"
               />
             </svg>
           </div>
@@ -130,18 +129,17 @@
         <div class="row featurette">
           <div class="col-md-7">
             <h2 class="featurette-heading">
-              First featurette heading.
+              Immerse yourself in other worlds through reading. 
               <span class="text-muted">It’ll blow your mind.</span>
             </h2>
             <p class="lead">
-              Some great placeholder content for the first featurette here.
-              Imagine some exciting prose here.
+              Add books to a family library for members to check out.
             </p>
           </div>
           <div class="col-md-5">
             <svg
               class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-              width="500"
+              width="450"
               height="300"
               xmlns="http://www.w3.org/2000/svg"
               role="img"
@@ -154,7 +152,7 @@
               <image
                 href="../assets/ChildrenReadingOutside.jpg"
                 height="300"
-                width="500"
+                width="450"
               />
             </svg>
           </div>
@@ -165,20 +163,18 @@
         <div class="row featurette">
           <div class="col-md-7 order-md-2">
             <h2 class="featurette-heading">
-              Oh yeah, it’s that good.
+              Supports logging different ways of reading. 
               <span class="text-muted">See for yourself.</span>
             </h2>
             <p class="lead">
-              Another featurette? Of course. More placeholder content here to
-              give you an idea of how this layout would work with some actual
-              real-world content in place.
+              Track whether you're reading in paper, on an eBook, audiobook, etc.
             </p>
           </div>
           <div class="col-md-5 order-md-1">
             <svg
               class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-              width="500"
-              height="500"
+              width="450"
+              height="300"
               xmlns="http://www.w3.org/2000/svg"
               role="img"
               aria-label="Placeholder: 500x500"
@@ -188,9 +184,10 @@
               <title>Placeholder</title>
               <rect width="100%" height="100%" fill="#eee" />
               <image
-                href="../assets/ShadowChild.jpg"
-                height="500"
-                width="500"
+                href="../assets/failyReadingtogether.jpg"
+                height="300"
+                width="450"
+                
               />
             </svg>
           </div>
@@ -201,20 +198,17 @@
         <div class="row featurette">
           <div class="col-md-7">
             <h2 class="featurette-heading">
-              And lastly, this one. <span class="text-muted">Checkmate.</span>
+              Track which books are more popular. <span class="text-muted">Checkmate.</span>
             </h2>
             <p class="lead">
-              And yes, this is the last block of representative placeholder
-              content. Again, not really intended to be actually read, simply
-              here to give you a better view of what this would look like with
-              some actual content. Your content.
+              List out your family books and see which ones are getting read more and who's reading them.
             </p>
           </div>
           <div class="col-md-5">
             <svg
               class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-              width="500"
-              height="500"
+              width="450"
+              height="300"
               xmlns="http://www.w3.org/2000/svg"
               role="img"
               aria-label="Placeholder: 500x500"
@@ -223,7 +217,12 @@
             >
               <title>Placeholder</title>
               <rect width="100%" height="100%" fill="#eee" />
-              <text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
+              <image
+                href="../assets/AsianBaby.jpg"
+                height="300"
+                width="450"
+                
+              />
             </svg>
           </div>
         </div>

@@ -58,6 +58,7 @@
         class="row g-3"
         v-show="isAddBookVisible"
         v-on:submit.prevent="addABook"
+        
       >
         <div class="col-12">
           <label for="inputTitle" class="form-label">Title</label>
@@ -214,6 +215,9 @@ export default {
   height: 100%;
   background-image: url("../assets/Background.jpg");
   background-size: cover;
+}
+#addBookForm{
+  background-color: #777;
 }
 h1 {
   text-align: center;
