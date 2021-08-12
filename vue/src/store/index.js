@@ -23,7 +23,6 @@ if(currentToken && currentToken != 'undefined') {
 export default new Vuex.Store({
   state: {
     readingLog: [],
-    childReadingLog: [],
     books: [], // figure out where this goes, to name it better
     userHistory: [],
     token: currentToken || '',

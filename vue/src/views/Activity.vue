@@ -1,6 +1,9 @@
 <template>
   <main>
     <h1>Reading History</h1>
+    <div class="container">
+      <canvas id="testChart"></canvas>
+    </div>
     <div class="container-fluid">
       <h2>Your Reading History</h2>
       <table class="table table-hover">

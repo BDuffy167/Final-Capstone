@@ -15,7 +15,22 @@ export default {
         }
     },
     mounted(){
-      
+      const book = this.chartData.map(d => d.loggedBook.title);
+      const minutes = this.chartData.map(d => d.timeRead);
+
+      this.renderChart(
+          {
+              labels: book,
+              datasets:[
+                  {
+                      label: this.label,
+                      data: minutes,
+                    
+                  }
+              ]
+          },
+          this.options
+      )
     }
 }
 </script>
