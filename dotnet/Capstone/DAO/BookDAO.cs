@@ -155,7 +155,7 @@ WHERE
             {
                 conn.Open();
 
-                SqlCommand cmd = new SqlCommand(@"INSERT INTO family_library(library_id, book_id) VALUES (@libID, @bookID);", conn);
+                SqlCommand cmd = new SqlCommand(@"INSERT INTO family_library(family_id, book_id) VALUES (@libID, @bookID);", conn);
                 cmd.Parameters.AddWithValue("@libID", libraryID);
                 cmd.Parameters.AddWithValue("@bookID", bookID);
 

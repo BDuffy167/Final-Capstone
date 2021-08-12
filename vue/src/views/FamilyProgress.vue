@@ -1,7 +1,7 @@
 <template>
   <main>
     <h1>Family Reading History</h1>
-    <div class="card">
+    <div class="card" v-if="$store.state.user.role == 'parent'">
       <h5 class="card-header">The Family</h5>
       <div class="card-body">
         <h5 class="card-title">Select a family member to check</h5>
@@ -14,7 +14,7 @@
             v-model="selectedChild"
             v-bind="childID"
           >
-            <option value="" selected disabled>Choose</option>
+            <option :value="this.$store.state.user.userId" selected >Your History</option>
             <option v-for="child in allChildren" v-bind:key="child.userId" :value="child.userId"
             
             >{{child.username}}</option>

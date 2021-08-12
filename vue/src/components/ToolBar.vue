@@ -65,7 +65,7 @@
           <router-link
               class="nav-item"
               v-bind:to="{ name: 'familyProgress' }"
-              v-if="$store.state.user.role == 'parent'"
+              
             >
               <svg class="bi me-2" width="16" height="16">
                 <use xlink:href="#table"></use>
