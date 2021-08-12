@@ -174,6 +174,7 @@ export default {
       .catch((response) => {
         console.error(response);
       });
+      this.newReadingLog.formatType = "Paperback";
   },
   methods: {
     setPersonalLibraryId(input) {
