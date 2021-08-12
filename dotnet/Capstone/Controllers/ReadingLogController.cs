@@ -42,6 +42,20 @@ namespace Capstone.Controllers
             return Forbid();
         }
 
+        [HttpGet("{id}/GetChildReading")]
+        public ActionResult<List<ReadingLog>> GetChildReadingLogs(int id)
+        {
+
+            List<ReadingLog> toReturn = new List<ReadingLog>();
+
+            if (id != 0)
+            {
+                toReturn = readingLogDAO.GetUserBooks(id);
+                return Ok(toReturn);
+            }
+            return Forbid();
+        }
+
         [HttpPost("{id}/AddLog")]
         [AllowAnonymous]
         public ActionResult<List<ReadingLog>> AddNewReadingLog(int id, NewLog newLog)

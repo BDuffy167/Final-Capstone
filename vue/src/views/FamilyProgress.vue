@@ -20,32 +20,49 @@
             >{{child.username}}</option>
           </select>
           </form>
-          
       </div>    
-            
     </div>  
+    <h1>Reading History</h1>
+    <div class="container-fluid">
+      <h2>Your Reading History</h2>
+      <table class="table table-hover">
+        <thead>
+          <tr class="d-flex">
+            <th class="col-2">Title</th>
+            <th class="col-2">Author</th>
+            <th class="col-1">Time Read</th>
+            <th class="col-1">Format Type</th>
+            <th class="col-6">Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="activity of allActivity" v-bind:key="activity.logID" class="d-flex">
+            <td class="col-2">{{ activity.loggedBook.title }}</td>
+            <td class="col-2">
+              {{ activity.loggedBook.authorFirstName }}
+              {{ activity.loggedBook.authorLastName }}
+            </td>
+            <td class="col-1">{{ activity.timeRead }}</td>
+            <td class="col-1">{{ activity.formatType }}</td>
+            <td class="col-6">{{ activity.note }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </main>
 </template>
 
 <script>
 import BookService from "../services/BookService.js";
-document.addEventListener("DOMContentLoaded", () => {document.getElementById("childSelector").addEventListener('input', onChange);});
-
-function onChange() {
-           BookService.get(this.$store.state.user.userId)
-      .then((response) => {
-        console.log(response);
-        this.$store.commit("SET_READINGLOG", response.data);
-      })
-      .catch((response) => {
-        console.error(response);
-      })}
 
 export default {
   name: "familyProgress",
   computed: {
     allChildren() {
       return this.$store.state.userChildren;
+    },
+    allActivity() {
+      return this.$store.state.readingLog;
     },
   },
   data() {
@@ -73,7 +90,7 @@ export default {
   },
   methods: {
     onChange() {
-           BookService.get(this.$store.state.user.userId)
+           BookService.getChildReadingLogs(this.selectedChild)
       .then((response) => {
         console.log(response);
         this.$store.commit("SET_READINGLOG", response.data);
