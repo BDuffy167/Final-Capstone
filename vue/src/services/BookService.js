@@ -28,7 +28,8 @@ export default {
         personalLibraryId: newLog.personalLibraryId,
         formatType: newLog.formatType,
         totalTime: newLog.totalTime,
-        note: newLog.note
+        note: newLog.note,
+        isCompleted: newLog.isCompleted
        })
    },
    getUserHistory(userId){

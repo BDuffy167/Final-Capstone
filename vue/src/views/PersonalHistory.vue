@@ -59,6 +59,30 @@
                 >
                 </textarea>
               </div>
+              <p>Finish the book?</p>
+              <div class="form-check form-check-inline">
+                
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="inlineRadioOptions"
+                  id="inlineRadio1"
+                  value="1"
+                  v-model.number="newReadingLog.isCompleted"
+                />
+                <label class="form-check-label" for="inlineRadio1">Yes</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="inlineRadioOptions"
+                  id="inlineRadio2"
+                  value="0"
+                  v-model.number="newReadingLog.isCompleted"
+                />
+                <label class="form-check-label" for="inlineRadio2">No</label>
+              </div>
             </form>
           </div>
           <div class="modal-footer">
@@ -95,7 +119,7 @@
             'http://covers.openlibrary.org/b/isbn/' + book.isbn + '-M.jpg'
           "
         />
-        
+
         <div class="card-body">
           <h5 class="card-title">{{ book.title }}</h5>
           <p class="card-text">
@@ -137,6 +161,7 @@ export default {
         formatType: "",
         totalTime: 0,
         note: "",
+        isCompleted: 0,
       },
     };
   },
