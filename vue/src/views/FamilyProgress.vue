@@ -1,8 +1,9 @@
 <template>
   <main>
-    <h1>Family Reading History</h1>
+  <div id="familyProgress">
+    
     <div class="card">
-      <h5 class="card-header">The Family</h5>
+      <h5 class="card-header">Family Reading History</h5>
       <div class="card-body">
         <h5 class="card-title">Select a family member to check</h5>
 
@@ -23,7 +24,8 @@
           
       </div>    
             
-    </div>  
+    </div> 
+  </div> 
   </main>
 </template>
 
@@ -61,14 +63,14 @@ export default {
   },
   methods: {
     onChange() {
-           BookService.get(this.$store.state.user.userId)
-      .then((response) => {
-        console.log(response);
-        this.$store.commit("SET_READINGLOG", response.data);
-      })
-      .catch((response) => {
-        console.error(response);
-      });
+       BookService.postLog(this.$store.state.user.userId, this.newLog)
+        .then((response) => {
+          console.log(response);
+          this.$store.commit("SET_READINGLOG", response.data);
+        })
+        .catch((respone) => {
+          console.error(respone);
+        });
     BookService.getUserHistory(this.$store.state.user.userId)
       .then((response) => {
         console.log(response);
@@ -83,5 +85,12 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
+#familyProgress {
+  height: 100%;
+  background-image: url("../assets/flower-book(2).jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 </style>

@@ -200,4 +200,10 @@ th {
 th {
   border: 2px solid black;
 }
+.bookList {
+  height: 100%;
+  background-image: url("../assets/manyBooks2.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 </style>
