@@ -101,6 +101,17 @@ WHERE
             {
                 newLog.Note = "";
             }
+            if(newLog.IsCompleted == 1)
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("UPDATE personal_library SET isCompleted = 1 WHERE ID = @pl_id", conn);
+                    cmd.Parameters.AddWithValue("@pl_id", newLog.PersonalLibraryID);
+                    cmd.ExecuteNonQuery();
+                }
+            }
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {

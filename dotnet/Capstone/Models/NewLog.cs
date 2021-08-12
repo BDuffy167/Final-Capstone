@@ -12,5 +12,6 @@ namespace Capstone.Models
         public string FormatType { get; set; }
         public int TotalTime { get; set; }
         public string Note { get; set; }
+        public int IsCompleted { get; set; } = 0;
     }
 }

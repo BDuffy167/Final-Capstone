@@ -21,6 +21,7 @@
           </form>
       </div>    
     </div>  
+    <user-reading-graph :label="title" :chartData="this.$store.state.readingLog" :options="chartOptions"></user-reading-graph>
     <h1>Reading History</h1>
     <div class="container-fluid">
       <h2>Your Reading History</h2>
@@ -53,8 +54,13 @@
 </template>
 <script>
 import BookService from "../services/BookService.js";
+import UserReadingGraph from "../components/UserReadingGraph.vue"
+
 export default {
   name: "familyProgress",
+  components:{
+    UserReadingGraph
+  },
   computed: {
     allChildren() {
       return this.$store.state.userChildren;
@@ -67,6 +73,7 @@ export default {
     return {
       childID: 0,
       selectedChild: undefined,
+      title: "Minutes read",
       familyChild: {
         userId: 0,
         username: "string",
@@ -74,6 +81,10 @@ export default {
         familyId: 0,
         testProp: 0,
       },
+      chartOptions: {
+        responsive: true,
+        maintainAspectRatio: false
+      }
     };
   },
   created() {

@@ -195,6 +195,11 @@ export default {
         .catch((response) => {
           console.error(response);
         });
+        this.newBook.bookId = null;
+        this.newBook.title = "";
+        this.newBook.authorFirstName = "";
+        this.newBook.authorLastName = "";
+        this.newBook.isbn = null;
     },
     addToPersonalLibrary() {
       BookService.postPersonalBook(this.$store.state.user.userId, this.pBookId)
