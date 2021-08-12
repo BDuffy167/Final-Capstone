@@ -46,37 +46,6 @@
     </div>
     <div id="familyLibrary">
       <h1 class="text-white">The Family Library</h1>
-      <div class="bookList">
-        <div
-          class="card cardStyling"
-          style="width: 18rem"
-          v-for="book of allBooks"
-          v-bind:key="book.bookId"
-        >
-          <img
-            v-if="book.isbn"
-            v-bind:src="
-              'http://covers.openlibrary.org/b/isbn/' + book.isbn + '-M.jpg'
-            "
-          />
-          <div class="card-body">
-            <h5 class="card-title">{{ book.title }}</h5>
-            <p class="card-text">
-              {{ book.authorFirstName }} {{ book.authorLastName }}
-            </p>
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#staticBackdrop"
-              v-on:click="pBookId = book.bookId"
-            >
-              Start Your Journey
-            </button>
-          </div>
-        </div>
-      </div>
-
       <button
         v-if="!isAddBookVisible"
         v-on:click.prevent="isAddBookVisible = true"
@@ -143,6 +112,38 @@
           v-on:click="isAddBookVisible = false"
         />
       </form>
+      <div class="bookList">
+        <div
+          class="card cardStyling"
+          style="width: 18rem"
+          v-for="book of allBooks"
+          v-bind:key="book.bookId"
+        >
+          <img
+            v-if="book.isbn"
+            v-bind:src="
+              'http://covers.openlibrary.org/b/isbn/' + book.isbn + '-M.jpg'
+            "
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{ book.title }}</h5>
+            <p class="card-text">
+              {{ book.authorFirstName }} {{ book.authorLastName }}
+            </p>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop"
+              v-on:click="pBookId = book.bookId"
+            >
+              Start Your Journey
+            </button>
+          </div>
+        </div>
+      </div>
+
+      
     </div>
   </main>
 </template>
