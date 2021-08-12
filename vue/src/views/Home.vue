@@ -43,12 +43,11 @@
           <div class="carousel-item" id="cItemTwo">
             <div class="container">
               <div class="carousel-caption">
-                <h1>Another example headline.</h1>
+                <h1>Want to learn more?</h1>
                 <p>
-                  Some representative placeholder content for the second slide
-                  of the carousel.
+                  Check out the information below to learn more about the application.
                 </p>
-                <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
+                <p><a class="btn btn-lg btn-primary" href="#appMarketing">Learn more</a></p>
               </div>
             </div>
           </div>
@@ -90,7 +89,7 @@
   ================================================== -->
       <!-- Wrap the rest of the page in another container to center all the content. -->
 
-      <div class="container marketing">
+      <div class="container marketing" id="appMarketing">
         
         <!-- START THE FEATURETTES -->
 

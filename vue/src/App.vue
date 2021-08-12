@@ -4,7 +4,9 @@
 <template>
   <div id="app">
     <!-- If you start to get random styling you don't like, remove container from this div -->
+    <header>
     <tool-bar ></tool-bar>
+    </header>
     <router-view id="routerView"/> 
   </div>
 </template>
