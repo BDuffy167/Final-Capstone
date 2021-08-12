@@ -81,7 +81,7 @@ export default {
       activityLog: [],
     };
   },
-  created() {
+  async created() {
     BookService.get(this.$store.state.user.userId)
       .then((response) => {
         console.log(response);
@@ -98,6 +98,8 @@ export default {
       .catch((response) => {
         console.error(response);
       });
+
+      
   },
   methods: {
     addALog() {
