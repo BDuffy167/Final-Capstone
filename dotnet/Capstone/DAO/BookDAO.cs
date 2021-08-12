@@ -25,19 +25,19 @@ namespace Capstone.DAO
                                                     WHERE
 	                                                    u.user_id = @user_id;";
         private readonly string sqlGetPersonalLibrary = @"SELECT
-	pl.id AS pl_id,
-    b.book_id AS book_id,
-	b.title AS title,
-	b.author_firstName AS a_first,
-	b.author_lastName AS a_last,
-	b.isbn AS isbn,
-	pl.isCompleted AS is_completed
-FROM
-	personal_library pl
-	INNER JOIN users u ON pl.user_id = u.user_id
-	INNER JOIN book b ON pl.book_id = b.book_id
-WHERE
-	u.user_id = @userId";
+	                                                        pl.id AS pl_id,
+                                                            b.book_id AS book_id,
+	                                                        b.title AS title,
+	                                                        b.author_firstName AS a_first,
+	                                                        b.author_lastName AS a_last,
+	                                                        b.isbn AS isbn,
+	                                                        pl.isCompleted AS is_completed
+                                                        FROM
+	                                                        personal_library pl
+	                                                        INNER JOIN users u ON pl.user_id = u.user_id
+	                                                        INNER JOIN book b ON pl.book_id = b.book_id
+                                                        WHERE
+	                                                        u.user_id = @userId";
 
         private readonly string connectionString;
 
@@ -147,7 +147,7 @@ WHERE
             }
         }
 
-        public bool AddToFamilyLibrary(int bookID, int libraryID)
+        public bool AddToFamilyLibrary(int bookID, int userId)
         {
             int rowsChanged = 0;
 
@@ -155,9 +155,9 @@ WHERE
             {
                 conn.Open();
 
-                SqlCommand cmd = new SqlCommand(@"INSERT INTO family_library(family_id, book_id) VALUES (@libID, @bookID);", conn);
-                cmd.Parameters.AddWithValue("@libID", libraryID);
-                cmd.Parameters.AddWithValue("@bookID", bookID);
+                SqlCommand cmd = new SqlCommand(@"INSERT INTO family_library(family_id, book_id) VALUES ((SELECT family_id FROM users WHERE user_id = @user_id), @book_id);", conn);
+                cmd.Parameters.AddWithValue("@user_id", userId);
+                cmd.Parameters.AddWithValue("@book_id", bookID);
 
                 rowsChanged = cmd.ExecuteNonQuery();
 
