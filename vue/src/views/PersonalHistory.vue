@@ -59,6 +59,11 @@
                 >
                 </textarea>
               </div>
+              <div class="mb-3">
+                <label for="isCompleteCheck" class="col-form-label">Did you finish the book?</label>
+                <input type="checkbox" id="checkbox" v-model="checked">
+                <label for="checkbox"> {{ book.isComplete }}</label>
+              </div>
             </form>
           </div>
           <div class="modal-footer">
@@ -95,7 +100,7 @@
             'http://covers.openlibrary.org/b/isbn/' + book.isbn + '-M.jpg'
           "
         />
-        
+
         <div class="card-body">
           <h5 class="card-title">{{ book.title }}</h5>
           <p class="card-text">
