@@ -27,7 +27,8 @@ export default new Vuex.Store({
     userHistory: [],
     token: currentToken || '',
     user: currentUser || {}, // If a user is an admin, their user.role will be 'admin'
-    userBooks: []
+    userBooks: [],
+    userChildren: []
   },
   
   mutations: {
@@ -36,6 +37,10 @@ export default new Vuex.Store({
     },
     SET_FAMILY_BOOKS(state, bookList){
       state.books = bookList;
+    },
+    SET_FAMILY_CHILDREN(state, Children)
+    {
+      state.userChildren = Children;
     },
     SET_READINGLOG(state, activityLog) {
       state.readingLog = activityLog;

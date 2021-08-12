@@ -9,6 +9,7 @@ import Activity from "../views/Activity.vue";
 import YourLibrary from "../views/YourLibrary.vue";
 import PersonalHistory from "../views/PersonalHistory.vue";
 import RegisterFamilyMem from "../views/RegisterFamilyMem.vue";
+import FamilyProgress from "../views/FamilyProgress.vue";
 
 
 Vue.use(Router);
@@ -55,7 +56,15 @@ const router = new Router({
       name: "personalHistory",
       component: PersonalHistory,
       meta: {
-        requiresAuth: false
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/familyProgress",
+      name: "familyProgress",
+      component: FamilyProgress,
+      meta: {
+        requiresAuth: true
       }
     },
     {

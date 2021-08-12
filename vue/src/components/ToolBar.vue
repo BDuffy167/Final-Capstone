@@ -64,8 +64,21 @@
           <li>
           <router-link
               class="nav-item"
+              v-bind:to="{ name: 'familyProgress' }"
+              v-if="$store.state.user.role == 'parent'"
+            >
+              <svg class="bi me-2" width="16" height="16">
+                <use xlink:href="#table"></use>
+              </svg>
+              <i class="fas fa-book-reader"></i>
+              &nbsp;&nbsp;Family Progress
+            </router-link>
+          </li>
+          <li>
+          <router-link
+              class="nav-item"
               v-bind:to="{ name: 'registerFamilyMem' }"
-              v-if="$store.state.token"
+              v-if="$store.state.user.role == 'parent'"
             >
               <svg class="bi me-2" width="16" height="16">
                 <use xlink:href="#table"></use>

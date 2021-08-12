@@ -37,7 +37,12 @@ export default {
    },
    postPersonalBook(userId, bookId){
        return axios.post(`Book/${userId}/AddPersonalBook/${bookId}`);
+   },
+   getFamilyChildren(userId)
+   {
+       return axios.get(`/ReadingLog/${userId}/ChildUsers`);
    }
+   
 }
 //add(book)
 //get(notes)--display notes
