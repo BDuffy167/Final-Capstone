@@ -58,8 +58,8 @@ export default {
       });
   },
   methods: {
-    onChang(kid) {
-           BookService.get(kid)
+    onChang() {
+           BookService.get(this.$store.state.user.userId)
       .then((response) => {
         console.log(response);
         this.$store.commit("SET_READINGLOG", response.data);
