@@ -9,8 +9,9 @@
           <form>
           <select
             class="form-control" name="Select Child" 
-            @change="onChange(this.value)"
+            @change="onChange"
             v-model="allChildren"
+            v-bind="childID"
           
           >
             <option value="" selected disabled>Choose</option>
@@ -38,6 +39,7 @@ export default {
   },
   data() {
     return {
+      childID: 0,
       familyChild: {
         userId: 0,
         username: "string",
@@ -58,8 +60,8 @@ export default {
       });
   },
   methods: {
-    onChang(kid) {
-           BookService.get(kid)
+    onChange() {
+           BookService.get(this.$store.state.user.userId)
       .then((response) => {
         console.log(response);
         this.$store.commit("SET_READINGLOG", response.data);
