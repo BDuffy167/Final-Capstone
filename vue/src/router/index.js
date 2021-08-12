@@ -5,7 +5,7 @@ import Login from "../views/Login.vue";
 import Logout from "../views/Logout.vue";
 import Register from "../views/Register.vue";
 import store from "../store/index";
-import Activity from "../views/Activity.vue";
+//import Activity from "../views/Activity.vue";
 import YourLibrary from "../views/YourLibrary.vue";
 import PersonalHistory from "../views/PersonalHistory.vue";
 import RegisterFamilyMem from "../views/RegisterFamilyMem.vue";
@@ -35,14 +35,14 @@ const router = new Router({
         requiresAuth: false,
       },
     },
-    {
-      path: "/activity",
-      name: "activity",
-      component: Activity,
-      meta: {
-        requiresAuth: false,
-      }
-    },
+    // {
+    //   path: "/activity",
+    //   name: "activity",
+    //   component: Activity,
+    //   meta: {
+    //     requiresAuth: false,
+    //   }
+    // },
     {
       path: "/yourLibrary",
       name: "yourLibrary",

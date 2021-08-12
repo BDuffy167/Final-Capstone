@@ -48,7 +48,7 @@
               &nbsp;&nbsp;Personal Library
             </router-link>
           </li>
-          <li>
+          <!-- <li>
             <router-link
               class="nav-item"
               v-bind:to="{ name: 'activity' }"
@@ -60,7 +60,7 @@
               <i class="fas fa-book-reader"></i>
               &nbsp;&nbsp;Reading History
             </router-link>
-          </li>
+          </li> -->
           <li>
           <router-link
               class="nav-item"
