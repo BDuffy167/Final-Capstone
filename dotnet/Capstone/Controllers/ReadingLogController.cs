@@ -17,11 +17,13 @@ namespace Capstone.Controllers
 
         private readonly IReadingLogDAO readingLogDAO;
         private readonly IBookDAO bookDAO;
+        private readonly IUserDAO userDAO;
 
-        public ReadingLogController(IReadingLogDAO readingLog, IBookDAO bookDAO)
+        public ReadingLogController(IReadingLogDAO readingLog, IBookDAO bookDAO, IUserDAO userDAO)
         {
             this.readingLogDAO = readingLog;
             this.bookDAO = bookDAO;
+            this.userDAO = userDAO;
         }
 
         
@@ -66,6 +68,22 @@ namespace Capstone.Controllers
             if (id == user_id)
             {
                 List<BookHistoryObj> toReturn = readingLogDAO.GetUserBookHistory(id);
+
+                return Ok(toReturn);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+        [Authorize(Roles = "parent")]
+        [HttpGet("{id}/ChildUsers")]
+        public ActionResult<List<ReturnUser>> GetFamilyChildUsers(int id)
+        {
+            int user_id = int.Parse(this.User.FindFirst("sub").Value);
+            if (id == user_id)
+            {
+                List<ReturnUser> toReturn = userDAO.GetFamilyChildList(id);
 
                 return Ok(toReturn);
             }
