@@ -194,6 +194,8 @@ SELECT * FROM book
 
 SELECT * FROM reading_log
 
+SELECT * FROM personal_library
+
 SELECT 
 	MAX(family_id)
 FROM
@@ -203,7 +205,7 @@ FROM
 
 SELECT * from users
 
-SELECT * from family_library
+SELECT DISTINCT * from family_library
 
 SELECT DISTINCT
 	b.book_id AS book_id,

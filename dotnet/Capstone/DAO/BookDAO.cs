@@ -11,7 +11,14 @@ namespace Capstone.DAO
     {
         private readonly string sqlGetBookID = @"SELECT book_id FROM book where isbn = @isbn";
         private readonly string sqlAddNewBook = @"INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES (@title, @firstName, @lastName, @isbn); SELECT @@IDENTITY";
-        private readonly string sqlAddToPersonalLibrary = @"INSERT INTO personal_library(user_id, book_id, isCompleted) VALUES (@user_id, @book_id, 0)";
+        private readonly string sqlAddToPersonalLibrary = @"INSERT  personal_library(user_id, book_id, isCompleted) 
+                                                            SELECT  @user_id, @book_id, 0
+                                                            WHERE   NOT EXISTS 
+                                                                    (   SELECT  1
+                                                                        FROM    personal_library 
+                                                                        WHERE   user_id = @user_id 
+                                                                        AND     book_id = @book_id
+                                                                    );";
         private readonly string sqlGetFamilyBooks = @"SELECT DISTINCT
 	                                                    b.book_id AS book_id,
 	                                                    b.title AS title,
@@ -24,7 +31,7 @@ namespace Capstone.DAO
 	                                                    INNER JOIN book b ON fl.book_id = b.book_id
                                                     WHERE
 	                                                    u.user_id = @user_id;";
-        private readonly string sqlGetPersonalLibrary = @"SELECT
+        private readonly string sqlGetPersonalLibrary = @"SELECT DISTINCT
 	                                                        pl.id AS pl_id,
                                                             b.book_id AS book_id,
 	                                                        b.title AS title,
