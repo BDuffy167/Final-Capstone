@@ -95,7 +95,7 @@
             'http://covers.openlibrary.org/b/isbn/' + book.isbn + '-M.jpg'
           "
         />
-        <div class="libraryId hidden">{{ book.personalLibraryId }}</div>
+        
         <div class="card-body">
           <h5 class="card-title">{{ book.title }}</h5>
           <p class="card-text">
@@ -199,5 +199,11 @@ th {
 }
 th {
   border: 2px solid black;
+}
+.bookList {
+  height: 100%;
+  background-image: url("../assets/manyBooks2.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 </style>

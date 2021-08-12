@@ -116,6 +116,7 @@ namespace Capstone.Controllers
             int user_id = int.Parse(this.User.FindFirst("sub").Value);
             if (userId == user_id)
             {
+
                 bool isCompleted = bookDAO.AddPersonalBook(userId, bookId);
                 if (isCompleted)
                 {

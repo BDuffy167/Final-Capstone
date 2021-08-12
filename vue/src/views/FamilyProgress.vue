@@ -5,7 +5,6 @@
       <h5 class="card-header">The Family</h5>
       <div class="card-body">
         <h5 class="card-title">Select a family member to check</h5>
-
           <form>
           <select
             id="childSelector"
@@ -16,7 +15,6 @@
           >
             <option :value="this.$store.state.user.userId" selected >Your History</option>
             <option v-for="child in allChildren" v-bind:key="child.userId" :value="child.userId"
-            
             >{{child.username}}</option>
           </select>
           </form>
@@ -52,7 +50,6 @@
     </div>
   </main>
 </template>
-
 <script>
 import BookService from "../services/BookService.js";
 import UserReadingGraph from "../components/UserReadingGraph.vue"
@@ -119,8 +116,6 @@ export default {
     },
   },
 };
-
 </script>
-
 <style>
 </style>
