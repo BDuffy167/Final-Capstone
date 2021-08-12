@@ -5,24 +5,24 @@
       <h5 class="card-header">The Family</h5>
       <div class="card-body">
         <h5 class="card-title">Select a family member to check</h5>
-        <div>
-          <select
-            class="form-select form-select-lg mb-3"
-            aria-label=".form-select-lg example"
-            v-for="child in userChildren" v-bind:key="child.userId"
-          >
-            <option selected>Select Child</option>
-            <div>
-                <option>{{child.username}}</option>
-            </div>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-        </div>
 
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
+          <form>
+          <select
+            class="form-control" name="Select Child" 
+            @change="onChange(this.value)"
+            v-model="allChildren"
+          
+          >
+            <option value="" selected disabled>Choose</option>
+            <option v-for="child in allChildren" v-bind:key="child.userId" :value="child.userId"
+            
+            >{{child.username}}</option>
+          </select>
+          </form>
+          
+      </div>    
+            
+    </div>  
   </main>
 </template>
 
@@ -57,7 +57,28 @@ export default {
         console.error(response);
       });
   },
+  methods: {
+    onChang(kid) {
+           BookService.get(this.$store.state.user.userId)
+      .then((response) => {
+        console.log(response);
+        this.$store.commit("SET_READINGLOG", response.data);
+      })
+      .catch((response) => {
+        console.error(response);
+      });
+    BookService.getUserHistory(this.$store.state.user.userId)
+      .then((response) => {
+        console.log(response);
+        this.$store.commit("SET_USER_HISTORY", response.data);
+      })
+      .catch((response) => {
+        console.error(response);
+      });
+    },
+  },
 };
+
 </script>
 
 <style>
