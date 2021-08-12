@@ -196,6 +196,10 @@ export default {
         .catch((response) => {
           console.error(response);
         });
+        this.newReadingLog.totalTime = 0;
+        this.newReadingLog.formatType = "Paperback";
+        this.newReadingLog.note = "";
+        this.newReadingLog.isCompleted = 0;
     },
   },
 };
