@@ -24,8 +24,7 @@ export default {
               datasets:[
                   {
                       label: this.label,
-                      data: minutes,
-                    
+                      data: minutes
                   }
               ]
           },

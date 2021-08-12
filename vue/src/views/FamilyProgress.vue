@@ -1,7 +1,8 @@
 <template>
-  <main>
+<div class="container"  id="familyProgress">
+  <body>
     <h1>Family Reading History</h1>
-    <div id="familyProgress">
+    <div id="foo">
     <div class="card" v-if="$store.state.user.role == 'parent'">
       <h5 class="card-header">The Family</h5>
       <div class="card-body">
@@ -50,7 +51,8 @@
       </table>
     </div>
     </div>
-  </main>
+  </body>
+</div>
 </template>
 <script>
 import BookService from "../services/BookService.js";
