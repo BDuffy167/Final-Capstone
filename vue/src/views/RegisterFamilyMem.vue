@@ -1,8 +1,10 @@
 <template>
   <main>
+    <div id="registerFamily">
     <h1>Family Registration</h1>
     <div id="register" class="text-center col-md-10 mx-auto col-lg-5">
       <form
+      
         class="form-register p-4 p-md-5 border rounded-3 bg-light"
         @submit.prevent="register"
       >
@@ -56,6 +58,7 @@
           Add member!
         </button>
       </form>
+    </div>
     </div>
   </main>
 </template>
@@ -111,4 +114,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+#registerFamily{
+  height: 100%;
+  background-image: url("../assets/dadandchild.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+</style>

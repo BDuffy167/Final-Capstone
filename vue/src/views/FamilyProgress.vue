@@ -1,6 +1,7 @@
 <template>
   <main>
     <h1>Family Reading History</h1>
+    <div id="familyProgress">
     <div class="card" v-if="$store.state.user.role == 'parent'">
       <h5 class="card-header">The Family</h5>
       <div class="card-body">
@@ -46,6 +47,7 @@
           </tr>
         </tbody>
       </table>
+    </div>
     </div>
   </main>
 </template>
@@ -106,5 +108,10 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
+#familyProgress{
+  height: 100%;
+  background-image: url("../assets/flower-book(2).jpg");
+  background-size: cover;
+}
 </style>

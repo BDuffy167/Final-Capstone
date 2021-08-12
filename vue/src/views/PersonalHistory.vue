@@ -22,7 +22,7 @@
             ></button>
           </div>
           <div class="modal-body">
-            <form>
+            <form id="selectForm">
               <div class="mb-3">
                 <label for="timeRead" class="col-form-label"
                   >Session time in minutes:</label
@@ -200,10 +200,11 @@ th {
 th {
   border: 2px solid black;
 }
-.bookList {
+main {
   height: 100%;
   background-image: url("../assets/manyBooks2.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 </style>
