@@ -8,11 +8,11 @@
 
           <form>
           <select
+            id="childSelector"
             class="form-control" name="Select Child" 
             @change="onChange"
-            v-model="allChildren"
+            v-model="selectedChild"
             v-bind="childID"
-          
           >
             <option value="" selected disabled>Choose</option>
             <option v-for="child in allChildren" v-bind:key="child.userId" :value="child.userId"
@@ -29,6 +29,17 @@
 
 <script>
 import BookService from "../services/BookService.js";
+document.addEventListener("DOMContentLoaded", () => {document.getElementById("childSelector").addEventListener('input', onChange);});
+
+function onChange() {
+           BookService.get(this.$store.state.user.userId)
+      .then((response) => {
+        console.log(response);
+        this.$store.commit("SET_READINGLOG", response.data);
+      })
+      .catch((response) => {
+        console.error(response);
+      })}
 
 export default {
   name: "familyProgress",
@@ -40,6 +51,7 @@ export default {
   data() {
     return {
       childID: 0,
+      selectedChild: undefined,
       familyChild: {
         userId: 0,
         username: "string",
