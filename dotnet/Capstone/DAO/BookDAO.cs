@@ -20,10 +20,10 @@ namespace Capstone.DAO
 	                                                    b.isbn AS isbn
                                                     FROM
 	                                                    users u
-	                                                    INNER JOIN personal_library pl ON u.user_id = pl.user_id
-	                                                    INNER JOIN book b ON b.book_id = pl.book_id
+	                                                    INNER JOIN family_library fl ON u.family_id = fl.family_id
+	                                                    INNER JOIN book b ON fl.book_id = b.book_id
                                                     WHERE
-	                                                    u.family_id = (SELECT family_id FROM users WHERE user_id = @user_id);";
+	                                                    u.user_id = @user_id;";
         private readonly string sqlGetPersonalLibrary = @"SELECT
 	pl.id AS pl_id,
     b.book_id AS book_id,
