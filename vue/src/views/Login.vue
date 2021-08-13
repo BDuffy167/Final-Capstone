@@ -1,8 +1,7 @@
 <template>
   <main>
-    <div id="logIn">
-      <h1>Log in</h1>
-      <div id="login" class="text-center col-md-10 mx-auto col-lg-5">
+    <div id="logInPage">
+      <div id="login" class="text-center  col-lg-4">
         <form
           class="form-signin p-4 p-md-5 border rounded-3 bg-light"
           @submit.prevent="login"
@@ -49,12 +48,13 @@
               required
             />
           </div>
+          
+          <button class="btn btn-primary col-md-5" type="submit">Sign in</button>
           <div class="form-group">
             <router-link :to="{ name: 'register' }"
               >Need an account?</router-link
             >
           </div>
-          <button class="btn btn-primary" type="submit">Sign in</button>
         </form>
       </div>
     </div>
@@ -102,11 +102,23 @@ export default {
 };
 </script>
 <style scoped>
-#logIn {
+#logInPage {
   padding-top: 3rem;
   height: 100%;
   background-color: #777;
   background-size: cover;
   background-image: url("../assets/bookStack.jpg");
+}
+#login {
+  position: absolute;
+  right:200px;
+  top: 120px;
+  
+}
+.form-group {
+  padding: 8px;
+}
+.btn {
+  margin-top: 15px;
 }
 </style>
