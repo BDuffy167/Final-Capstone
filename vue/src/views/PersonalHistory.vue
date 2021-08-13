@@ -219,8 +219,12 @@ h1 {
 .cardStyling {
   border-radius: 10px;
   width: 250px;
-  height: 550px;
+  height: 500px;
   margin: 20px;
+}
+img {
+  border-radius: 10px;
+  padding: 5px;
 }
 td,
 th {
