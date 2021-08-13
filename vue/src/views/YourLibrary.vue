@@ -58,7 +58,6 @@
         class="row g-3"
         v-show="isAddBookVisible"
         v-on:submit.prevent="addABook"
-        
       >
         <div class="col-12" id="bookTitleBar">
           <label for="inputTitle" class="form-label">Title</label>
@@ -112,7 +111,7 @@
           value="Cancel"
           class="col-md-2"
           id="cancelBook"
-          v-on:click="isAddBookVisible = false"
+          v-on:click="isAddBookVisible = false; clearForm()"
         />
       </form>
       <div class="bookList">
@@ -213,6 +212,13 @@ export default {
           console.error(response);
         });
     },
+    clearForm() {
+      this.newBook.bookId = null;
+      this.newBook.title = "";
+      this.newBook.authorFirstName = "";
+      this.newBook.authorLastName = "";
+      this.newBook.isbn = null;
+    }
   },
 };
 </script>
@@ -275,6 +281,8 @@ th {
 th {
   border: 2px solid black;
 }
-
+main {
+  overflow-y: auto;
+}
 
 </style>
