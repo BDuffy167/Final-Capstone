@@ -1,7 +1,6 @@
 <template>
 <main>
   <div id="registrationPage">
-  <h1>Registration</h1>
   <div id="register" class="text-center col-md-10 mx-auto col-lg-5">
     <form class="form-register p-4 p-md-5 border rounded-3 bg-light" @submit.prevent="register">
       <img src="../assets/Immerse Logo.png" alt="immerse">
@@ -37,12 +36,12 @@
           v-model="user.confirmPassword"
           required />
       </div>
+      <button class="btn btn-primary col-md-5" type="submit">
+        Create Account
+      </button>
       <div class="form-group">
         <router-link :to="{ name: 'login' }">Have an account?</router-link>
       </div>
-      <button class="btn btn-primary" type="submit">
-        Create Account
-      </button>
     </form>
   </div>
   </div>
@@ -106,5 +105,11 @@ export default {
     background-color: #777;
     background-size: cover;
     background-image: url("../assets/hipster.jpg");
+  }
+  .form-group {
+    margin: 8px;
+  }
+  .btn {
+    margin-top: 10px;
   }
 </style>
