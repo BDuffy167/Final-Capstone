@@ -60,7 +60,7 @@
         v-on:submit.prevent="addABook"
         
       >
-        <div class="col-12">
+        <div class="col-12" id="bookTitleBar">
           <label for="inputTitle" class="form-label">Title</label>
           <input
             type="text"
@@ -103,13 +103,15 @@
         <input
           type="submit"
           value="Save"
-          class="col-md-1"
+          class="col-md-2"
+          id="saveBook"
           v-on:click="isAddBookVisible = false"
         />
         <input
           type="button"
           value="Cancel"
-          class="col-md-1"
+          class="col-md-2"
+          id="cancelBook"
           v-on:click="isAddBookVisible = false"
         />
       </form>
@@ -122,9 +124,8 @@
         >
           <img
             v-if="book.isbn"
-            v-bind:src="
-              'http://covers.openlibrary.org/b/isbn/' + book.isbn + '-M.jpg'
-            "
+            v-bind:src="'http://covers.openlibrary.org/b/isbn/' + book.isbn + '-M.jpg'"
+            id="bookcover"
           />
           <div class="card-body">
             <h5 class="card-title">{{ book.title }}</h5>
@@ -222,9 +223,30 @@ export default {
   background-size: cover;
 }
 #addBookForm{
-  background-color: #777;
+  background-color: #939799;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-radius: 10px;
+  padding: 10px 20px 10px 20px;
+}
+#addBookForm > div > label {
+  color: white;
+  font-size: 1.2em;
+  margin-bottom: 4px;
   
 }
+#addBookForm > #bookTitleBar {
+  margin-top: 0px;
+}
+#saveBook, #cancelBook {
+  margin: 20px 5px 0px 5px;
+  background-color: #0d6efd;
+  color: white;
+  font-size: 1.1em;
+  border-radius: 5px;
+}
+
+
 h1 {
   text-align: center;
 }
@@ -237,8 +259,12 @@ h1 {
 .cardStyling {
   border-radius: 10px;
   width: 250px;
-  height: 550px;
+  height: 500px;
   margin: 20px;
+}
+img {
+  border-radius: 10px;
+  padding: 5px;
 }
 td,
 th {
@@ -248,4 +274,5 @@ th {
 th {
   border: 2px solid black;
 }
+
 </style>
