@@ -45,6 +45,7 @@
               <svg class="bi me-2" width="16" height="16">
                 <use xlink:href="#speedometer2"></use>
               </svg>
+              <i class="fas fa-book-reader"></i>
               &nbsp;&nbsp;Personal Library
             </router-link>
           </li>
@@ -70,7 +71,7 @@
               <svg class="bi me-2" width="16" height="16">
                 <use xlink:href="#table"></use>
               </svg>
-              <i class="fas fa-book-reader"></i>
+              <i class="fas fa-chart-bar"></i>                                    
               &nbsp;&nbsp;Family Progress
             </router-link>
           </li>
@@ -83,6 +84,7 @@
               <svg class="bi me-2" width="16" height="16">
                 <use xlink:href="#table"></use>
               </svg>
+              <i class="fas fa-users"></i>   
               &nbsp;&nbsp;Register Family Member
             </router-link>
           </li>

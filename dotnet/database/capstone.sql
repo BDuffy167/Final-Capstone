@@ -106,12 +106,13 @@ INSERT INTO reading_format (format_type) VALUES ('Paperback'), ('ebook'), ('Audi
 INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('HitchHikers Guide To the Galaxy', 'Douglas', 'Adams', 9781529046137);
 INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('The Hobbit', 'J.R.R', 'Tolken', 9780345253422);
 INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('Dune', 'Frank', 'Herbert', 9780425027066)
-
+INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('Catching Fire', 'Suzanne', 'Collins', 9781407132099);
 INSERT INTO family_library (family_id, book_id) 
 VALUES
-	(1, 1),
-	(1, 2),
-	(1, 3)
+	--(1, 1),
+	--(1, 2),
+	--(1, 3),
+	(1, 7)
 
 INSERT INTO personal_library(user_id, book_id, isCompleted) 
 VALUES 
@@ -219,3 +220,8 @@ FROM
 	INNER JOIN book b ON fl.book_id = b.book_id
 WHERE
 	u.user_id = 1
+
+SELECT * FROM family_library
+
+DELETE FROM family_library
+WHERE book_id = 6

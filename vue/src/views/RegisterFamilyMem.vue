@@ -134,10 +134,4 @@ export default {
 .form-control {
   padding: 6px 12px;
 }
-.form-group {
- 
-}
-.register {
-  
-}
 </style>
