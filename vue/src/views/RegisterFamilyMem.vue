@@ -1,7 +1,7 @@
 <template>
   <main>
     <div id="registerFamily">
-    <h1>Family Registration</h1>
+    <!--<h1>Family Registration</h1>-->
     <div id="register" class="text-center col-md-10 mx-auto col-lg-5">
       <form
       
