@@ -127,6 +127,7 @@
             v-bind:src="'http://covers.openlibrary.org/b/isbn/' + book.isbn + '-M.jpg'"
             id="bookcover"
           />
+          
           <div class="card-body">
             <h5 class="card-title">{{ book.title }}</h5>
             <p class="card-text">
@@ -274,5 +275,6 @@ th {
 th {
   border: 2px solid black;
 }
+
 
 </style>
