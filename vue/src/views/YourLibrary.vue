@@ -124,9 +124,8 @@
         >
           <img
             v-if="book.isbn"
-            v-bind:src="
-              'http://covers.openlibrary.org/b/isbn/' + book.isbn + '-M.jpg'
-            "
+            v-bind:src="'http://covers.openlibrary.org/b/isbn/' + book.isbn + '-M.jpg'"
+            id="bookcover"
           />
           <div class="card-body">
             <h5 class="card-title">{{ book.title }}</h5>
@@ -262,6 +261,10 @@ h1 {
   width: 250px;
   height: 500px;
   margin: 20px;
+}
+img {
+  border-radius: 10px;
+  padding: 5px;
 }
 td,
 th {
