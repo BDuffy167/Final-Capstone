@@ -109,10 +109,10 @@ INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('Dune'
 INSERT INTO book (title, author_firstName, author_lastName, isbn) VALUES ('Catching Fire', 'Suzanne', 'Collins', 9781407132099);
 INSERT INTO family_library (family_id, book_id) 
 VALUES
-	--(1, 1),
-	--(1, 2),
-	--(1, 3),
-	(1, 7)
+	(1, 1),
+	(1, 2),
+	(1, 3),
+	(1, 4)
 
 INSERT INTO personal_library(user_id, book_id, isCompleted) 
 VALUES 
@@ -223,5 +223,3 @@ WHERE
 
 SELECT * FROM family_library
 
-DELETE FROM family_library
-WHERE book_id = 6
