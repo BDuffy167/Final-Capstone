@@ -24,7 +24,8 @@ export default {
               datasets:[
                   {
                       label: this.label,
-                      data: minutes
+                      data: minutes,
+                      backgroundColor: "rgba(15, 165, 219, 0.9)"
                   }
               ]
           },

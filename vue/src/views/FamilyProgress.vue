@@ -75,7 +75,7 @@ export default {
     return {
       childID: 0,
       selectedChild: undefined,
-      title: "Minutes read",
+      title: "Your Reading Times",
       familyChild: {
         userId: 0,
         username: "string",
