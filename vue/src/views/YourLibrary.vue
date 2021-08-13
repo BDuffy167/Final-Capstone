@@ -45,10 +45,11 @@
       </div>
     </div>
     <div id="familyLibrary">
-      <h1 class="text-white">The Family Library</h1>
+      <h1 class="text-white" >The Family Library</h1>
       <button
         v-if="!isAddBookVisible"
         v-on:click.prevent="isAddBookVisible = true"
+        id="addABookBtn"
       >
         Add a Book
       </button>
@@ -284,5 +285,14 @@ th {
 main {
   overflow-y: auto;
 }
-
+#addABookBtn {
+  position: relative;
+  left: 50px;
+  font-size: 1.2em;
+  padding: 2px 10px;
+  font-style: oblique;
+  font-weight: bold;
+  border-radius: 3px;
+  border: solid 2px white;
+}
 </style>
