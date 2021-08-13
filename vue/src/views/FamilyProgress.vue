@@ -1,7 +1,7 @@
 <template>
 <div class="container"  id="familyProgress">
   <body>
-    <h1>Family Reading History</h1>
+    
     <div id="foo">
     <div class="card" v-if="$store.state.user.role == 'parent'">
       <h5 class="card-header">The Family</h5>
@@ -23,9 +23,9 @@
       </div>    
     </div>  
     <user-reading-graph :label="title" :chartData="this.$store.state.readingLog" :options="chartOptions"></user-reading-graph>
-    <h1>Reading History</h1>
+    
     <div class="container-fluid">
-      <h2>Your Reading History</h2>
+      <h2>Reading History</h2>
       <table class="table table-hover">
         <thead>
           <tr class="d-flex">
@@ -98,6 +98,7 @@ export default {
       .catch((response) => {
         console.error(response);
       });
+      
   },
   methods: {
     onChange() {
